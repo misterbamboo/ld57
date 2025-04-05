@@ -1,4 +1,4 @@
-class_name Life extends Node
+extends Node
 
 var quantity: float
 var capacity: float
@@ -8,16 +8,13 @@ var starting_quantity := 100.0
 var starting_capacity := 100.0
 var reduction_per_sec_when_no_oxy := 20.0 # 5 seconds
 
-static var instance: Life = null
-
 func _ready():
-	instance = self
 	quantity = starting_quantity
 	capacity = starting_capacity
 
 func _process(delta: float) -> void:
 	var is_losing = false
-	if Oxygen.instance.quantity <= 0 and not Game.instance.invincible:
+	if Oxygen.quantity <= 0 and not Game.instance.invincible:
 		quantity -= delta * reduction_per_sec_when_no_oxy
 		is_losing = true
 

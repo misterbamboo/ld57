@@ -36,7 +36,7 @@ func _on_Submarine_body_entered(body: Node) -> void:
 	
 	if collider and rb.linear_velocity.length() >= 1:
 		var damage = (rb.linear_velocity.length() - 1) * 2
-		Life.instance.hit(damage)
+		Life.hit(damage)
 
 # Fonctions pour appliquer les améliorations
 func increase_oxygen():
