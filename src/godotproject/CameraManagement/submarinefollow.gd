@@ -9,14 +9,10 @@ var current_page := -1
 var rows_per_page := 10.0
 
 func _process(delta: float) -> void:
-	# Check if the target is valid
 	if target == null:
 		return
 
-	# Get the target position and apply the offset
 	var target_position = target.position + targetoffset
-
-	# Smoothly interpolate the camera position towards the target position
 	position = position.lerp(target_position, smoothing)
 
 	_check_if_should_reload_map_viewport_page()
@@ -24,7 +20,6 @@ func _process(delta: float) -> void:
 func _check_if_should_reload_map_viewport_page():
 	var deepness = subdetails.get_deepness()
 	var deepness_viewport_page = int(deepness / rows_per_page)
-	print(deepness_viewport_page)
 	
 	if(current_page != deepness_viewport_page):
 		load_page(deepness_viewport_page)

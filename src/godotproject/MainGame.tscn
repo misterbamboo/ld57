@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://deom164vw26rg"]
+[gd_scene load_steps=15 format=3 uid="uid://deom164vw26rg"]
 
 [ext_resource type="Script" uid="uid://5w86ovkibplk" path="res://CameraManagement/submarinefollow.gd" id="1_0v7qb"]
 [ext_resource type="Script" uid="uid://sc7omqwitfjq" path="res://Map/map_generator.gd" id="1_3tbxw"]
@@ -11,6 +11,13 @@
 [ext_resource type="Script" uid="uid://bx0ooudrvtw4x" path="res://Submarine/submarinemovement.gd" id="7_o8l48"]
 [ext_resource type="Texture2D" uid="uid://c3q64n0uvmwjt" path="res://Submarine/Assets/sub.png" id="7_x5ji8"]
 [ext_resource type="Script" uid="uid://dkyy0utbqdpjb" path="res://Submarine/oxygen.gd" id="8_x5ji8"]
+[ext_resource type="Script" uid="uid://dkkyfc01q7jit" path="res://Water/water.gd" id="12_qtrx8"]
+
+[sub_resource type="Gradient" id="Gradient_led80"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mi4js"]
+gradient = SubResource("Gradient_led80")
 
 [node name="MainGame" type="Control"]
 layout_mode = 3
@@ -66,3 +73,8 @@ script = ExtResource("6_pv6b4")
 
 [node name="Oxygen" type="Node" parent="Submarine/SubmarineDetails"]
 script = ExtResource("8_x5ji8")
+
+[node name="Water" type="Polygon2D" parent="."]
+texture = SubResource("GradientTexture2D_mi4js")
+polygon = PackedVector2Array(0, 0, 50, 0, 50, 50, 0, 50)
+script = ExtResource("12_qtrx8")
