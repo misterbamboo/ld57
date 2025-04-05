@@ -74,7 +74,8 @@ script = ExtResource("6_pv6b4")
 [node name="Oxygen" type="Node" parent="Submarine/SubmarineDetails"]
 script = ExtResource("8_x5ji8")
 
-[node name="Water" type="Polygon2D" parent="."]
+[node name="Water" type="Polygon2D" parent="." node_paths=PackedStringArray("followCam")]
 texture = SubResource("GradientTexture2D_mi4js")
 polygon = PackedVector2Array(0, 0, 50, 0, 50, 50, 0, 50)
 script = ExtResource("12_qtrx8")
+followCam = NodePath("../CameraManagement/Camera2D")
