@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://deom164vw26rg"]
+[gd_scene load_steps=19 format=3 uid="uid://deom164vw26rg"]
 
 [ext_resource type="Script" uid="uid://5w86ovkibplk" path="res://CameraManagement/submarinefollow.gd" id="1_0v7qb"]
 [ext_resource type="Script" uid="uid://sc7omqwitfjq" path="res://Map/map_generator.gd" id="1_3tbxw"]
@@ -6,14 +6,16 @@
 [ext_resource type="Script" uid="uid://ckfcpeoedif6p" path="res://GameAssets/gameassets.gd" id="2_bqqt8"]
 [ext_resource type="Script" uid="uid://nbkx4tclege3" path="res://GameState/game.gd" id="3_8qpgq"]
 [ext_resource type="Script" uid="uid://w6adipne8ret" path="res://Inventory/inventorymanager.gd" id="4_pv6b4"]
-[ext_resource type="Script" uid="uid://cj1g4a0y1fpu8" path="res://Submarine/life.gd" id="6_pv6b4"]
 [ext_resource type="Script" uid="uid://5vx4h3byum2p" path="res://Submarine/submarine.gd" id="6_v3hs3"]
 [ext_resource type="Script" uid="uid://bx0ooudrvtw4x" path="res://Submarine/submarinemovement.gd" id="7_o8l48"]
 [ext_resource type="Texture2D" uid="uid://c3q64n0uvmwjt" path="res://Submarine/Assets/sub.png" id="7_x5ji8"]
 [ext_resource type="Texture2D" uid="uid://ugunphi5287t" path="res://ShopManagement/shop.png" id="8_mi4js"]
-[ext_resource type="Script" uid="uid://dkyy0utbqdpjb" path="res://Submarine/oxygen.gd" id="8_x5ji8"]
 [ext_resource type="Script" uid="uid://bgmjqnecg48wu" path="res://ShopManagement/shopboatmovement.gd" id="9_o3vwv"]
 [ext_resource type="Script" uid="uid://dkkyfc01q7jit" path="res://Water/water.gd" id="12_qtrx8"]
+[ext_resource type="Script" uid="uid://b6g4cy2wogxrw" path="res://HUD/oxygen_meter.gd" id="13_led80"]
+[ext_resource type="Texture2D" uid="uid://c6wguud8duno8" path="res://HUD/sub_hud.png" id="14_401ut"]
+[ext_resource type="Texture2D" uid="uid://bgwg0v4a85xpl" path="res://HUD/bubble.png" id="14_mi4js"]
+[ext_resource type="Script" uid="uid://bjn4f61m5b8mf" path="res://HUD/life_meter.gd" id="15_o3vwv"]
 
 [sub_resource type="Gradient" id="Gradient_led80"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
@@ -21,9 +23,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_mi4js"]
 gradient = SubResource("Gradient_led80")
 
-[node name="MainGame" type="Control"]
-layout_mode = 3
-anchors_preset = 0
+[node name="MainGame" type="Node2D"]
 
 [node name="CameraManagement" type="Node" parent="."]
 
@@ -78,15 +78,65 @@ texture = ExtResource("7_x5ji8")
 [node name="SubmarineDetails" type="Node2D" parent="Submarine"]
 script = ExtResource("6_v3hs3")
 
-[node name="Life" type="Node" parent="Submarine/SubmarineDetails"]
-script = ExtResource("6_pv6b4")
-
-[node name="Oxygen" type="Node" parent="Submarine/SubmarineDetails"]
-script = ExtResource("8_x5ji8")
-
 [node name="Water" type="Polygon2D" parent="." node_paths=PackedStringArray("followCam")]
 texture = SubResource("GradientTexture2D_mi4js")
 polygon = PackedVector2Array(0, 0, 50, 0, 50, 50, 0, 50)
 script = ExtResource("12_qtrx8")
 followCam = NodePath("../CameraManagement/Camera2D")
 water_depth_color = Color(0.001, 0, 0.423, 0.806)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="LeftHud" type="VBoxContainer" parent="CanvasLayer/HUD/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Oxygen_Meter" type="HBoxContainer" parent="CanvasLayer/HUD/MarginContainer/LeftHud"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+script = ExtResource("13_led80")
+bubble_graphics = ExtResource("14_mi4js")
+
+[node name="Life_Meter" type="Control" parent="CanvasLayer/HUD/MarginContainer/LeftHud"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+script = ExtResource("15_o3vwv")
+healthy_color = Color(0, 0.760784, 0, 1)
+mid_color = Color(0.752941, 0.764706, 0, 1)
+damaged_color = Color(0.701961, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HUD/MarginContainer/LeftHud/Life_Meter"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -29.0
+offset_top = -12.0
+offset_right = -127.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("14_401ut")
+expand_mode = 1
+stretch_mode = 4

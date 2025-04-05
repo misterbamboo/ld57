@@ -16,7 +16,7 @@ func _ready():
 	instance = self
 
 func _process(delta: float) -> void:
-	if Life.instance.is_dead():
+	if Life.is_dead():
 		change_state(GameState.GAME_OVER)
 
 func change_state(new_state: GameState) -> void:

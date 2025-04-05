@@ -1,6 +1,4 @@
-class_name Oxygen extends Node
-
-static var instance: Oxygen = null
+extends Node
 
 var quantity: float
 var capacity: float
@@ -11,7 +9,6 @@ var capacity: float
 @export var recuperation_per_sec: float = 20.0
 
 func _ready():
-	instance = self
 	quantity = starting_quantity
 	capacity = starting_capacity
 

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cycl74e37ahpf"]
+
+[ext_resource type="Script" uid="uid://dkyy0utbqdpjb" path="res://Singletons/oxygen.gd" id="1_exlkw"]
+
+[node name="Node" type="Node"]
+script = ExtResource("1_exlkw")
