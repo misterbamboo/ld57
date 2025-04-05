@@ -1,10 +1,13 @@
 class_name MapGenerator extends Node2D
 
-@export var width = 250
-@export var height = 250
-@export var cell_size = 15
+static var instance: MapGenerator = null
 
-var map = []
+@export var width = 50
+@export var cell_size = 50
+
+var pool_size = 200 
+var polygon_pool: Array[Polygon2D] = []
+var polygon_index := 0
 
 # START: noiseLayers
 var _noisesLayers : Array[FastNoiseLite] = [
@@ -33,56 +36,73 @@ func setNoise(layerIndex: int, weight: float, yGradient: float, seed: float, fre
 	self.noise_fractal_gain[layerIndex]  = fractal_gain
 
 func _ready():
+	instance = self
+	_init_pool()
 	randomize()
-	build()
+	build(0, 20)
+
+func _init_pool():
+	for i in pool_size:
+		createPolygon()
 
 func _input(event):
 	if event is InputEventKey and event.pressed and event.keycode == KEY_R:
-		build()
+		build(0, 20)
 	
-func build():
-	print("regenerate_map")
-	generate_map()
-
-	# clean old Polygon2DNode
-	for child in get_children():
-		child.queue_free()
+func build(from: int, to: int):
+	from = clamp(from, 0, INF)
+	polygon_index = 0
 
 	# create new Polygon2DNode
-	var all_polygons = generate_cave_mesh()
+	var all_polygons = generate_cave_mesh(from, to)
 	for poly_points in all_polygons:
-		var poly = Polygon2D.new()
-		poly.color = Color(0.8, 0.7, 0.5) # Sandstone-like
+		var poly = _get_next_polygon()
+		poly.visible = true
 		poly.polygon = PackedVector2Array(poly_points)
-		add_child(poly)
+		
+	# Cache les polygones non utilisés
+	for i in range(polygon_index, polygon_pool.size()):
+		polygon_pool[i].visible = false
 
-func generate_map():
-	map.resize(width + 1)
-	for x in range(width + 1):
-		map[x] = []
-		#var row = ""
-		for y in range(height + 1):
-			var nx = float(x)
-			var ny = float(y)
-			var value = getNoiseValueAt(nx, ny)
-			var shouldFillInt = 1 if value >= 0.1 else 0
-			map[x].append(shouldFillInt)
-			#row += str(shouldFillInt)
-		#print(row)
+func _get_next_polygon() -> Polygon2D:
+	if polygon_index < polygon_pool.size():
+		var poly = polygon_pool[polygon_index]
+		polygon_index += 1
+		return poly
+	else:
+		# en cas de dépassement du pool
+		polygon_index += 1
+		return createPolygon()
+
+func createPolygon() -> Polygon2D:
+	var poly = Polygon2D.new()
+	poly.color = Color(0.8, 0.7, 0.5) # Sandstone-like
+	poly.visible = false
+	polygon_pool.append(poly)
+	add_child(poly)
+	return poly
 
 func get_square_val(x, y):
 	var val = 0
-	if map[x][y] == 1: val |= 1			# top-left
-	if map[x + 1][y] == 1: val |= 2		# top-right
-	if map[x + 1][y + 1] == 1: val |= 4	# bottom-right
-	if map[x][y + 1] == 1: val |= 8		# bottom-left
+	if get_square_filled(x + 0, y + 0): val |= 1	# top-left
+	if get_square_filled(x + 1, y + 0): val |= 2	# top-right
+	if get_square_filled(x + 1, y + 1): val |= 4	# bottom-right
+	if get_square_filled(x + 0, y + 1): val |= 8	# bottom-left
 	return val
 
+func get_square_filled(x: float, y: float) -> bool:
+	var value = getNoiseValueAt(x, y)
+	return true if value >= 0.1 else false
+
 var polygons := []
-func generate_cave_mesh() -> Array:
+func generate_cave_mesh(topViewport: int, bottomViewport: int) -> Array:
 	polygons = []	
 	for x in range(width):
-		for y in range(height):
+		# Draw the polygons for each square in x but only if the square is not empty
+		# and only if square are between the top and bottom viewport
+		#if x < topViewport or x > bottomViewport:
+		# create a range between the top and bottom viewport
+		for y in range(topViewport, bottomViewport):
 			var square_type = get_square_val(x, y)
 			if square_type == 0:
 				continue

@@ -1,0 +1,8 @@
+enum SoundName {
+	HOOK1,
+	HOOK2,
+	HOOK3,
+	UPGRADE1,
+	SELL_RESSOURCES,
+	MATERIAL1
+}

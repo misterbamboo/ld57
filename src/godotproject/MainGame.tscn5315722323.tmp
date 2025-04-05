@@ -1,6 +1,5 @@
-[gd_scene load_steps=12 format=3 uid="uid://deom164vw26rg"]
+[gd_scene load_steps=11 format=3 uid="uid://deom164vw26rg"]
 
-[ext_resource type="Script" uid="uid://5w86ovkibplk" path="res://CameraManagement/submarinefollow.gd" id="1_0v7qb"]
 [ext_resource type="Script" uid="uid://sc7omqwitfjq" path="res://Map/map_generator.gd" id="1_3tbxw"]
 [ext_resource type="Script" uid="uid://cwmkq37mlgpcg" path="res://Audio/audiomanager.gd" id="1_ws5ob"]
 [ext_resource type="Script" uid="uid://ckfcpeoedif6p" path="res://GameAssets/gameassets.gd" id="2_bqqt8"]
@@ -16,12 +15,8 @@
 layout_mode = 3
 anchors_preset = 0
 
-[node name="CameraManagement" type="Node" parent="."]
-
-[node name="Camera2D" type="Camera2D" parent="CameraManagement" node_paths=PackedStringArray("target", "subdetails")]
-script = ExtResource("1_0v7qb")
-target = NodePath("../../Submarine")
-subdetails = NodePath("../../Submarine/SubmarineDetails")
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(600, 400)
 
 [node name="Audio" type="Node" parent="."]
 
@@ -48,21 +43,21 @@ script = ExtResource("4_pv6b4")
 [node name="MapGenerator" type="Node2D" parent="Map"]
 script = ExtResource("1_3tbxw")
 
-[node name="Submarine" type="RigidBody2D" parent="."]
+[node name="Submarine" type="Node" parent="."]
+script = ExtResource("6_v3hs3")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Submarine"]
 gravity_scale = 0.0
 script = ExtResource("7_o8l48")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Submarine"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Submarine/RigidBody2D"]
 polygon = PackedVector2Array(0, 0, 1, 1, 0, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="Submarine"]
+[node name="Sprite2D" type="Sprite2D" parent="Submarine/RigidBody2D"]
 texture = ExtResource("7_x5ji8")
 
-[node name="SubmarineDetails" type="Node2D" parent="Submarine"]
-script = ExtResource("6_v3hs3")
-
-[node name="Life" type="Node" parent="Submarine/SubmarineDetails"]
+[node name="Life" type="Node" parent="Submarine"]
 script = ExtResource("6_pv6b4")
 
-[node name="Oxygen" type="Node" parent="Submarine/SubmarineDetails"]
+[node name="Oxygen" type="Node" parent="Submarine"]
 script = ExtResource("8_x5ji8")
