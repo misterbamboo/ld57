@@ -55,6 +55,5 @@ func _keep_on_surface_when_near(surface: float):
 
 	if global_position.y > surface - out_of_water_buffer_zone and global_position.y < surface + out_of_water_buffer_zone:
 		var variation = surface - global_position.y
-		print(variation)
 		var force = Vector2(0, variation * 2)
 		apply_central_force(force)

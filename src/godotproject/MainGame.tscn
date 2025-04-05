@@ -50,10 +50,17 @@ script = ExtResource("3_8qpgq")
 [node name="InventoryManager" type="Node" parent="Inventory"]
 script = ExtResource("4_pv6b4")
 
-[node name="Map" type="Node" parent="."]
+[node name="Map" type="Node2D" parent="."]
 
 [node name="MapGenerator" type="Node2D" parent="Map"]
 script = ExtResource("1_3tbxw")
+
+[node name="Water" type="Polygon2D" parent="." node_paths=PackedStringArray("followCam")]
+texture = SubResource("GradientTexture2D_mi4js")
+polygon = PackedVector2Array(0, 0, 50, 0, 50, 50, 0, 50)
+script = ExtResource("12_qtrx8")
+followCam = NodePath("../CameraManagement/Camera2D")
+water_depth_color = Color(0.001, 0, 0.423, 0.806)
 
 [node name="Submarine" type="RigidBody2D" parent="."]
 gravity_scale = 0.0
@@ -73,9 +80,3 @@ script = ExtResource("6_pv6b4")
 
 [node name="Oxygen" type="Node" parent="Submarine/SubmarineDetails"]
 script = ExtResource("8_x5ji8")
-
-[node name="Water" type="Polygon2D" parent="." node_paths=PackedStringArray("followCam")]
-texture = SubResource("GradientTexture2D_mi4js")
-polygon = PackedVector2Array(0, 0, 50, 0, 50, 50, 0, 50)
-script = ExtResource("12_qtrx8")
-followCam = NodePath("../CameraManagement/Camera2D")
