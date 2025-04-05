@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://deom164vw26rg"]
+[gd_scene load_steps=17 format=3 uid="uid://deom164vw26rg"]
 
 [ext_resource type="Script" uid="uid://5w86ovkibplk" path="res://CameraManagement/submarinefollow.gd" id="1_0v7qb"]
 [ext_resource type="Script" uid="uid://sc7omqwitfjq" path="res://Map/map_generator.gd" id="1_3tbxw"]
@@ -10,7 +10,9 @@
 [ext_resource type="Script" uid="uid://5vx4h3byum2p" path="res://Submarine/submarine.gd" id="6_v3hs3"]
 [ext_resource type="Script" uid="uid://bx0ooudrvtw4x" path="res://Submarine/submarinemovement.gd" id="7_o8l48"]
 [ext_resource type="Texture2D" uid="uid://c3q64n0uvmwjt" path="res://Submarine/Assets/sub.png" id="7_x5ji8"]
+[ext_resource type="Texture2D" uid="uid://ugunphi5287t" path="res://ShopManagement/shop.png" id="8_mi4js"]
 [ext_resource type="Script" uid="uid://dkyy0utbqdpjb" path="res://Submarine/oxygen.gd" id="8_x5ji8"]
+[ext_resource type="Script" uid="uid://bgmjqnecg48wu" path="res://ShopManagement/shopboatmovement.gd" id="9_o3vwv"]
 [ext_resource type="Script" uid="uid://dkkyfc01q7jit" path="res://Water/water.gd" id="12_qtrx8"]
 
 [sub_resource type="Gradient" id="Gradient_led80"]
@@ -55,12 +57,13 @@ script = ExtResource("4_pv6b4")
 [node name="MapGenerator" type="Node2D" parent="Map"]
 script = ExtResource("1_3tbxw")
 
-[node name="Water" type="Polygon2D" parent="." node_paths=PackedStringArray("followCam")]
-texture = SubResource("GradientTexture2D_mi4js")
-polygon = PackedVector2Array(0, 0, 50, 0, 50, 50, 0, 50)
-script = ExtResource("12_qtrx8")
-followCam = NodePath("../CameraManagement/Camera2D")
-water_depth_color = Color(0.001, 0, 0.423, 0.806)
+[node name="ShopManagement" type="Node2D" parent="."]
+
+[node name="ShopBoat" type="Sprite2D" parent="ShopManagement"]
+scale = Vector2(2, 2)
+texture = ExtResource("8_mi4js")
+script = ExtResource("9_o3vwv")
+boat_length = 1024
 
 [node name="Submarine" type="RigidBody2D" parent="."]
 gravity_scale = 0.0
@@ -80,3 +83,10 @@ script = ExtResource("6_pv6b4")
 
 [node name="Oxygen" type="Node" parent="Submarine/SubmarineDetails"]
 script = ExtResource("8_x5ji8")
+
+[node name="Water" type="Polygon2D" parent="." node_paths=PackedStringArray("followCam")]
+texture = SubResource("GradientTexture2D_mi4js")
+polygon = PackedVector2Array(0, 0, 50, 0, 50, 50, 0, 50)
+script = ExtResource("12_qtrx8")
+followCam = NodePath("../CameraManagement/Camera2D")
+water_depth_color = Color(0.001, 0, 0.423, 0.806)
