@@ -1,7 +1,6 @@
 extends HBoxContainer
 
 @export var bubble_graphics: Texture2D
-@onready var label: Label = $Label
 
 const BUBBLE_COUNT = 10
 const FLASH_INTERVAL = 0.1  # Time in seconds between flashes
@@ -46,7 +45,6 @@ func _handle_flashing_bubble(delta: float) -> void:
 
 func _update_display() -> void:
 	var oxygen_percent = _get_oxygen_percentage()
-	_update_label(oxygen_percent)
 	
 	var visible_count = _calculate_visible_bubble_count(oxygen_percent)
 	var should_flash = _should_bubble_flash(oxygen_percent)
@@ -56,10 +54,6 @@ func _update_display() -> void:
 
 func _get_oxygen_percentage() -> float:
 	return (Oxygen.get_quantity() / Oxygen.get_capacity()) * 100
-
-func _update_label(oxygen_percent: float) -> void:
-	if label != null:
-		label.text = "%d%%" % round(oxygen_percent)
 
 func _calculate_visible_bubble_count(oxygen_percent: float) -> int:
 	return ceil(oxygen_percent / 10.0)

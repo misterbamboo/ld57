@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://deom164vw26rg"]
+[gd_scene load_steps=20 format=3 uid="uid://deom164vw26rg"]
 
 [ext_resource type="Script" uid="uid://5w86ovkibplk" path="res://CameraManagement/submarinefollow.gd" id="1_0v7qb"]
 [ext_resource type="Script" uid="uid://sc7omqwitfjq" path="res://Map/map_generator.gd" id="1_3tbxw"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://c3q64n0uvmwjt" path="res://Submarine/Assets/sub.png" id="7_x5ji8"]
 [ext_resource type="Texture2D" uid="uid://ugunphi5287t" path="res://ShopManagement/shop.png" id="8_mi4js"]
 [ext_resource type="Script" uid="uid://bgmjqnecg48wu" path="res://ShopManagement/shopboatmovement.gd" id="9_o3vwv"]
+[ext_resource type="Script" uid="uid://b51u4u2hgpigx" path="res://Submarine/submarinesprite.gd" id="11_yphxy"]
 [ext_resource type="Script" uid="uid://dkkyfc01q7jit" path="res://Water/water.gd" id="12_qtrx8"]
 [ext_resource type="Script" uid="uid://b6g4cy2wogxrw" path="res://HUD/oxygen_meter.gd" id="13_led80"]
 [ext_resource type="Texture2D" uid="uid://c6wguud8duno8" path="res://HUD/sub_hud.png" id="14_401ut"]
@@ -74,6 +75,7 @@ polygon = PackedVector2Array(0, 0, 1, 1, 0, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="Submarine"]
 texture = ExtResource("7_x5ji8")
+script = ExtResource("11_yphxy")
 
 [node name="SubmarineDetails" type="Node2D" parent="Submarine"]
 script = ExtResource("6_v3hs3")
