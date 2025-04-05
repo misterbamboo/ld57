@@ -14,3 +14,8 @@ config/name="godotProject"
 run/main_scene="uid://d141tqfswnd6o"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1200
+window/size/viewport_height=800

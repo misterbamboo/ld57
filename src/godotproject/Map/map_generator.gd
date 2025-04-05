@@ -1,18 +1,43 @@
-extends Node2D
+class_name MapGenerator extends Node2D
 
-@export var width = 25
-@export var height = 25
-@export var cell_size = 25
-@export var fill_percent = 60
+@export var width = 250
+@export var height = 250
+@export var cell_size = 15
 
 var map = []
+
+# START: noiseLayers
+var _noisesLayers : Array[FastNoiseLite] = [
+	FastNoiseLite.new(),
+	FastNoiseLite.new(),
+	FastNoiseLite.new(),
+	FastNoiseLite.new(),
+	FastNoiseLite.new(),
+]
+var noise_weight: Array[float] 				= [1.00, 0.50, 1.00, 0, 0]
+var noise_y_gradient: Array[float] 			= [06.5, 37.5, 0.00, 0, 0]
+var noise_seed: Array[float] 				= [20.0, 20.0, 0.00, 0, 0]
+var noise_frequency: Array[float] 			= [0.18, 0.11, 0.12, 0, 0]
+var noise_fractal_octaves: Array[float] 	= [7.40, 7.00, 0.00, 0, 0]
+var noise_fractal_lacunarity: Array[float] 	= [0.87, 0.65, 0.00, 0, 0]
+var noise_fractal_gain: Array[float] 		= [0.58, 0.01, 0.00, 0, 0]
+# End: noiseLayers
+
+func setNoise(layerIndex: int, weight: float, yGradient: float, seed: float, frequency: float, fractal_octaves: float, fractal_lacunarity: float, fractal_gain: float):
+	self.noise_weight[layerIndex] = weight
+	self.noise_y_gradient[layerIndex] = yGradient
+	self.noise_seed[layerIndex] = seed
+	self.noise_frequency[layerIndex]  = frequency
+	self.noise_fractal_octaves[layerIndex]  = fractal_octaves
+	self.noise_fractal_lacunarity[layerIndex]  = fractal_lacunarity
+	self.noise_fractal_gain[layerIndex]  = fractal_gain
 
 func _ready():
 	randomize()
 	build()
 
 func _input(event):
-	if event is InputEventKey and event.pressed and event.keycode == KEY_SPACE:
+	if event is InputEventKey and event.pressed and event.keycode == KEY_R:
 		build()
 	
 func build():
@@ -27,28 +52,20 @@ func build():
 	var all_polygons = generate_cave_mesh()
 	for poly_points in all_polygons:
 		var poly = Polygon2D.new()
-		poly.color = Color(0.8, 0.9, 1.0)  # Light blue
+		poly.color = Color(0.8, 0.7, 0.5) # Sandstone-like
 		poly.polygon = PackedVector2Array(poly_points)
 		add_child(poly)
 
 func generate_map():
-	var noise := FastNoiseLite.new()
-	noise.seed = 0
-	noise.noise_type = FastNoiseLite.TYPE_PERLIN  # or PERLIN, CELLULAR, etc.
-	noise.frequency = 1
-	noise.fractal_octaves = 10
-	noise.fractal_lacunarity = 2.0
-	noise.fractal_gain = 0.5
-	
 	map.resize(width + 1)
 	for x in range(width + 1):
 		map[x] = []
 		#var row = ""
 		for y in range(height + 1):
-			var nx = float(x) / width
-			var ny = float(y) / height
-			var value = noise.get_noise_2d(nx, ny)
-			var shouldFillInt = 1 if value < 0.05 else 0
+			var nx = float(x)
+			var ny = float(y)
+			var value = getNoiseValueAt(nx, ny)
+			var shouldFillInt = 1 if value >= 0.1 else 0
 			map[x].append(shouldFillInt)
 			#row += str(shouldFillInt)
 		#print(row)
@@ -104,3 +121,34 @@ func generate_cave_mesh() -> Array:
 func add_poly(points_array: Array):
 	if points_array.size() >= 3:
 		polygons.append(points_array)
+
+func getNoiseValueAt(x: float, y: float) -> float:
+	var blended_value: float = 0
+	for i in range(_noisesLayers.size()):
+		var val = _getNoiseValueAtLayer(i, x, y)
+		var weight = noise_weight[i]
+		var weighted_value = val * weight
+		if(blended_value == 0):
+			blended_value = weighted_value
+		elif(weighted_value > 0):
+			blended_value *= weighted_value
+	return blended_value
+
+func _getNoiseValueAtLayer(layerIndex: int, x: float, y: float) -> float:
+	var noise = _getNoise(layerIndex)
+	var raw_value = noise.get_noise_2d(x, y)
+	var yGradient = noise_y_gradient[layerIndex]
+	if(yGradient <= 0):
+		return raw_value
+	else:
+		var percent = y / yGradient
+		return raw_value * percent
+
+func _getNoise(layerIndex: int):
+	_noisesLayers[layerIndex].seed = self.noise_seed[layerIndex]
+	_noisesLayers[layerIndex].noise_type = FastNoiseLite.TYPE_PERLIN  # or PERLIN, CELLULAR, etc.
+	_noisesLayers[layerIndex].frequency = self.noise_frequency[layerIndex]
+	_noisesLayers[layerIndex].fractal_octaves = self.noise_fractal_octaves[layerIndex]
+	_noisesLayers[layerIndex].fractal_lacunarity = self.noise_fractal_lacunarity[layerIndex]
+	_noisesLayers[layerIndex].fractal_gain = self.noise_fractal_gain[layerIndex]
+	return _noisesLayers[layerIndex]
