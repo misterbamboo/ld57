@@ -17,10 +17,12 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+EventBus="*res://GameEvents/event_bus.tscn"
 Oxygen="*res://Singletons/oxygen.tscn"
 Life="*res://Singletons/life.tscn"
 MoneyBag="*res://GameState/money.gd"
 Inventory="*res://Inventory/inventorymanager.gd"
+ExplosionMap="*res://Map/Explosions/ExplosionMapHandler.gd"
 
 [display]
 
@@ -57,6 +59,12 @@ sub_left={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":65,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="Map"
+2d_physics/layer_2="Sub"
+2d_physics/layer_3="Torpido"
 
 [rendering]
 

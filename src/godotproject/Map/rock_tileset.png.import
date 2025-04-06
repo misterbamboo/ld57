@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyp607cybjdfp"
-path="res://.godot/imported/dirt_tile_map.png-b10298ee2c0fbddc5b8c8241c534b694.ctex"
+uid="uid://dmhf311dabdkj"
+path="res://.godot/imported/rock_tileset.png-e451764e0a55cf5e3723ec83e3de1da1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Map/dirt_tile_map.png"
-dest_files=["res://.godot/imported/dirt_tile_map.png-b10298ee2c0fbddc5b8c8241c534b694.ctex"]
+source_file="res://Map/rock_tileset.png"
+dest_files=["res://.godot/imported/rock_tileset.png-e451764e0a55cf5e3723ec83e3de1da1.ctex"]
 
 [params]
 

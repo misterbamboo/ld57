@@ -41,17 +41,20 @@ _data = {
 }
 
 [node name="Torpedo" type="RigidBody2D" node_paths=PackedStringArray("explosionTarget")]
+collision_layer = 4
 gravity_scale = 0.0
 script = ExtResource("1_u6tmg")
 explosionTarget = NodePath("ExplosionPos")
 explosion = ExtResource("2_aah1a")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2(37, 0)
-polygon = PackedVector2Array(53, -3, 53, 2, 49, 5, 10, 6, 10, -7, 49, -6)
+position = Vector2(18.5, 0)
+scale = Vector2(0.5, 0.5)
+polygon = PackedVector2Array(53, -3, 53, 2, 49, 5, 31, 6, 31, -8, 49, -6)
 disabled = true
 
 [node name="Node2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_gk5of")
 offset = Vector2(45, 0)
 vframes = 6
@@ -63,4 +66,4 @@ libraries = {
 speed_scale = 10.0
 
 [node name="ExplosionPos" type="Node2D" parent="."]
-position = Vector2(90, 0)
+position = Vector2(45, 0)

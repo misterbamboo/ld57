@@ -46,7 +46,13 @@ func _check_ressource(obj: Node) -> void:
 	inventory.append(obj)
 	AudioManager.instance.play_sound(SoundNames.SoundName.MATERIAL1)
 
-	MapGenerator.instance.remove_ressource(obj)
+	# TODO: 
+	# commenting this line out because resources are not implemented yet
+	# and also map generator has changed and it not used globaly like that anymore
+	# but this is where we should call to remove the resource that was gathered so
+	# i'm leaving the line here for now
+	#MapGenerator.instance.remove_ressource(obj)
+
 	obj.visible = false
 	obj.set_physics_process(false)
 
