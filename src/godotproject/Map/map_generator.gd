@@ -19,7 +19,7 @@ var polygon_renderer: PolygonRenderer = null
 func _ready():
 	if Engine.is_editor_hint():
 		return
-	
+	ExplosionMap.on_explision.connect(addExplosionAt)
 	EventBus.register(LoadMapPageEvent.event_name, _on_load_map_page_event)
 	# Initialize noise components
 	noise_generator = NoiseGenerator.new(5)
@@ -32,6 +32,12 @@ func _ready():
 	# Build initial map
 	randomize()
 	build(0, 20)
+
+func addExplosionAt(pos: Vector2, radius: float) -> void:
+	var from = pos.y - radius
+	var to = pos.y + radius
+	for renderer in renderers:
+		renderer.render_map(marching_squares, from, to, width)
 
 func _on_load_map_page_event(event: LoadMapPageEvent):
 	print("_on_load_map_page_event %s %s" % [event.y_from, event.y_to])

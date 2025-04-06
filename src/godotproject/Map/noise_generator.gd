@@ -34,6 +34,9 @@ func set_noise_params(layer_index: int, weight: float, y_gradient: float,
     noise_fractal_gain[layer_index] = fractal_gain
     
 func get_noise_value_at(x: float, y: float) -> float:
+    if ExplosionMap.hasExploded(Vector2i(x, y)):
+        return 0
+        
     # Get blended noise value for coordinates
     var blended_value: float = 0
     for i in range(_noiseLayers.size()):

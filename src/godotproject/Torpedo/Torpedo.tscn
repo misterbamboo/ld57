@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=3 uid="uid://c64yoqhyqqmb8"]
+
+[ext_resource type="Texture2D" uid="uid://dqalwskhmj1k5" path="res://Torpedo/Assets/torpedo_sprite_sheet.png" id="1_gk5of"]
+[ext_resource type="Script" uid="uid://dx7gmpkurseow" path="res://Torpedo/torpedo.gd" id="1_u6tmg"]
+[ext_resource type="PackedScene" uid="uid://bmmphmusp8wnu" path="res://Torpedo/Explosion.tscn" id="2_aah1a"]
+
+[sub_resource type="Animation" id="Animation_aah1a"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_u6tmg"]
+resource_name = "launch"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.333333, 0.5, 0.666667, 0.833333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y8xan"]
+_data = {
+&"RESET": SubResource("Animation_aah1a"),
+&"launch": SubResource("Animation_u6tmg")
+}
+
+[node name="Torpedo" type="RigidBody2D" node_paths=PackedStringArray("explosionTarget")]
+collision_layer = 4
+gravity_scale = 0.0
+script = ExtResource("1_u6tmg")
+explosionTarget = NodePath("ExplosionPos")
+explosion = ExtResource("2_aah1a")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(18.5, 0)
+scale = Vector2(0.5, 0.5)
+polygon = PackedVector2Array(53, -3, 53, 2, 49, 5, 31, 6, 31, -8, 49, -6)
+disabled = true
+
+[node name="Node2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_gk5of")
+offset = Vector2(45, 0)
+vframes = 6
+
+[node name="AnimationLaunch" type="AnimationPlayer" parent="Node2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_y8xan")
+}
+speed_scale = 10.0
+
+[node name="ExplosionPos" type="Node2D" parent="."]
+position = Vector2(45, 0)

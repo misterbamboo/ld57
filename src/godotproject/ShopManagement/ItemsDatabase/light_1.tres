@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ShopItemDef" load_steps=3 format=3 uid="uid://ih62eyehvjgu"]
+
+[ext_resource type="Texture2D" uid="uid://i1ju1abllhu7" path="res://ShopManagement/Assets/light-upgrade.png" id="1_ubh5h"]
+[ext_resource type="Script" uid="uid://b2uchrnmg5evm" path="res://ShopManagement/ItemsDatabase/ShopItemDef.gd" id="2_w0arw"]
+
+[resource]
+script = ExtResource("2_w0arw")
+key = "light_1"
+title = "Light lvl 1"
+description = "See better in the dark."
+price = 250.0
+icon = ExtResource("1_ubh5h")
+upgradeType = 3
+upgradeValue = 50.0
+upgradeType2 = 7
+upgradeValue2 = 0.0
+metadata/_custom_type_script = "uid://b2uchrnmg5evm"

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ShopItemDef" load_steps=3 format=3 uid="uid://b5epj64qgp0vw"]
+
+[ext_resource type="Texture2D" uid="uid://cnf2gtfax4a5p" path="res://ShopManagement/Assets/repair-upgrade.png" id="1_0mhh8"]
+[ext_resource type="Script" uid="uid://b2uchrnmg5evm" path="res://ShopManagement/ItemsDatabase/ShopItemDef.gd" id="2_wjdpc"]
+
+[resource]
+script = ExtResource("2_wjdpc")
+key = "life_1"
+title = "Life lvl 1"
+description = "Fix issues on you sub before it sinks."
+price = 50.0
+icon = ExtResource("1_0mhh8")
+upgradeType = 6
+upgradeValue = 50.0
+upgradeType2 = 7
+upgradeValue2 = 0.0
+metadata/_custom_type_script = "uid://b2uchrnmg5evm"
