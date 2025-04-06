@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ShopItemDef" load_steps=3 format=3 uid="uid://b8ldl35smk3lx"]
+
+[ext_resource type="Texture2D" uid="uid://bjxa4nvvmq8r1" path="res://ShopManagement/Assets/health_upgrade.png" id="1_fbgqu"]
+[ext_resource type="Script" uid="uid://b2uchrnmg5evm" path="res://ShopManagement/ItemsDatabase/ShopItemDef.gd" id="2_c7dp2"]
+
+[resource]
+script = ExtResource("2_c7dp2")
+key = "health_1"
+title = "Health lvl 1"
+description = "Better health capacity. Would take more time to die from missing air or cumulated demages."
+price = 10.0
+icon = ExtResource("1_fbgqu")
+upgradeType = 2
+upgradeValue = 50.0
+upgradeType2 = 7
+upgradeValue2 = 0.0
+metadata/_custom_type_script = "uid://b2uchrnmg5evm"

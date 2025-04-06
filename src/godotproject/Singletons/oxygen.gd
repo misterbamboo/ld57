@@ -1,7 +1,9 @@
 extends Node
 
 var quantity: float
-var capacity: float
+var oxy_capacity: float
+func _get_oxy_capacity() -> float:
+	return oxy_capacity + Submarine.instance.oxygen_capacity_upgrade
 
 @export var starting_quantity: float = 100.0
 @export var starting_capacity: float = 100.0
@@ -10,15 +12,15 @@ var capacity: float
 
 var isInactive: bool = false
 
+func _ready() -> void:
+	quantity = starting_quantity
+	oxy_capacity = starting_capacity
+
 func inactive():
 	isInactive = true
 	
 func active():
 	isInactive = false
-
-func _ready():
-	quantity = starting_quantity
-	capacity = starting_capacity
 
 func _process(delta: float) -> void:
 	if(isInactive):
@@ -28,18 +30,11 @@ func _process(delta: float) -> void:
 	else:
 		quantity += delta * recuperation_per_sec
 
-	quantity = clamp(quantity, 0, capacity)
-
-	_update_oxygen()
-
-func _update_oxygen():
-	if Submarine.instance.oxygen_upgrade_bought:
-		capacity += 50
-		Submarine.instance.oxygen_upgrade_bought = false
+	quantity = clamp(quantity, 0, _get_oxy_capacity())
 
 # Méthodes pour garder compatibilité avec interface
 func get_quantity() -> float:
 	return quantity
 
 func get_capacity() -> float:
-	return capacity
+	return _get_oxy_capacity()

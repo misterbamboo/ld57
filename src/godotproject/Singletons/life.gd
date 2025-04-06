@@ -1,52 +1,44 @@
 extends Node
 
-var quantity: float
-var capacity: float
+var life_quantity: float
+var life_capacity: float
+func _get_life_capacity() -> float:
+	return life_capacity + Submarine.instance.hull_capacity_upgrade
+	
 var losing_life := false
 
 var starting_quantity := 100.0
 var starting_capacity := 100.0
 var reduction_per_sec_when_no_oxy := 20.0 # 5 seconds
 
-func _ready():
-	quantity = starting_quantity
-	capacity = starting_capacity
+func _ready() -> void:
+	life_quantity = starting_quantity
+	life_capacity = starting_capacity
 
 func _process(delta: float) -> void:
 	var is_losing = false
 	if Oxygen.quantity <= 0 and not Game.instance.invincible:
-		quantity -= delta * reduction_per_sec_when_no_oxy
+		life_quantity -= delta * reduction_per_sec_when_no_oxy
 		is_losing = true
 
 	losing_life = is_losing
-	quantity = clamp(quantity, 0, capacity)
+	life_quantity = clamp(life_quantity, 0, _get_life_capacity())
 
-	_update_life()
-
-func _update_life():
-	if Submarine.instance.life_upgrade_bought:
-		quantity += 25
-		Submarine.instance.life_upgrade_bought = false
-
-	if Submarine.instance.hull_upgrade_bought:
-		if quantity != capacity:
-			capacity += 25
-			quantity += 25
-			Submarine.instance.hull_upgrade_bought = false
-			print("Hull upgraded hheeeheee")
+func refill(amount: float):
+	life_quantity = clamp(life_quantity + amount, 0, _get_life_capacity())
 
 func hit(damage: float) -> void:
-	quantity = clamp(quantity - damage, 0, capacity)
+	life_quantity = clamp(life_quantity - damage, 0, _get_life_capacity())
 	losing_life = true
 
 func is_dead() -> bool:
-	return quantity <= 0
+	return life_quantity <= 0
 
 func get_quantity() -> float:
-	return quantity
+	return life_quantity
 
 func get_capacity() -> float:
-	return capacity
+	return _get_life_capacity()
 
 func is_losing_life() -> bool:
 	return losing_life

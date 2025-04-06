@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ShopItemDef" load_steps=3 format=3 uid="uid://ddjoboxmpm5c"]
+
+[ext_resource type="Texture2D" uid="uid://dps7tgv24iaw2" path="res://ShopManagement/Assets/hull-upgrade.png" id="1_lrvs4"]
+[ext_resource type="Script" uid="uid://b2uchrnmg5evm" path="res://ShopManagement/ItemsDatabase/ShopItemDef.gd" id="2_px0gj"]
+
+[resource]
+script = ExtResource("2_px0gj")
+key = "hull_1"
+title = "Hull lvl 1"
+description = "Make your submarine more resistant to impacts."
+price = 100.0
+icon = ExtResource("1_lrvs4")
+upgradeType = 5
+upgradeValue = 50.0
+upgradeType2 = 6
+upgradeValue2 = 50.0
+metadata/_custom_type_script = "uid://b2uchrnmg5evm"

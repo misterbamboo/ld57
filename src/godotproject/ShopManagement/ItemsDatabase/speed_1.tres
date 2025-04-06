@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ShopItemDef" load_steps=3 format=3 uid="uid://dmwqivu5lrfxa"]
+
+[ext_resource type="Texture2D" uid="uid://duk8nsyyalxap" path="res://ShopManagement/Assets/propeller-upgrade.png" id="1_qh4ut"]
+[ext_resource type="Script" uid="uid://b2uchrnmg5evm" path="res://ShopManagement/ItemsDatabase/ShopItemDef.gd" id="2_o8u2a"]
+
+[resource]
+script = ExtResource("2_o8u2a")
+key = "speed_1"
+title = "Propeller lvl 1"
+description = "Give your sub a little torque!"
+price = 1000.0
+icon = ExtResource("1_qh4ut")
+upgradeType = 0
+upgradeValue = 100.0
+upgradeType2 = 7
+upgradeValue2 = 0.0
+metadata/_custom_type_script = "uid://b2uchrnmg5evm"

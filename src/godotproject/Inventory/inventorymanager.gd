@@ -2,8 +2,6 @@ class_name InventoryManager extends Node #Area2D
 
 const SoundNames = preload("res://Audio/soundname.gd")
 
-static var instance: InventoryManager = null
-
 var inventory: Array = []
 
 var gold_quantity: float = 0
@@ -17,7 +15,6 @@ var has_inventory: bool = false
 var can_sell: bool = false
 
 func _ready():
-	instance = self
 	_reset_inventory()
 
 func _on_inventory_body_entered(body: Node2D) -> void:

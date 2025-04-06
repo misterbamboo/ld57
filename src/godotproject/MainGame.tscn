@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://deom164vw26rg"]
+[gd_scene load_steps=37 format=3 uid="uid://deom164vw26rg"]
 
 [ext_resource type="Script" uid="uid://5w86ovkibplk" path="res://CameraManagement/submarinefollow.gd" id="1_0v7qb"]
 [ext_resource type="Script" uid="uid://sc7omqwitfjq" path="res://Map/map_generator.gd" id="1_3tbxw"]
@@ -26,6 +26,12 @@
 [ext_resource type="Texture2D" uid="uid://v5rlg4d1pvgg" path="res://ShopManagement/Assets/oxy_tank.png" id="19_28psf"]
 [ext_resource type="Texture2D" uid="uid://dclgoyvr3jx7d" path="res://ShopManagement/Assets/exit_btn_16.png" id="20_a6adi"]
 [ext_resource type="Resource" uid="uid://bj5pq30aynjca" path="res://ShopManagement/ItemsDatabase/oxy_1.tres" id="20_cgwad"]
+[ext_resource type="Resource" uid="uid://b8ldl35smk3lx" path="res://ShopManagement/ItemsDatabase/health_1.tres" id="23_y1hsh"]
+[ext_resource type="Resource" uid="uid://0ubrf3u1q5cp" path="res://ShopManagement/ItemsDatabase/hook_1.tres" id="24_ql8k3"]
+[ext_resource type="Resource" uid="uid://ddjoboxmpm5c" path="res://ShopManagement/ItemsDatabase/hull_1.tres" id="25_5b81d"]
+[ext_resource type="Resource" uid="uid://b5epj64qgp0vw" path="res://ShopManagement/ItemsDatabase/life_1.tres" id="26_8kysg"]
+[ext_resource type="Resource" uid="uid://ih62eyehvjgu" path="res://ShopManagement/ItemsDatabase/light_1.tres" id="27_n03md"]
+[ext_resource type="Resource" uid="uid://dmwqivu5lrfxa" path="res://ShopManagement/ItemsDatabase/speed_1.tres" id="29_uhubb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_28psf"]
 texture = ExtResource("7_ma1re")
@@ -237,7 +243,7 @@ texture = ExtResource("14_401ut")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="ShopScreen" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("moneyDisplayLabel", "buyButton", "titleLabel", "descriptionLabel", "priceLabel", "shopItemsContainer")]
+[node name="ShopScreen" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("moneyDisplayLabel", "buyButton", "titleLabel", "descriptionLabel", "priceLabel", "messageLabel", "shopItemsContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -245,12 +251,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("17_yphxy")
-shopDefinitions = Array[ExtResource("19_6brkw")]([ExtResource("20_cgwad")])
+shopDefinitions = Array[ExtResource("19_6brkw")]([ExtResource("23_y1hsh"), ExtResource("24_ql8k3"), ExtResource("25_5b81d"), ExtResource("26_8kysg"), ExtResource("27_n03md"), ExtResource("20_cgwad"), ExtResource("29_uhubb")])
 moneyDisplayLabel = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer2/PlayerMoney")
-buyButton = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/Button")
+buyButton = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/BuyButton")
 titleLabel = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Title")
 descriptionLabel = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Description")
 priceLabel = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Price")
+messageLabel = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Message")
 shopItemsContainer = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerRight/MarginContainer/ScrollContainer/CenterContainer/ShopItems")
 shopItemComponent = ExtResource("18_ma1re")
 temp_oxy_icon = ExtResource("19_28psf")
@@ -342,7 +349,14 @@ layout_mode = 2
 text = "1000$"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer"]
+[node name="Message" type="Label" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.876621, 0.703579, 0, 1)
+theme_override_font_sizes/font_size = 11
+text = "message"
+horizontal_alignment = 1
+
+[node name="BuyButton" type="Button" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "BUY"
 
@@ -372,3 +386,4 @@ size_flags_vertical = 4
 columns = 2
 
 [connection signal="button_up" from="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer2/ExitButton" to="CanvasLayer/ShopScreen" method="_on_exit_button_up"]
+[connection signal="button_up" from="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/BuyButton" to="CanvasLayer/ShopScreen" method="_on_buy_button_button_up"]

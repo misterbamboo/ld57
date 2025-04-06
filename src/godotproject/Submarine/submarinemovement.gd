@@ -1,6 +1,9 @@
 class_name SubmarineMovement extends RigidBody2D
 
 @export var move_speed: float = 200.0
+func _get_move_speed() -> float:
+	return move_speed + Submarine.instance.speed_capacity_upgrade
+
 @export var point_light: Light2D
 
 @export var out_of_water_buffer_zone := 20.0
@@ -23,28 +26,22 @@ func _move(surface: float):
 	var down_strength = Input.get_action_strength("sub_down")
 
 	if up_strength > 0:
-		force.y -= move_speed
+		force.y -= _get_move_speed()
 
 	if down_strength > 0:
-		force.y += move_speed
+		force.y += _get_move_speed()
 	
 	# Handle horizontal movement
 	var right_strength = Input.get_action_strength("sub_right")
 	var left_strength = Input.get_action_strength("sub_left")
 	
 	if right_strength > 0:
-		force.x += move_speed
+		force.x += _get_move_speed()
 	
 	if left_strength > 0:
-		force.x -= move_speed
+		force.x -= _get_move_speed()
 
 	apply_central_force(force)
-	_update_speed()
-
-func _update_speed():
-	if Submarine.instance.speed_upgrade_bought:
-		move_speed += 2
-		Submarine.instance.speed_upgrade_bought = false
 
 func _outside_water_force(surface: float):
 	if global_position.y < surface - out_of_water_buffer_zone:
