@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmmphmusp8wnu"]
+
+[ext_resource type="Texture2D" uid="uid://bm7fywo3sng52" path="res://Torpedo/Assets/explosion_sprite_sheet.png" id="1_6y2o7"]
+[ext_resource type="Script" uid="uid://kivhe4efdgim" path="res://Torpedo/explosion.gd" id="1_fjjgq"]
+
+[sub_resource type="Animation" id="Animation_aah1a"]
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_u6tmg"]
+resource_name = "launch"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y8xan"]
+_data = {
+&"RESET": SubResource("Animation_aah1a"),
+&"launch": SubResource("Animation_u6tmg")
+}
+
+[node name="Explosion" type="Node2D"]
+script = ExtResource("1_fjjgq")
+
+[node name="Node2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_6y2o7")
+hframes = 4
+vframes = 2
+frame = 7
+
+[node name="AnimationLaunch" type="AnimationPlayer" parent="Node2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_y8xan")
+}
+speed_scale = 3.0

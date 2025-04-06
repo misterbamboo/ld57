@@ -21,6 +21,8 @@ func get_sensitive_deepness() -> float:
 	
 	if(map == null)	:
 		map = MapGenerator.instance
+		if map == null: ## if still null
+			return 0
 		
 	return clamp(rb.position.y / map.cell_size, 0, INF)
 

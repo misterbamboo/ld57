@@ -9,10 +9,12 @@ func _get_move_speed() -> float:
 @export var out_of_water_buffer_zone := 20.0
 
 func _physics_process(_delta):
-	var surface = Water.instance.surface_variation(global_position.x)
+	var surface = 0 if Water.instance == null else Water.instance.surface_variation(global_position.x)
 	_outside_water_force(surface)
 	_keep_on_surface_when_near(surface)
-	if Game.instance.get_state() == Game.GameState.IN_ACTION:
+	
+	var state = Game.GameState.IN_SHOP if Game.instance == null else Game.instance.get_state()
+	if state == Game.GameState.IN_ACTION:
 		_move(surface)
 
 func _move(surface: float):

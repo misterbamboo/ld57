@@ -3,7 +3,8 @@ extends Node
 var quantity: float
 var oxy_capacity: float
 func _get_oxy_capacity() -> float:
-	return oxy_capacity + Submarine.instance.oxygen_capacity_upgrade
+	var upg_capacity = 0 if Submarine.instance == null else Submarine.instance.oxygen_capacity_upgrade
+	return oxy_capacity + upg_capacity
 
 @export var starting_quantity: float = 100.0
 @export var starting_capacity: float = 100.0
@@ -23,9 +24,12 @@ func active():
 	isInactive = false
 
 func _process(delta: float) -> void:
+	var deepness = 0 if Submarine.instance == null else Submarine.instance.get_deepness()
+	var invincible = false if Game.instance == null else  Game.instance.invincible
+	
 	if(isInactive):
 		quantity += delta * recuperation_per_sec
-	elif Submarine.instance.get_deepness() > 0 and not Game.instance.invincible:
+	elif deepness > 0 and not invincible:
 		quantity -= delta * reduction_per_sec
 	else:
 		quantity += delta * recuperation_per_sec

@@ -1,0 +1,33 @@
+[gd_scene load_steps=8 format=3 uid="uid://da26qelyupo77"]
+
+[ext_resource type="Script" uid="uid://bx0ooudrvtw4x" path="res://Submarine/submarinemovement.gd" id="1_de3bh"]
+[ext_resource type="Texture2D" uid="uid://c3q64n0uvmwjt" path="res://Submarine/Assets/sub.png" id="2_bk2ki"]
+[ext_resource type="Script" path="res://Submarine/submarinesprite.gd" id="3_7kknb"]
+[ext_resource type="Script" uid="uid://5vx4h3byum2p" path="res://Submarine/submarine.gd" id="4_wjrfn"]
+[ext_resource type="Script" uid="uid://lun5pptgqmsx" path="res://Submarine/torpedo_launcher.gd" id="5_bk2ki"]
+[ext_resource type="PackedScene" uid="uid://c64yoqhyqqmb8" path="res://Torpedo/Torpedo.tscn" id="6_7kknb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7kknb"]
+radius = 23.0217
+
+[node name="Submarine" type="RigidBody2D"]
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_de3bh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("CircleShape2D_7kknb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_bk2ki")
+script = ExtResource("3_7kknb")
+
+[node name="SubmarineDetails" type="Node2D" parent="."]
+script = ExtResource("4_wjrfn")
+
+[node name="TorpedoLauncher" type="Node2D" parent="."]
+position = Vector2(1, 10)
+script = ExtResource("5_bk2ki")
+torpedoTemplace = ExtResource("6_7kknb")

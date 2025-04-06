@@ -3,7 +3,8 @@ extends Node
 var life_quantity: float
 var life_capacity: float
 func _get_life_capacity() -> float:
-	return life_capacity + Submarine.instance.hull_capacity_upgrade
+	var upg_capacity = 0 if Submarine.instance == null else Submarine.instance.hull_capacity_upgrade
+	return life_capacity + upg_capacity
 	
 var losing_life := false
 
