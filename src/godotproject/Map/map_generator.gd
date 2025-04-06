@@ -40,10 +40,18 @@ func setNoise(layerIndex: int, weight: float, yGradient: float, seed: float, fre
 
 func _ready():
 	instance = self
+	ExplosionMap.on_explision.connect(_on_explision)
+	
 	# We'll keep the polygon pool for backward compatibility or future use
 	_init_pool()
 	randomize()
 	build(0, 20)
+
+func _on_explision(indexPos: Vector2i, radiusIdx: float):
+	var from = indexPos.y - radiusIdx
+	var to = indexPos.y + radiusIdx
+	clear_tiles(from, to)
+	generate_tilemap(from, to)
 
 func _init_pool():
 	for i in pool_size:
@@ -189,6 +197,10 @@ func add_poly(points_array: Array):
 
 func getNoiseValueAt(x: float, y: float) -> float:
 	var blended_value: float = 0
+	
+	if ExplosionMap.hasExploded(Vector2i(x, y)):
+		return 0
+	
 	for i in range(_noisesLayers.size()):
 		var val = _getNoiseValueAtLayer(i, x, y)
 		var weight = noise_weight[i]
