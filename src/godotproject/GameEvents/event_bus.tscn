@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://prilyqhtm4xf"]
+
+[ext_resource type="Script" uid="uid://wp4fi8aos2sb" path="res://GameEvents/event_bus.gd" id="1_7vqrl"]
+
+[node name="EventBus" type="Node"]
+script = ExtResource("1_7vqrl")

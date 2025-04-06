@@ -1,5 +1,6 @@
 class_name Submarine extends Node2D
 
+@export var cell_size: int = 50
 const UT = preload("res://Upgrades/upgrade_type.gd")
 const SoundNames = preload("res://Audio/soundname.gd")
 
@@ -13,8 +14,6 @@ var hull_upgrade_bought := false
 static var instance : Submarine = null
 static var rb : RigidBody2D = null
 
-var map := MapGenerator.instance
-
 func _ready():
 	instance = self
 	rb = get_node_or_null("..") # RigidBody should be parent
@@ -25,11 +24,8 @@ func get_deepness() -> int:
 func get_sensitive_deepness() -> float:
 	if(rb == null):
 		return 0
-	
-	if(map == null)	:
-		map = MapGenerator.instance
 		
-	return clamp(rb.position.y / map.cell_size, 0, INF)
+	return clamp(rb.position.y / cell_size, 0, INF)
 
 func _on_Submarine_body_entered(body: Node) -> void:
 	var collider := body.get_node_or_null("CollisionPolygon2D")

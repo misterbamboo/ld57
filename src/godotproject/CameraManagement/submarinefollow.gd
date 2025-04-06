@@ -2,11 +2,11 @@ extends Camera2D
 
 @export var target: RigidBody2D
 @export var subdetails: Submarine
-@export var smoothing: float = 0.1 
+@export var smoothing: float = 0.1
 @export var targetoffset: Vector2 = Vector2(0, 0) 
 
 var current_page := -1
-var rows_per_page := 10.0
+var rows_per_page := 20.0
 
 func _process(delta: float) -> void:
 	if target == null:
@@ -29,4 +29,4 @@ func load_page(page: int):
 	var row = page * rows_per_page
 	var viewport_start = row - rows_per_page
 	var viewport_end = row + rows_per_page * 2
-	MapGenerator.instance.build(viewport_start, viewport_end)
+	EventBus.raise(LoadMapPageEvent.new(0, 0, viewport_start, viewport_end))
