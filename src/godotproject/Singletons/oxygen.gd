@@ -8,12 +8,22 @@ var capacity: float
 @export var reduction_per_sec: float = 3.333 # 3 + 1/3
 @export var recuperation_per_sec: float = 20.0
 
+var isInactive: bool = false
+
+func inactive():
+	isInactive = true
+	
+func active():
+	isInactive = false
+
 func _ready():
 	quantity = starting_quantity
 	capacity = starting_capacity
 
 func _process(delta: float) -> void:
-	if Submarine.instance.get_deepness() > 0 and not Game.instance.invincible:
+	if(isInactive):
+		quantity += delta * recuperation_per_sec
+	elif Submarine.instance.get_deepness() > 0 and not Game.instance.invincible:
 		quantity -= delta * reduction_per_sec
 	else:
 		quantity += delta * recuperation_per_sec

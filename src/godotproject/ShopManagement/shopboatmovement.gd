@@ -1,5 +1,7 @@
 class_name ShopBoatMovement extends Sprite2D
 
+@export var playerSub: Node2D
+
 @export var boat_length := 512
 @export var sample_count := 10  # More = smoother
 @export var offsety := -80

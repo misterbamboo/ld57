@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ShopItemDef" load_steps=3 format=3 uid="uid://bj5pq30aynjca"]
+
+[ext_resource type="Texture2D" uid="uid://v5rlg4d1pvgg" path="res://ShopManagement/Assets/oxy_tank.png" id="1_56syx"]
+[ext_resource type="Script" uid="uid://b2uchrnmg5evm" path="res://ShopManagement/ItemsDatabase/ShopItemDef.gd" id="1_ejvtk"]
+
+[resource]
+script = ExtResource("1_ejvtk")
+key = "oxy_1"
+title = "Oxygen lvl 1"
+description = "Usefull to go a little depeer in the sea"
+price = 50.0
+icon = ExtResource("1_56syx")
+metadata/_custom_type_script = "uid://b2uchrnmg5evm"

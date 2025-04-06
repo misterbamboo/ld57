@@ -9,7 +9,7 @@ func _physics_process(delta):
 	var surface = Water.instance.surface_variation(global_position.x)
 	_outside_water_force(surface)
 	_keep_on_surface_when_near(surface)
-	if Game.instance.get_state() == Game.GameState.IN_ACTION or Game.instance.get_state() == Game.GameState.IN_SHOP:
+	if Game.instance.get_state() == Game.GameState.IN_ACTION:
 		_move(surface)
 
 func _move(surface: float):

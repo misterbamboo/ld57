@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://deom164vw26rg"]
+[gd_scene load_steps=27 format=3 uid="uid://deom164vw26rg"]
 
 [ext_resource type="Script" uid="uid://5w86ovkibplk" path="res://CameraManagement/submarinefollow.gd" id="1_0v7qb"]
 [ext_resource type="Script" uid="uid://sc7omqwitfjq" path="res://Map/map_generator.gd" id="1_3tbxw"]
@@ -6,16 +6,24 @@
 [ext_resource type="Script" uid="uid://ckfcpeoedif6p" path="res://GameAssets/gameassets.gd" id="2_bqqt8"]
 [ext_resource type="Script" uid="uid://nbkx4tclege3" path="res://GameState/game.gd" id="3_8qpgq"]
 [ext_resource type="Script" uid="uid://w6adipne8ret" path="res://Inventory/inventorymanager.gd" id="4_pv6b4"]
+[ext_resource type="Script" uid="uid://ck6i36gtinq6x" path="res://GameState/money.gd" id="5_cgwad"]
 [ext_resource type="Script" uid="uid://5vx4h3byum2p" path="res://Submarine/submarine.gd" id="6_v3hs3"]
 [ext_resource type="Script" uid="uid://bx0ooudrvtw4x" path="res://Submarine/submarinemovement.gd" id="7_o8l48"]
 [ext_resource type="Texture2D" uid="uid://c3q64n0uvmwjt" path="res://Submarine/Assets/sub.png" id="7_x5ji8"]
 [ext_resource type="Texture2D" uid="uid://ugunphi5287t" path="res://ShopManagement/shop.png" id="8_mi4js"]
 [ext_resource type="Script" uid="uid://bgmjqnecg48wu" path="res://ShopManagement/shopboatmovement.gd" id="9_o3vwv"]
+[ext_resource type="Script" uid="uid://3sx05gvh1j1l" path="res://ShopManagement/OpenShop/openshop.gd" id="9_va67g"]
 [ext_resource type="Script" uid="uid://dkkyfc01q7jit" path="res://Water/water.gd" id="12_qtrx8"]
 [ext_resource type="Script" uid="uid://b6g4cy2wogxrw" path="res://HUD/oxygen_meter.gd" id="13_led80"]
 [ext_resource type="Texture2D" uid="uid://c6wguud8duno8" path="res://HUD/sub_hud.png" id="14_401ut"]
 [ext_resource type="Texture2D" uid="uid://bgwg0v4a85xpl" path="res://HUD/bubble.png" id="14_mi4js"]
 [ext_resource type="Script" uid="uid://bjn4f61m5b8mf" path="res://HUD/life_meter.gd" id="15_o3vwv"]
+[ext_resource type="Script" uid="uid://c4ak6gbtvvhkn" path="res://ShopManagement/shopscreen.gd" id="17_yphxy"]
+[ext_resource type="PackedScene" uid="uid://b03t0rkjdexdx" path="res://ShopManagement/ShopItem/shop_item.tscn" id="18_ma1re"]
+[ext_resource type="Script" uid="uid://b2uchrnmg5evm" path="res://ShopManagement/ItemsDatabase/ShopItemDef.gd" id="19_6brkw"]
+[ext_resource type="Texture2D" uid="uid://v5rlg4d1pvgg" path="res://ShopManagement/Assets/oxy_tank.png" id="19_28psf"]
+[ext_resource type="Texture2D" uid="uid://dclgoyvr3jx7d" path="res://ShopManagement/Assets/exit_btn_16.png" id="20_a6adi"]
+[ext_resource type="Resource" uid="uid://bj5pq30aynjca" path="res://ShopManagement/ItemsDatabase/oxy_1.tres" id="20_cgwad"]
 
 [sub_resource type="Gradient" id="Gradient_led80"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
@@ -47,6 +55,9 @@ script = ExtResource("2_bqqt8")
 [node name="Game" type="Node" parent="GameState"]
 script = ExtResource("3_8qpgq")
 
+[node name="Money" type="Node" parent="GameState"]
+script = ExtResource("5_cgwad")
+
 [node name="Inventory" type="Node" parent="."]
 
 [node name="InventoryManager" type="Node" parent="Inventory"]
@@ -59,11 +70,49 @@ script = ExtResource("1_3tbxw")
 
 [node name="ShopManagement" type="Node2D" parent="."]
 
-[node name="ShopBoat" type="Sprite2D" parent="ShopManagement"]
+[node name="ShopBoat" type="Sprite2D" parent="ShopManagement" node_paths=PackedStringArray("playerSub")]
 scale = Vector2(2, 2)
 texture = ExtResource("8_mi4js")
 script = ExtResource("9_o3vwv")
+playerSub = NodePath("../../Submarine")
 boat_length = 1024
+
+[node name="OpenShop" type="Control" parent="ShopManagement/ShopBoat" node_paths=PackedStringArray("player", "shopBoatMovement", "shopScreen")]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = 18.0
+offset_right = -256.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("9_va67g")
+player = NodePath("../../../Submarine")
+shopBoatMovement = NodePath("..")
+shopScreen = NodePath("../../../CanvasLayer/ShopScreen")
+
+[node name="Press \'E\' to open shop" type="Label" parent="ShopManagement/ShopBoat/OpenShop"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.5
+offset_top = -17.0
+offset_right = 125.5
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 18
+text = "Press 'E' to open shop"
+horizontal_alignment = 1
 
 [node name="Submarine" type="RigidBody2D" parent="."]
 gravity_scale = 0.0
@@ -140,3 +189,139 @@ grow_vertical = 2
 texture = ExtResource("14_401ut")
 expand_mode = 1
 stretch_mode = 4
+
+[node name="ShopScreen" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("moneyDisplayLabel", "buyButton", "titleLabel", "descriptionLabel", "priceLabel", "shopItemsContainer")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("17_yphxy")
+shopDefinitions = Array[ExtResource("19_6brkw")]([ExtResource("20_cgwad")])
+moneyDisplayLabel = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer2/PlayerMoney")
+buyButton = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/Button")
+titleLabel = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Title")
+descriptionLabel = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Description")
+priceLabel = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Price")
+shopItemsContainer = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerRight/MarginContainer/ScrollContainer/CenterContainer/ShopItems")
+shopItemComponent = ExtResource("18_ma1re")
+temp_oxy_icon = ExtResource("19_28psf")
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/ShopScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/ShopScreen/CenterContainer"]
+custom_minimum_size = Vector2(600, 400)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="PlayerMoney" type="Label" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Money: 100$"
+
+[node name="ExitButton" type="Button" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 10
+icon = ExtResource("20_a6adi")
+icon_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainerLeft" type="MarginContainer" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "TITLE"
+horizontal_alignment = 1
+
+[node name="Description" type="RichTextLabel" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 11
+text = "BLA Bla Bal This item do XYZ and i want to test more shits"
+justification_flags = 171
+
+[node name="Price" type="Label" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "1000$"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "BUY"
+
+[node name="MarginContainerRight" type="PanelContainer" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerRight"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerRight/MarginContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerRight/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ShopItems" type="GridContainer" parent="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerRight/MarginContainer/ScrollContainer/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 2
+
+[connection signal="button_up" from="CanvasLayer/ShopScreen/CenterContainer/PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer2/ExitButton" to="CanvasLayer/ShopScreen" method="_on_exit_button_up"]

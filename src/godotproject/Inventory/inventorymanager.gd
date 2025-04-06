@@ -12,13 +12,12 @@ var copper_quantity: float = 0
 var diamond_quantity: float = 0
 var iron_quantity: float = 0
 
-var inventory_reward: float = 0
+var cash: float = 0
 var has_inventory: bool = false
 var can_sell: bool = false
 
 func _ready():
 	instance = self
-	inventory_reward = 0
 	_reset_inventory()
 
 func _on_inventory_body_entered(body: Node2D) -> void:
@@ -68,8 +67,11 @@ func _on_inventory_area_exited(area: Area2D):
 		can_sell = false
 
 func _sell_inventory():
+	var value := 0.0
 	for res in inventory:
-		inventory_reward += res.get_sell_price()
+		value += res.get_sell_price()
+		
+	MoneyBag.addMoney(value)
 	AudioManager.instance.play_sound(SoundNames.SoundName.SELL_RESSOURCES)
 	_reset_inventory()
 
