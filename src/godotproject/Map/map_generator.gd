@@ -4,6 +4,9 @@ static var instance: MapGenerator = null
 
 @export var width = 50
 @export var cell_size = 50
+@onready var tile_map_layer: TileMapLayer = $TileMapLayer
+@export var source_id: int = 0  # TileSet source ID
+@export var debug_show_mesh: bool = false  # Toggle to show/hide the polygon mesh for debugging
 
 var pool_size = 200 
 var polygon_pool: Array[Polygon2D] = []
@@ -19,7 +22,7 @@ var _noisesLayers : Array[FastNoiseLite] = [
 ]
 var noise_weight: Array[float] 				= [1.00, 0.50, 1.00, 0, 0]
 var noise_y_gradient: Array[float] 			= [06.5, 37.5, 0.00, 0, 0]
-var noise_seed: Array[float] 				= [20.0, 20.0, 0.00, 0, 0]
+var noise_seed: Array[float] 				= [21.0, 21.0, 0.00, 0, 0]
 var noise_frequency: Array[float] 			= [0.18, 0.11, 0.12, 0, 0]
 var noise_fractal_octaves: Array[float] 	= [7.40, 7.00, 0.00, 0, 0]
 var noise_fractal_lacunarity: Array[float] 	= [0.87, 0.65, 0.00, 0, 0]
@@ -37,6 +40,7 @@ func setNoise(layerIndex: int, weight: float, yGradient: float, seed: float, fre
 
 func _ready():
 	instance = self
+	# We'll keep the polygon pool for backward compatibility or future use
 	_init_pool()
 	randomize()
 	build(0, 20)
@@ -51,16 +55,57 @@ func _input(event):
 	
 func build(from: int, to: int):
 	from = clamp(from, 0, INF)
-	polygon_index = 0
+	
+	# Clear existing tiles
+	clear_tiles(from, to)
+	
+	# Generate new tilemap
+	generate_tilemap(from, to)
+	
+	# Also generate polygon mesh for backward compatibility or debugging
+	if debug_show_mesh:
+		generate_polygon_mesh(from, to)
+	else:
+		# Hide all polygons when debug mesh is disabled
+		for poly in polygon_pool:
+			poly.visible = false
 
-	# create new Polygon2DNode
+func clear_tiles(from_y: int, to_y: int):
+	# Clear the tiles in the specified range
+	for x in range(width):
+		for y in range(from_y, to_y):
+			tile_map_layer.erase_cell(Vector2i(x, y))
+
+func generate_tilemap(from_y: int, to_y: int):
+	for x in range(width):
+		for y in range(from_y, to_y):
+			var square_type = get_square_val(x, y)
+			
+			# Skip empty tiles
+			if square_type == 0:
+				continue
+				
+			# Calculate the tile coordinates in the 2D grid (8 tiles per row)
+			var tile_x = square_type % 8  # Remainder when divided by 8
+			var tile_y = square_type / 8  # Integer division by 8
+			
+			# Place tile on the tilemap using 2D coordinates
+			tile_map_layer.set_cell(
+				Vector2i(x, y),          # Cell coordinates
+				source_id,               # TileSet source ID
+				Vector2i(tile_x, tile_y) # Atlas coordinates for 2D grid
+			)
+
+# Keep the polygon generation for backward compatibility or debugging
+func generate_polygon_mesh(from: int, to: int):
+	polygon_index = 0
 	var all_polygons = generate_cave_mesh(from, to)
 	for poly_points in all_polygons:
 		var poly = _get_next_polygon()
 		poly.visible = true
 		poly.polygon = PackedVector2Array(poly_points)
 		
-	# Cache les polygones non utilisés
+	# Hide unused polygons
 	for i in range(polygon_index, polygon_pool.size()):
 		polygon_pool[i].visible = false
 
