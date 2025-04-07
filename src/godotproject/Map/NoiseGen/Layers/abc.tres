@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="NoiseGenLayer" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://Map/NoiseGen/NoiseGenLayer.gd" id="1_8jyil"]
+
+[resource]
+script = ExtResource("1_8jyil")
+Name = "abc"
+LayerColor = Color(0.140442, 0.691406, 0.523534, 1)
+Seed = 3.05
+Frequency = 0.08
+FractalOctaves = 1.0
+FractalLacunarity = 1.0
+FractalGain = 1.0
+CurveName = "Caves"
+BreakPointActive = true
+BreakPoint = 0.45
