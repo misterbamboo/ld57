@@ -22,8 +22,9 @@ Oxygen="*res://Singletons/oxygen.tscn"
 Life="*res://Singletons/life.tscn"
 MoneyBag="*res://GameState/money.gd"
 Inventory="*res://Inventory/inventorymanager.gd"
-ExplosionMap="*res://Map/Explosions/ExplosionMapHandler.gd"
+ExplosionMap="*res://Map/Explosions/ExplosionMap.gd"
 NoiseGenService="*res://Map/NoiseGen/NoiseGen.gd"
+OreMap="*res://Map/Ores/OreMap.gd"
 
 [display]
 

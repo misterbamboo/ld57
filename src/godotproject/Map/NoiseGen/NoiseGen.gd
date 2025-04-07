@@ -2,6 +2,7 @@ extends Node
 class_name NoiseGen
 # SEE: Global NoiseGenService
 
+const GroundKey := "ground"
 const CopperKey := "copper"
 const IronKey := "iron"
 const GoldKey := "gold"
@@ -25,11 +26,13 @@ func get_layer_with_name(name: String) -> NoiseGenLayer:
 			return layer
 	return null
 var _layerNameColors := {}
+func getGroundColor() -> Color: return _layerNameColors[GroundKey]
 func getCopperColor() -> Color: return _layerNameColors[CopperKey]
 func getIronColor() -> Color: return _layerNameColors[IronKey]
 func getGoldColor() -> Color: return _layerNameColors[GoldKey]
 func getDiamondColor() -> Color: return _layerNameColors[DiamondKey]
 func getPlatinumColor() -> Color: return _layerNameColors[PlatinumKey]
+
 	
 #########
 # Curves
@@ -97,6 +100,8 @@ func _keepColorCache(layerName: String, layerColor: Color):
 		_layerNameColors[DiamondKey] = layerColor
 	if layerName.contains(PlatinumKey):
 		_layerNameColors[PlatinumKey] = layerColor
+	if layerName.contains(GroundKey):
+		_layerNameColors[GroundKey] = layerColor
 	
 func loadCurves():
 	var path := "res://Map/NoiseGen/Curves/"

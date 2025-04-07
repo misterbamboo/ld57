@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://deom164vw26rg"]
+[gd_scene load_steps=30 format=3 uid="uid://deom164vw26rg"]
 
 [ext_resource type="Script" uid="uid://5w86ovkibplk" path="res://CameraManagement/submarinefollow.gd" id="1_0v7qb"]
 [ext_resource type="Script" uid="uid://sc7omqwitfjq" path="res://Map/map_generator.gd" id="1_3tbxw"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://GameState/money.gd" id="5_cgwad"]
 [ext_resource type="Script" uid="uid://cuaa861w1ixl" path="res://Map/map_debug_visualizer.gd" id="7_0igvr"]
 [ext_resource type="Script" uid="uid://dra6w7ham0ueg" path="res://Map/tile_map_renderer.gd" id="7_a6adi"]
+[ext_resource type="Script" uid="uid://c0o6qplts8m2p" path="res://Map/Ores/OreGenerator.gd" id="7_f21le"]
 [ext_resource type="TileSet" uid="uid://dftc1kq64liug" path="res://Map/map_tileset.tres" id="8_28psf"]
 [ext_resource type="Texture2D" uid="uid://ugunphi5287t" path="res://ShopManagement/shop.png" id="8_mi4js"]
 [ext_resource type="Script" uid="uid://bgmjqnecg48wu" path="res://ShopManagement/shopboatmovement.gd" id="9_o3vwv"]
@@ -84,6 +85,10 @@ metadata/_custom_type_script = "uid://dra6w7ham0ueg"
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Map/MapGenerator/TileMapRenderer"]
 tile_set = ExtResource("8_28psf")
+
+[node name="OreGenerator" type="Node2D" parent="Map"]
+script = ExtResource("7_f21le")
+oreScene = ExtResource("25_0igvr")
 
 [node name="ShopManagement" type="Node2D" parent="."]
 

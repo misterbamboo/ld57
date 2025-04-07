@@ -1,4 +1,4 @@
-class_name ExplosionMapHandler extends Node
+extends Node
 
 signal on_explosion(indexPos: Vector2i, radiusIdx: float)
 
