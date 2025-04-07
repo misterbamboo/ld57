@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" uid="uid://bx0ooudrvtw4x" path="res://Submarine/submarinemovement.gd" id="1_de3bh"]
 [ext_resource type="Texture2D" uid="uid://c3q64n0uvmwjt" path="res://Submarine/Assets/sub.png" id="2_bk2ki"]
-[ext_resource type="Script" uid="uid://b51u4u2hgpigx" path="res://Submarine/submarinesprite.gd" id="3_7kknb"]
+[ext_resource type="Script" path="res://Submarine/submarinesprite.gd" id="3_7kknb"]
 [ext_resource type="Script" uid="uid://5vx4h3byum2p" path="res://Submarine/submarine.gd" id="4_wjrfn"]
 [ext_resource type="Script" uid="uid://lun5pptgqmsx" path="res://Submarine/torpedo_launcher.gd" id="5_bk2ki"]
 [ext_resource type="PackedScene" uid="uid://c64yoqhyqqmb8" path="res://Torpedo/Torpedo.tscn" id="6_7kknb"]
-[ext_resource type="Script" uid="uid://tvvueq5o645q" path="res://Submarine/grapple.gd" id="7_wjrfn"]
-[ext_resource type="Script" uid="uid://7jv4o2westfr" path="res://Submarine/grappling_rope.gd" id="8_rysji"]
-[ext_resource type="Script" uid="uid://yj50l3aymutp" path="res://Submarine/hook.gd" id="9_qemq7"]
+[ext_resource type="Script" path="res://Submarine/grapple.gd" id="7_wjrfn"]
+[ext_resource type="Script" path="res://Submarine/grappling_rope.gd" id="8_rysji"]
+[ext_resource type="Script" path="res://Submarine/hook.gd" id="9_qemq7"]
 [ext_resource type="Texture2D" uid="uid://cb8d0tystg08m" path="res://Submarine/hook.png" id="10_qemq7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7kknb"]
