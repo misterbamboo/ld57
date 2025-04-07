@@ -38,7 +38,7 @@ static func Create(
 @export var BreakPoint: float
 
 func _init() -> void:
-	pass
+	randomize()
 	
 func _save_to_disk():
 	ResourceSaver.save(self, "res://Map/NoiseGen/Layers/" + Name + ".tres")
@@ -46,7 +46,8 @@ func _save_to_disk():
 func toNoise() -> FastNoiseLite:
 	var noise := FastNoiseLite.new()
 	noise.noise_type = FastNoiseLite.TYPE_PERLIN
-	noise.seed = Seed
+	noise.seed = Seed # defined seed
+	noise.seed = int(randf() * 100000)
 	noise.frequency = Frequency
 	noise.fractal_octaves = FractalOctaves
 	noise.fractal_lacunarity = FractalLacunarity

@@ -292,21 +292,7 @@ func _find_renderer_node():
 		push_warning("MapGenerator found multiple renderer nodes. Only the first one will be used.")
 
 func _setup_default_noise_params():
-	# First layer - main terrain structure
-	var seed_1 = randf() * 100000
-	noise_generator.set_noise_params(0, 1.00, 6.50, seed_1, 0.18, 7.40, 0.87, 0.58)
-	
-	# Second layer - detail and variation
-	var seed_2 = randf() * 100000
-	noise_generator.set_noise_params(1, 0.50, 37.5, seed_2, 0.11, 7.00, 0.65, 0.01)
-	
-	# Third layer - subtle noise
-	var seed_3 = randf() * 100000
-	noise_generator.set_noise_params(2, 1.00, 0.00, seed_3, 0.12, 0.00, 0.00, 0.00)
-	
-	# Fourth and fifth layers (unused by default)
-	noise_generator.set_noise_params(3, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00)
-	noise_generator.set_noise_params(4, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00)
+	pass
 
 func _input(event):
 	if Engine.is_editor_hint():
