@@ -1,32 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://d141tqfswnd6o"]
+[gd_scene load_steps=9 format=3 uid="uid://d141tqfswnd6o"]
 
 [ext_resource type="Script" uid="uid://obd4w5fcojxo" path="res://Scenes/MapGenTestsScene/NoiseGenConfigs.gd" id="2_c6p8m"]
 [ext_resource type="Script" uid="uid://dy64c2aj0yh5n" path="res://Scenes/MapGenTestsScene/sliders.gd" id="2_un6ir"]
-[ext_resource type="Curve" uid="uid://dk8l73ghwyjhp" path="res://Map/NoiseGen/Curves/Caves_curve.tres" id="3_732gm"]
-
-[sub_resource type="Curve" id="Curve_c6p8m"]
-resource_name = "Copper"
-_limits = [0.0, 1.0, 0.0, 250.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(38.3065, 0.505618), 0.0, 0.0, 0, 0, Vector2(104.839, 0.775281), 0.0276105, 0.0276105, 0, 0, Vector2(171.371, 0.752809), -0.0126427, -0.0126427, 0, 0, Vector2(233.871, 0.707865), -0.0087191, -0.0087191, 0, 0, Vector2(250, 0), 0.0, 0.0, 0, 0]
-point_count = 6
-
-[sub_resource type="Curve" id="Curve_732gm"]
-resource_name = "IronCurve"
-_limits = [0.0, 1.0, 0.0, 100.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(11.4391, 0.461656), 0.0, 0.0, 0, 0, Vector2(19.1882, 0.272239), 0.0, 0.0, 0, 0, Vector2(37.9032, 0.674157), 0.0, 0.0, 0, 0, Vector2(59.6774, 0.516854), 0.0, 0.0, 0, 0, Vector2(77.1218, 0.950153), 0.0, 0.0, 0, 0, Vector2(100, 0), 0.0, 0.0, 0, 0]
-point_count = 7
-
-[sub_resource type="Curve" id="Curve_2vb6v"]
-resource_name = "GoldCurve"
-_limits = [0.0, 1.0, 0.0, 500.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(213.71, 0.719101), 0.0, 0.0, 0, 0, Vector2(233.871, 0.348315), 0.0, 0.0, 0, 0, Vector2(448.34, 0.252301), 0.0, 0.0, 0, 0, Vector2(500, 0), 0.0, 0.0, 0, 0]
-point_count = 5
-
-[sub_resource type="Curve" id="Curve_4u2s6"]
-resource_name = "Basic"
-_limits = [0.0, 1.0, 0.0, 1000.0]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(266.129, 0.775281), -0.000676725, -0.000676725, 0, 0, Vector2(725.806, 0.910112), 0.0, 0.0, 0, 0, Vector2(1000, 0), 0.0, 0.0, 0, 0]
-point_count = 4
+[ext_resource type="Curve" uid="uid://dk8l73ghwyjhp" path="res://Map/NoiseGen/Curves/1_ground_curve.tres" id="3_732gm"]
+[ext_resource type="Curve" uid="uid://b5u32uyi457kh" path="res://Map/NoiseGen/Curves/2_copper_curve.tres" id="4_in2fh"]
+[ext_resource type="Curve" uid="uid://dw7m7knrtx0gd" path="res://Map/NoiseGen/Curves/3_iron_curve.tres" id="5_5oa7x"]
+[ext_resource type="Curve" uid="uid://dnav1rymtenbp" path="res://Map/NoiseGen/Curves/4_gold_curve.tres" id="6_sgoq5"]
+[ext_resource type="Curve" uid="uid://b2ratltfmapc2" path="res://Map/NoiseGen/Curves/5_diamond_curve.tres" id="7_tbe8a"]
+[ext_resource type="Curve" uid="uid://dydwl8hr6aq1x" path="res://Map/NoiseGen/Curves/6_platinum_curve.tres" id="8_oeeng"]
 
 [node name="MapGenTestsScene" type="Control"]
 layout_mode = 3
@@ -38,12 +19,11 @@ grow_vertical = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="NoisePreviewContainer" type="Panel" parent="CanvasLayer" node_paths=PackedStringArray("yOffset", "noisePreview")]
+[node name="NoisePreviewContainer" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("yOffset", "noisePreview")]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 222.0
-offset_bottom = 222.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_un6ir")
@@ -51,29 +31,34 @@ yOffset = NodePath("OffsetY")
 noisePreview = NodePath("NoisePreview")
 
 [node name="OffsetY" type="VSlider" parent="CanvasLayer/NoisePreviewContainer"]
-layout_mode = 0
-offset_left = 1183.0
-offset_top = 556.0
-offset_right = 1199.0
-offset_bottom = 1313.0
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = 783.0
+offset_bottom = 752.0
+grow_horizontal = 0
+grow_vertical = 2
 rotation = 3.14159
-max_value = 1000.0
+max_value = 5000.0
 
 [node name="NoisePreview" type="Sprite2D" parent="CanvasLayer/NoisePreviewContainer"]
-position = Vector2(774, 227)
+position = Vector2(774, 456)
 scale = Vector2(2.36719, 2.36719)
 
 [node name="Camera2D" type="Camera2D" parent="CanvasLayer"]
 visible = false
 offset = Vector2(600.61, 400)
 
-[node name="NoiseGenConfigs" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("layerNameEdit", "layerColorEdit", "layerSeedEdit", "layerFrequencyEdit", "layerFractalOctavesEdit", "layerFractalLacunarityEdit", "layerFractalGainEdit", "layerCurveSelect", "breakPointActiveCheck", "breakPointSlider")]
+[node name="NoiseGenConfigs" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("layerNameSelect", "layerColorEdit", "layerSeedEdit", "layerFrequencyEdit", "layerFractalOctavesEdit", "layerFractalLacunarityEdit", "layerFractalGainEdit", "layerCurveSelect", "breakPointActiveCheck", "breakPointSlider")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("2_c6p8m")
-layerNameEdit = NodePath("VBoxContainer/GridContainer/TextEdit_LayerName_0")
+layerNameSelect = NodePath("VBoxContainer/GridContainer/OptionButton_LayerName_0")
 layerColorEdit = NodePath("VBoxContainer/GridContainer/ColorPickerButton_0")
 layerSeedEdit = NodePath("VBoxContainer/GridContainer/SpinBox_Seed_0")
 layerFrequencyEdit = NodePath("VBoxContainer/GridContainer/SpinBox_Frequency_0")
@@ -81,7 +66,7 @@ layerFractalOctavesEdit = NodePath("VBoxContainer/GridContainer/SpinBox_FractalO
 layerFractalLacunarityEdit = NodePath("VBoxContainer/GridContainer/SpinBox_FractalLacunarity_0")
 layerFractalGainEdit = NodePath("VBoxContainer/GridContainer/SpinBox_FractalGain_0")
 layerCurveSelect = NodePath("VBoxContainer/GridContainer/OptionButton_Curve_0")
-curves = Array[Curve]([SubResource("Curve_c6p8m"), SubResource("Curve_732gm"), SubResource("Curve_2vb6v"), SubResource("Curve_4u2s6"), ExtResource("3_732gm")])
+curves = Array[Curve]([ExtResource("3_732gm"), ExtResource("4_in2fh"), ExtResource("5_5oa7x"), ExtResource("6_sgoq5"), ExtResource("7_tbe8a"), ExtResource("8_oeeng")])
 breakPointActiveCheck = NodePath("VBoxContainer/GridContainer/CenterContainer_Active/BreakPointCheckButton_0")
 breakPointSlider = NodePath("VBoxContainer/GridContainer/CenterContainer_BreakPoint/BreakPointSlider_0")
 
@@ -150,7 +135,7 @@ layout_mode = 2
 text = "BreakPoint"
 horizontal_alignment = 1
 
-[node name="TextEdit_LayerName_0" type="TextEdit" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+[node name="OptionButton_LayerName_0" type="OptionButton" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(117.17, 40)
 layout_mode = 2
 
@@ -160,15 +145,16 @@ layout_mode = 2
 
 [node name="SpinBox_Seed_0" type="SpinBox" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
 layout_mode = 2
-step = 0.01
+max_value = 1000.0
 
 [node name="SpinBox_Frequency_0" type="SpinBox" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
 layout_mode = 2
-step = 0.01
+max_value = 1000.0
+step = 0.001
 
 [node name="SpinBox_FractalOctaves_0" type="SpinBox" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
 layout_mode = 2
-step = 0.01
+max_value = 500.0
 
 [node name="SpinBox_FractalLacunarity_0" type="SpinBox" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
 layout_mode = 2
@@ -209,7 +195,7 @@ layout_mode = 2
 [node name="Button" type="Button" parent="CanvasLayer/NoiseGenConfigs/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(117.025, 0)
 layout_mode = 2
-text = "Create"
+text = "Save"
 
 [node name="ItemList" type="ItemList" parent="CanvasLayer/NoiseGenConfigs/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 200)

@@ -1,7 +1,0 @@
-[gd_resource type="Curve" format=3 uid="uid://dk8l73ghwyjhp"]
-
-[resource]
-resource_name = "Caves"
-_limits = [0.0, 1.0, 0.0, 5000.0]
-_data = [Vector2(0, 0), 0.0, 1.48193e-05, 0, 0, Vector2(54.6448, 0.775281), 0.000379602, 0.000379602, 0, 0, Vector2(2349.73, 1), 0.0, 0.0, 0, 0]
-point_count = 3

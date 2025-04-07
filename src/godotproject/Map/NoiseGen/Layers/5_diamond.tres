@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="NoiseGenLayer" load_steps=2 format=3 uid="uid://7scqby4oykkd"]
+
+[ext_resource type="Script" uid="uid://daw03tl25x7lq" path="res://Map/NoiseGen/NoiseGenLayer.gd" id="1_4ia2q"]
+
+[resource]
+script = ExtResource("1_4ia2q")
+Name = "5_diamond"
+LayerColor = Color(1, 1, 1, 1)
+Seed = 1.0
+Frequency = 0.49
+FractalOctaves = 5.0
+FractalLacunarity = 1.42
+FractalGain = 0.52
+CurveName = "5_diamond_curve"
+BreakPointActive = true
+BreakPoint = 0.2
