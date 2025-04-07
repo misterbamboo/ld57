@@ -34,25 +34,37 @@ func _get_next_polygon() -> Polygon2D:
         polygon_index += 1
         return create_polygon()
         
-func render_map(square_generator: MarchingSquaresGenerator, from_y: int, to_y: int, width: int):
+# Implementation of parent class abstract method for 2D map rendering
+func render_map(square_generator: MarchingSquaresGenerator, x_from: int, x_to: int, y_from: int, y_to: int):
+    if Engine.is_editor_hint():
+        return
+        
+    # Reset the polygon index and clear existing polygons
     polygon_index = 0
-    var polygons = []
+    for poly in polygon_pool:
+        poly.visible = false
     
-    for x in range(width):
-        for y in range(from_y, to_y):
-            var points = square_generator.generate_polygon_points(x, y, cell_size)
-            if points.size() >= 3:
-                polygons.append(points)
+    # Generate polygons for the specified map region
+    for x in range(x_from, x_to):
+        for y in range(y_from, y_to):
+            var square_type = square_generator.get_square_value(x, y)
+            if square_type == 0:
+                continue
                 
-    for poly_points in polygons:
-        var poly = _get_next_polygon()
-        poly.visible = true
-        poly.polygon = PackedVector2Array(poly_points)
-        
-    # Hide unused polygons
-    for i in range(polygon_index, polygon_pool.size()):
-        polygon_pool[i].visible = false
-        
+            # Get or create a polygon for this cell
+            var polygon = _get_next_polygon()
+            polygon.visible = true
+            
+            # Calculate polygon vertices based on cell position
+            var vertices = PackedVector2Array()
+            vertices.append(Vector2(x * cell_size, y * cell_size))
+            vertices.append(Vector2((x + 1) * cell_size, y * cell_size))
+            vertices.append(Vector2((x + 1) * cell_size, (y + 1) * cell_size))
+            vertices.append(Vector2(x * cell_size, (y + 1) * cell_size))
+            
+            polygon.polygon = vertices
+            polygon_index += 1
+
 func hide_all():
     for poly in polygon_pool:
         poly.visible = false

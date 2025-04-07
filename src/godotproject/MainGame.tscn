@@ -38,6 +38,7 @@ gradient = SubResource("Gradient_led80")
 [node name="Camera2D" type="Camera2D" parent="CameraManagement" node_paths=PackedStringArray("target")]
 script = ExtResource("1_0v7qb")
 target = NodePath("../../Submarine")
+cell_size = 32
 
 [node name="Audio" type="Node" parent="."]
 
@@ -68,10 +69,9 @@ script = ExtResource("4_pv6b4")
 script = ExtResource("1_3tbxw")
 width = 100
 cell_size = 32
-debug_show_page_seams = true
+debug_show_updated_areas = null
 
 [node name="TileMapRenderer" type="Node2D" parent="Map/MapGenerator"]
-position = Vector2(-1200, 0)
 script = ExtResource("7_a6adi")
 cell_size = 32
 metadata/_custom_type_script = "uid://dra6w7ham0ueg"
@@ -143,7 +143,8 @@ motion_scale = Vector2(0.7, 0.7)
 [node name="MapGenerator" type="Node2D" parent="ParallaxBackground/ParallaxLayer"]
 script = ExtResource("1_3tbxw")
 map_layer = 1
-debug_show_page_seams = true
+debug_show_chunk_seams = null
+debug_show_updated_areas = null
 metadata/_custom_type_script = "uid://sc7omqwitfjq"
 
 [node name="TileMapRenderer" type="Node2D" parent="ParallaxBackground/ParallaxLayer/MapGenerator"]
