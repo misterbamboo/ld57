@@ -7,7 +7,7 @@ var currentTorpedo: Torpedo = null
 func _process(delta: float) -> void:
 	if currentTorpedo == null:
 		spawnTorpedo()
-		
+
 func spawnTorpedo():
 	if torpedoTemplace != null:
 			currentTorpedo = torpedoTemplace.instantiate() as Torpedo
@@ -25,7 +25,7 @@ func _input(event: InputEvent) -> void:
 		currentTorpedo.look_at(mouse_pos)
 
 	# launch torpedo on left click
-	if event is InputEventMouseButton and event.is_pressed():
+	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
 		currentTorpedo.reparent(get_tree().root)
 		currentTorpedo.launch()
 		currentTorpedo = null
