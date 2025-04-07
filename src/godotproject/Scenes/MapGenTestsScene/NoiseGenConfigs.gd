@@ -3,7 +3,7 @@ class_name NoiseGenConfigs
 
 signal noiseGenLayersChanged(noiseGenLayers: Array[NoiseGenLayer], curves: Array[Curve])
 
-@export var layerNameEdit: TextEdit
+@export var layerNameSelect: OptionButton
 @export var layerColorEdit: ColorPickerButton
 @export var layerSeedEdit: SpinBox
 @export var layerFrequencyEdit: SpinBox
@@ -16,14 +16,16 @@ signal noiseGenLayersChanged(noiseGenLayers: Array[NoiseGenLayer], curves: Array
 @export var breakPointSlider: HSlider
 
 var curvesNames := {}
+var layerNames := {}
 
 var noiseGenLayers: Array[NoiseGenLayer] = []
 var current_layer: NoiseGenLayer = NoiseGenLayer.new()
 
 func _ready() -> void:
 	_loadLayers()
-	_loadCurvesDropDown()
 	_refresh_ItemList_layers()
+	_loadLayerNamesDropDown()
+	_loadCurvesDropDown()
 	_bind_editors()
 	
 func _loadLayers():
@@ -32,6 +34,7 @@ func _loadLayers():
 	if dir:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
+		noiseGenLayers = []
 		while file_name != "":
 			if not dir.current_is_dir() and file_name.ends_with(".tres"):
 				var full_path = path + file_name
@@ -39,6 +42,14 @@ func _loadLayers():
 				if res is NoiseGenLayer:
 					noiseGenLayers.append(res)
 			file_name = dir.get_next()
+
+func _loadLayerNamesDropDown():
+	var i := 0
+	for layer in noiseGenLayers:
+		$VBoxContainer/GridContainer/OptionButton_LayerName_0.add_item(layer.Name, i)
+		$VBoxContainer/GridContainer/OptionButton_LayerName_0.set_item_text(i, layer.Name)
+		layerNames[i] = layer.Name
+		i += 1
 	
 func _loadCurvesDropDown():
 	var i := 0
@@ -49,8 +60,8 @@ func _loadCurvesDropDown():
 		i += 1
 		
 func _bind_editors():
-	layerNameEdit.text_changed.connect(func():
-		current_layer.Name = layerNameEdit.text
+	layerNameSelect.item_selected.connect(func(idx: int):
+		current_layer.Name = layerNames[idx]
 		_fire_noiseGenLayersChanged()
 	)
 	layerColorEdit.color_changed.connect(func(c: Color):
@@ -91,7 +102,7 @@ func _bind_editors():
 	)
 
 func _on_button_pressed() -> void:
-	var name := layerNameEdit.text
+	var name: String = layerNames[layerNameSelect.get_selected_id()]
 	var color := layerColorEdit.color
 	var seed := layerSeedEdit.value
 	var frequency := layerFrequencyEdit.value
@@ -104,8 +115,8 @@ func _on_button_pressed() -> void:
 	var breakPoint := breakPointSlider.value
 	
 	var layer = NoiseGenLayer.Create(name, color, seed, frequency, fractalOctaves, fractalLacunarity, fractalGain, curveName, breakPointActive, breakPoint)
-	noiseGenLayers.append(layer)
 	layer._save_to_disk()
+	_loadLayers()
 	_refresh_ItemList_layers()
 	
 func _refresh_ItemList_layers():
@@ -125,7 +136,14 @@ func _on_item_list_item_selected(index: int) -> void:
 			
 func _load_layer_in_grid(layer: NoiseGenLayer):
 	current_layer = layer
-	layerNameEdit.text = layer.Name
+	
+	var foundId := 0
+	for i in range(layerNameSelect.item_count):
+		var itemName = layerNameSelect.get_item_text(i)
+		if itemName == layer.Name:
+			foundId = i
+			break		
+	layerNameSelect.select(foundId)
 	layerColorEdit.color = layer.LayerColor
 	layerSeedEdit.value = layer.Seed
 	layerFrequencyEdit.value = layer.Frequency

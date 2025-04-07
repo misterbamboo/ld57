@@ -4,13 +4,15 @@ class_name NoisePreviewContainer
 @export var yOffset: VSlider
 @export var noisePreview: Sprite2D
 
+var scanLineY: int = 0
+
 var previewSum: int
 var noiseGenLayers: Array[NoiseGenLayer] = []
 
 var noises: Array[FastNoiseLite] = []
 var curves: Array[Curve] = []
 
-var size = 300
+var size = 275
 var img := Image.create(size, size, false, Image.FORMAT_RGBA8) # .FORMAT_L8 grayscale
 
 func _on_noise_gen_configs_noise_gen_layers_changed(newLayers: Array[NoiseGenLayer], curvesDef: Array[Curve]) -> void:
@@ -29,10 +31,14 @@ func _process(time: float):
 func updatePreview():
 	for x in size:
 		for y in size:
-			var color = _get_noise_color(x, y + yOffset.value)
-			img.set_pixel(x, y, color)
+			if y >= scanLineY and y < scanLineY + 10 :
+				var color = _get_noise_color(x, y + yOffset.value)
+				img.set_pixel(x, y, color)
 	var tex := ImageTexture.create_from_image(img)
 	noisePreview.texture = tex
+	scanLineY += 10
+	if scanLineY >= size:
+		scanLineY = 0
 
 func _get_noise_color(x: float, y: float) -> Color:
 	var best_color: Color = Color(0, 0, 0)

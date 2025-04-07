@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="NoiseGenLayer" load_steps=2 format=3 uid="uid://xukutmcaotp2"]
+
+[ext_resource type="Script" uid="uid://daw03tl25x7lq" path="res://Map/NoiseGen/NoiseGenLayer.gd" id="1_4ia2q"]
+
+[resource]
+script = ExtResource("1_4ia2q")
+Name = "3_iron"
+LayerColor = Color(0.632527, 0.72003, 0.806057, 1)
+Seed = 1.0
+Frequency = 0.165
+FractalOctaves = 2.0
+FractalLacunarity = 1.0
+FractalGain = 1.0
+CurveName = "3_iron_curve"
+BreakPointActive = true
+BreakPoint = 0.37

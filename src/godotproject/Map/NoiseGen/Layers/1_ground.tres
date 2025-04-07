@@ -4,13 +4,13 @@
 
 [resource]
 script = ExtResource("1_8jyil")
-Name = "abc"
-LayerColor = Color(0.140442, 0.691406, 0.523534, 1)
-Seed = 3.05
-Frequency = 0.08
-FractalOctaves = 1.0
-FractalLacunarity = 1.0
-FractalGain = 1.0
-CurveName = "Caves"
+Name = "1_ground"
+LayerColor = Color(0.770197, 0.595334, 0.495179, 1)
+Seed = 4.0
+Frequency = 0.059
+FractalOctaves = 2.0
+FractalLacunarity = 2.22
+FractalGain = 0.13
+CurveName = "1_ground_curve"
 BreakPointActive = true
-BreakPoint = 0.45
+BreakPoint = 0.36

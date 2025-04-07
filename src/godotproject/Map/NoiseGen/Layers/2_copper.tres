@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="NoiseGenLayer" load_steps=2 format=3 uid="uid://dxtrdrs33j5ul"]
+
+[ext_resource type="Script" uid="uid://daw03tl25x7lq" path="res://Map/NoiseGen/NoiseGenLayer.gd" id="1_qgil2"]
+
+[resource]
+script = ExtResource("1_qgil2")
+Name = "2_copper"
+LayerColor = Color(0.847309, 0.331006, 0, 1)
+Seed = 4.0
+Frequency = 0.813
+FractalOctaves = 7.0
+FractalLacunarity = 5.96
+FractalGain = 3.21
+CurveName = "2_copper_curve"
+BreakPointActive = true
+BreakPoint = 0.54
