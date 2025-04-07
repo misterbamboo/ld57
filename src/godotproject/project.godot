@@ -23,6 +23,7 @@ Life="*res://Singletons/life.tscn"
 MoneyBag="*res://GameState/money.gd"
 Inventory="*res://Inventory/inventorymanager.gd"
 ExplosionMap="*res://Map/Explosions/ExplosionMapHandler.gd"
+NoiseGenService="*res://Map/NoiseGen/NoiseGen.gd"
 
 [display]
 
