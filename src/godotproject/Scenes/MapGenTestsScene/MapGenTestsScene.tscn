@@ -1,17 +1,31 @@
-[gd_scene load_steps=6 format=3 uid="uid://d141tqfswnd6o"]
+[gd_scene load_steps=7 format=3 uid="uid://d141tqfswnd6o"]
 
-[ext_resource type="Script" uid="uid://sc7omqwitfjq" path="res://Map/map_generator.gd" id="1_8sccp"]
+[ext_resource type="Script" uid="uid://obd4w5fcojxo" path="res://Scenes/MapGenTestsScene/NoiseGenConfigs.gd" id="2_c6p8m"]
 [ext_resource type="Script" uid="uid://dy64c2aj0yh5n" path="res://Scenes/MapGenTestsScene/sliders.gd" id="2_un6ir"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_qmwpp"]
-line_spacing = 2.0
-font_size = 12
-shadow_size = 0
+[sub_resource type="Curve" id="Curve_c6p8m"]
+resource_name = "Copper"
+_limits = [0.0, 1.0, 0.0, 250.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(100.515, 1), 0.0276105, 0.0276105, 0, 0, Vector2(139.175, 0.516854), -0.0126427, -0.0126427, 0, 0, Vector2(172.68, 0.280899), -0.0087191, -0.0087191, 0, 0, Vector2(250, 0), 0.0, 0.0, 0, 0]
+point_count = 5
 
-[sub_resource type="Gradient" id="Gradient_qmwpp"]
+[sub_resource type="Curve" id="Curve_732gm"]
+resource_name = "IronCurve"
+_limits = [0.0, 1.0, 0.0, 100.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(11.4391, 0.461656), 0.0, 0.0, 0, 0, Vector2(19.1882, 0.272239), 0.0, 0.0, 0, 0, Vector2(33.9483, 0.71089), 0.0, 0.0, 0, 0, Vector2(58.3026, 0.481595), 0.0, 0.0, 0, 0, Vector2(77.1218, 0.950153), 0.0, 0.0, 0, 0, Vector2(100, 0), 0.0, 0.0, 0, 0]
+point_count = 7
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_wpvyo"]
-gradient = SubResource("Gradient_qmwpp")
+[sub_resource type="Curve" id="Curve_2vb6v"]
+resource_name = "GoldCurve"
+_limits = [0.0, 1.0, 0.0, 500.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(448.34, 0.252301), 0.0, 0.0, 0, 0, Vector2(500, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_4u2s6"]
+resource_name = "Basic"
+_limits = [0.0, 1.0, 0.0, 1000.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1000, 0), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="MapGenTestsScene" type="Control"]
 layout_mode = 3
@@ -21,203 +35,185 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Camera2D" type="Camera2D" parent="."]
-offset = Vector2(600, 400)
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Map" type="Node2D" parent="."]
-script = ExtResource("1_8sccp")
-
-[node name="Controls" type="Control" parent="." node_paths=PackedStringArray("yCam", "sliderIndex", "sliderWeight", "sliderYGradient", "labelIndex", "labelWeight", "labelYGradient", "slider1", "slider2", "slider3", "slider4", "slider5", "label1", "label2", "label3", "label4", "label5", "noisePreview", "mapGenerator")]
-layout_mode = 1
+[node name="NoisePreviewContainer" type="Panel" parent="CanvasLayer" node_paths=PackedStringArray("yOffset", "noisePreview")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 222.0
+offset_bottom = 222.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_un6ir")
-yCam = NodePath("CamY")
-sliderIndex = NodePath("Index")
-sliderWeight = NodePath("Weight")
-sliderYGradient = NodePath("YGradient")
-labelIndex = NodePath("LabelIndex")
-labelWeight = NodePath("LabelWeight")
-labelYGradient = NodePath("LabelYGradient")
-slider1 = NodePath("Noise1")
-slider2 = NodePath("Noise2")
-slider3 = NodePath("Noise3")
-slider4 = NodePath("Noise4")
-slider5 = NodePath("Noise5")
-label1 = NodePath("Label1")
-label2 = NodePath("Label2")
-label3 = NodePath("Label3")
-label4 = NodePath("Label4")
-label5 = NodePath("Label5")
+yOffset = NodePath("OffsetY")
 noisePreview = NodePath("NoisePreview")
-mapGenerator = NodePath("../Map")
 
-[node name="CamY" type="VSlider" parent="Controls"]
+[node name="OffsetY" type="VSlider" parent="CanvasLayer/NoisePreviewContainer"]
 layout_mode = 0
-offset_left = 1169.0
-offset_top = 13.0
-offset_right = 1185.0
-offset_bottom = 770.0
+offset_left = 1183.0
+offset_top = 556.0
+offset_right = 1199.0
+offset_bottom = 1313.0
+rotation = 3.14159
+max_value = 1000.0
 
-[node name="Index" type="HSlider" parent="Controls"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 7.0
-offset_right = 180.0
-offset_bottom = 23.0
-max_value = 4.0
+[node name="NoisePreview" type="Sprite2D" parent="CanvasLayer/NoisePreviewContainer"]
+position = Vector2(774, 227)
+scale = Vector2(2.36719, 2.36719)
 
-[node name="Weight" type="HSlider" parent="Controls"]
+[node name="Camera2D" type="Camera2D" parent="CanvasLayer"]
+visible = false
+offset = Vector2(600.61, 400)
+
+[node name="NoiseGenConfigs" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("layerNameEdit", "layerColorEdit", "layerSeedEdit", "layerFrequencyEdit", "layerFractalOctavesEdit", "layerFractalLacunarityEdit", "layerFractalGainEdit", "layerCurveSelect", "breakPointActiveCheck", "breakPointSlider")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_c6p8m")
+layerNameEdit = NodePath("VBoxContainer/GridContainer/TextEdit_LayerName_0")
+layerColorEdit = NodePath("VBoxContainer/GridContainer/ColorPickerButton_0")
+layerSeedEdit = NodePath("VBoxContainer/GridContainer/SpinBox_Seed_0")
+layerFrequencyEdit = NodePath("VBoxContainer/GridContainer/SpinBox_Frequency_0")
+layerFractalOctavesEdit = NodePath("VBoxContainer/GridContainer/SpinBox_FractalOctaves_0")
+layerFractalLacunarityEdit = NodePath("VBoxContainer/GridContainer/SpinBox_FractalLacunarity_0")
+layerFractalGainEdit = NodePath("VBoxContainer/GridContainer/SpinBox_FractalGain_0")
+layerCurveSelect = NodePath("VBoxContainer/GridContainer/OptionButton_Curve_0")
+curves = Array[Curve]([SubResource("Curve_c6p8m"), SubResource("Curve_732gm"), SubResource("Curve_2vb6v"), SubResource("Curve_4u2s6")])
+breakPointActiveCheck = NodePath("VBoxContainer/GridContainer/CenterContainer_Active/BreakPointCheckButton_0")
+breakPointSlider = NodePath("VBoxContainer/GridContainer/CenterContainer_BreakPoint/BreakPointSlider_0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/NoiseGenConfigs"]
 layout_mode = 0
-offset_left = 8.0
-offset_top = 28.0
-offset_right = 180.0
-offset_bottom = 44.0
-max_value = 1.0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer"]
+layout_mode = 2
+columns = 10
+
+[node name="Title_LayerName" type="Label" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Layer
+Name"
+
+[node name="Title_Color" type="Label" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Color"
+horizontal_alignment = 1
+
+[node name="Title_Seed" type="Label" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Seed"
+horizontal_alignment = 1
+
+[node name="Title_Frequency" type="Label" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Frequency"
+horizontal_alignment = 1
+
+[node name="Title_FractalOctaves" type="Label" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Fractal
+Octaves"
+horizontal_alignment = 1
+
+[node name="Title_FractalLacunarity" type="Label" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Fractal
+Lacunarity"
+horizontal_alignment = 1
+
+[node name="Title_FractalGain" type="Label" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Fractal
+Gain"
+horizontal_alignment = 1
+
+[node name="Title_Curve" type="Label" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(101.475, 0)
+layout_mode = 2
+text = "Curve"
+horizontal_alignment = 1
+
+[node name="Title_BreakPointActive" type="Label" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(101.475, 0)
+layout_mode = 2
+text = "Activate Break Point"
+horizontal_alignment = 1
+
+[node name="Title_BreakPoint" type="Label" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(101.475, 0)
+layout_mode = 2
+text = "BreakPoint"
+horizontal_alignment = 1
+
+[node name="TextEdit_LayerName_0" type="TextEdit" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(117.17, 40)
+layout_mode = 2
+
+[node name="ColorPickerButton_0" type="ColorPickerButton" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="SpinBox_Seed_0" type="SpinBox" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+layout_mode = 2
 step = 0.01
 
-[node name="YGradient" type="HSlider" parent="Controls"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 50.0
-offset_right = 180.0
-offset_bottom = 66.0
-max_value = 50.0
-step = 0.1
-
-[node name="Noise1" type="HSlider" parent="Controls"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 76.0
-offset_right = 180.0
-offset_bottom = 92.0
-max_value = 50.0
-step = 0.1
-
-[node name="Noise2" type="HSlider" parent="Controls"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 101.0
-offset_right = 180.0
-offset_bottom = 117.0
-max_value = 1.0
+[node name="SpinBox_Frequency_0" type="SpinBox" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+layout_mode = 2
 step = 0.01
-value = 1.0
 
-[node name="Noise3" type="HSlider" parent="Controls"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 125.0
-offset_right = 180.0
-offset_bottom = 141.0
-max_value = 50.0
-step = 0.1
-value = 10.0
-
-[node name="Noise4" type="HSlider" parent="Controls"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 149.0
-offset_right = 180.0
-offset_bottom = 165.0
-max_value = 2.0
+[node name="SpinBox_FractalOctaves_0" type="SpinBox" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+layout_mode = 2
 step = 0.01
-value = 2.0
 
-[node name="Noise5" type="HSlider" parent="Controls"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 174.0
-offset_right = 180.0
-offset_bottom = 190.0
+[node name="SpinBox_FractalLacunarity_0" type="SpinBox" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+layout_mode = 2
+step = 0.01
+
+[node name="SpinBox_FractalGain_0" type="SpinBox" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+layout_mode = 2
+step = 0.01
+
+[node name="OptionButton_Curve_0" type="OptionButton" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="CenterContainer_Active" type="CenterContainer" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="BreakPointCheckButton_0" type="CheckButton" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer/CenterContainer_Active"]
+layout_mode = 2
+
+[node name="CenterContainer_BreakPoint" type="CenterContainer" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="BreakPointSlider_0" type="HSlider" parent="CanvasLayer/NoiseGenConfigs/VBoxContainer/GridContainer/CenterContainer_BreakPoint"]
+custom_minimum_size = Vector2(121.795, 0)
+layout_mode = 2
 max_value = 1.0
 step = 0.01
 value = 0.5
 
-[node name="LabelIndex" type="Label" parent="Controls"]
-layout_mode = 0
-offset_left = 190.0
-offset_top = 7.0
-offset_right = 276.0
-offset_bottom = 25.0
-text = "aaa"
-label_settings = SubResource("LabelSettings_qmwpp")
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/NoiseGenConfigs"]
+layout_mode = 2
+offset_top = 97.0
+offset_right = 718.0
+offset_bottom = 176.0
 
-[node name="LabelWeight" type="Label" parent="Controls"]
-layout_mode = 0
-offset_left = 190.0
-offset_top = 27.0
-offset_right = 276.0
-offset_bottom = 45.0
-text = "aaa"
-label_settings = SubResource("LabelSettings_qmwpp")
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/NoiseGenConfigs/HBoxContainer"]
+layout_mode = 2
 
-[node name="LabelYGradient" type="Label" parent="Controls"]
-layout_mode = 0
-offset_left = 190.0
-offset_top = 49.0
-offset_right = 276.0
-offset_bottom = 67.0
-text = "aaa"
-label_settings = SubResource("LabelSettings_qmwpp")
+[node name="Button" type="Button" parent="CanvasLayer/NoiseGenConfigs/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(117.025, 0)
+layout_mode = 2
+text = "Create"
 
-[node name="Label1" type="Label" parent="Controls"]
-layout_mode = 0
-offset_left = 190.0
-offset_top = 76.0
-offset_right = 276.0
-offset_bottom = 94.0
-text = "aaa"
-label_settings = SubResource("LabelSettings_qmwpp")
+[node name="ItemList" type="ItemList" parent="CanvasLayer/NoiseGenConfigs/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
 
-[node name="Label2" type="Label" parent="Controls"]
-layout_mode = 0
-offset_left = 190.0
-offset_top = 101.0
-offset_right = 276.0
-offset_bottom = 119.0
-text = "aaa"
-label_settings = SubResource("LabelSettings_qmwpp")
-
-[node name="Label3" type="Label" parent="Controls"]
-layout_mode = 0
-offset_left = 190.0
-offset_top = 125.0
-offset_right = 276.0
-offset_bottom = 143.0
-text = "aaa"
-label_settings = SubResource("LabelSettings_qmwpp")
-
-[node name="Label4" type="Label" parent="Controls"]
-layout_mode = 0
-offset_left = 190.0
-offset_top = 149.0
-offset_right = 276.0
-offset_bottom = 167.0
-text = "aaa"
-label_settings = SubResource("LabelSettings_qmwpp")
-
-[node name="Label5" type="Label" parent="Controls"]
-layout_mode = 0
-offset_left = 190.0
-offset_top = 174.0
-offset_right = 276.0
-offset_bottom = 192.0
-text = "aaa"
-label_settings = SubResource("LabelSettings_qmwpp")
-
-[node name="NoisePreview" type="Sprite2D" parent="Controls"]
-position = Vector2(424, 126)
-texture = SubResource("GradientTexture2D_wpvyo")
-
-[connection signal="drag_ended" from="Controls/Index" to="Controls" method="_on_drag_ended"]
-[connection signal="drag_ended" from="Controls/Weight" to="Controls" method="_on_drag_ended"]
-[connection signal="drag_ended" from="Controls/YGradient" to="Controls" method="_on_drag_ended"]
-[connection signal="drag_ended" from="Controls/Noise1" to="Controls" method="_on_drag_ended"]
-[connection signal="drag_ended" from="Controls/Noise2" to="Controls" method="_on_drag_ended"]
-[connection signal="drag_ended" from="Controls/Noise3" to="Controls" method="_on_drag_ended"]
-[connection signal="drag_ended" from="Controls/Noise4" to="Controls" method="_on_drag_ended"]
-[connection signal="drag_ended" from="Controls/Noise5" to="Controls" method="_on_drag_ended"]
+[connection signal="noiseGenLayersChanged" from="CanvasLayer/NoiseGenConfigs" to="CanvasLayer/NoisePreviewContainer" method="_on_noise_gen_configs_noise_gen_layers_changed"]
+[connection signal="pressed" from="CanvasLayer/NoiseGenConfigs/HBoxContainer/VBoxContainer/Button" to="CanvasLayer/NoiseGenConfigs" method="_on_button_pressed"]
+[connection signal="item_selected" from="CanvasLayer/NoiseGenConfigs/HBoxContainer/VBoxContainer/ItemList" to="CanvasLayer/NoiseGenConfigs" method="_on_item_list_item_selected"]
