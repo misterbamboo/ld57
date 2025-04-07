@@ -35,6 +35,8 @@ func updatePreview():
 	noisePreview.texture = tex
 
 func _get_noise_color(x: float, y: float) -> Color:
+	var best_color: Color = Color(0, 0, 0)
+	var color_in_first_layer: bool = false
 	for i in range(noises.size()):
 		var value = noises[i].get_noise_2d(x, y)
 		value = (value + 1.0) / 2.0
@@ -47,10 +49,12 @@ func _get_noise_color(x: float, y: float) -> Color:
 		value = clamp(value, 0.0, 1.0)
 		if layer.BreakPointActive:
 			value = 0 if value < layer.BreakPoint else 1
-		if value <= 0:
-			continue
-		return Color(0, 0, 0).lerp(layer.LayerColor, value)
-	return Color(0, 0, 0)
+		if value > 0:
+			if i == 0:
+				color_in_first_layer = true
+			if color_in_first_layer:
+				best_color = Color(0, 0, 0).lerp(layer.LayerColor, value)
+	return best_color
 
 func _find_curve(curveName: String) -> Curve:
 	for curve in curves:

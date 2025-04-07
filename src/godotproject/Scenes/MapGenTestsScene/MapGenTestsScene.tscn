@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://d141tqfswnd6o"]
+[gd_scene load_steps=8 format=3 uid="uid://d141tqfswnd6o"]
 
 [ext_resource type="Script" uid="uid://obd4w5fcojxo" path="res://Scenes/MapGenTestsScene/NoiseGenConfigs.gd" id="2_c6p8m"]
 [ext_resource type="Script" uid="uid://dy64c2aj0yh5n" path="res://Scenes/MapGenTestsScene/sliders.gd" id="2_un6ir"]
+[ext_resource type="Curve" uid="uid://dk8l73ghwyjhp" path="res://Map/NoiseGen/Curves/Caves_curve.tres" id="3_732gm"]
 
 [sub_resource type="Curve" id="Curve_c6p8m"]
 resource_name = "Copper"
@@ -80,7 +81,7 @@ layerFractalOctavesEdit = NodePath("VBoxContainer/GridContainer/SpinBox_FractalO
 layerFractalLacunarityEdit = NodePath("VBoxContainer/GridContainer/SpinBox_FractalLacunarity_0")
 layerFractalGainEdit = NodePath("VBoxContainer/GridContainer/SpinBox_FractalGain_0")
 layerCurveSelect = NodePath("VBoxContainer/GridContainer/OptionButton_Curve_0")
-curves = Array[Curve]([SubResource("Curve_c6p8m"), SubResource("Curve_732gm"), SubResource("Curve_2vb6v"), SubResource("Curve_4u2s6")])
+curves = Array[Curve]([SubResource("Curve_c6p8m"), SubResource("Curve_732gm"), SubResource("Curve_2vb6v"), SubResource("Curve_4u2s6"), ExtResource("3_732gm")])
 breakPointActiveCheck = NodePath("VBoxContainer/GridContainer/CenterContainer_Active/BreakPointCheckButton_0")
 breakPointSlider = NodePath("VBoxContainer/GridContainer/CenterContainer_BreakPoint/BreakPointSlider_0")
 
