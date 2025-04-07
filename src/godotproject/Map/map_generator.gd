@@ -6,12 +6,18 @@ class_name MapGenerator extends Node2D
 @export var width: int = 50
 @export var cell_size: int = 50
 @export var source_id: int = 0
+@export var render_distance: int = 1  # Number of chunks to render around player (1 = 3x3 grid, 2 = 5x5, etc.)
 
 # Debug visualization option
 @export var debug_visualization: bool = true
 
 # Chunk configuration
 const CHUNK_SIZE := 16
+
+# Tracking
+var current_center_chunk_x: int = 0
+var current_center_chunk_y: int = 0
+var active_chunks: Dictionary = {}  # Track which chunks are currently loaded
 
 # Core components
 var noise_generator: NoiseGenerator
@@ -171,10 +177,78 @@ func _on_load_map_chunk_event(event: LoadMapChunkEvent):
 	if event.map_layer != map_layer:
 		return
 	
-	# Extract chunk coordinates
-	var chunk_x = event.chunk_x
-	var chunk_y = event.chunk_y
+	# Extract the center chunk coordinates (where the submarine is)
+	var center_chunk_x = event.chunk_x
+	var center_chunk_y = event.chunk_y
 	
+	# Only proceed if the submarine has moved to a new chunk
+	if center_chunk_x == current_center_chunk_x and center_chunk_y == current_center_chunk_y:
+		return
+		
+	# Update current center chunk
+	current_center_chunk_x = center_chunk_x
+	current_center_chunk_y = center_chunk_y
+	
+	# Calculate which chunks should be active based on render distance
+	var chunks_to_load = get_chunks_in_render_distance(center_chunk_x, center_chunk_y)
+	
+	# Determine which chunks to load and which to unload
+	update_active_chunks(chunks_to_load)
+	
+func get_chunks_in_render_distance(center_x: int, center_y: int) -> Dictionary:
+	var chunks_dict = {}
+	
+	# Calculate range
+	var min_x = center_x - render_distance
+	var max_x = center_x + render_distance
+	var min_y = max(0, center_y - render_distance)  # Don't go above water
+	var max_y = center_y + render_distance
+	
+	# Add all chunks in range to dictionary
+	for y in range(min_y, max_y + 1):
+		for x in range(min_x, max_x + 1):
+			var key = "%d,%d" % [x, y]
+			chunks_dict[key] = Vector2i(x, y)
+	
+	return chunks_dict
+	
+func update_active_chunks(new_chunks: Dictionary):
+	# Track which chunks are newly loaded for debug visualization
+	var newly_loaded_chunks = []
+	
+	# Load new chunks that aren't already active
+	for key in new_chunks.keys():
+		if not active_chunks.has(key):
+			var chunk_pos = new_chunks[key]
+			
+			# Load this chunk
+			load_chunk(chunk_pos.x, chunk_pos.y)
+			
+			# Track for debug visualization
+			newly_loaded_chunks.append(chunk_pos)
+			
+			# Add to active chunks
+			active_chunks[key] = chunk_pos
+	
+	# Unload chunks that are no longer needed
+	var chunks_to_remove = []
+	for key in active_chunks.keys():
+		if not new_chunks.has(key):
+			chunks_to_remove.append(key)
+	
+	for key in chunks_to_remove:
+		active_chunks.erase(key)
+		
+	# Debug visualization of newly loaded chunks
+	if debug_visualization and newly_loaded_chunks.size() > 0:
+		for chunk_pos in newly_loaded_chunks:
+			var x_from = chunk_pos.x * CHUNK_SIZE
+			var x_to = x_from + CHUNK_SIZE
+			var y_from = chunk_pos.y * CHUNK_SIZE
+			var y_to = y_from + CHUNK_SIZE
+			add_updated_area_debug(x_from, x_to, y_from, y_to)
+			
+func load_chunk(chunk_x: int, chunk_y: int):
 	# Convert chunk coordinates to tile coordinates
 	var x_from = chunk_x * CHUNK_SIZE
 	var x_to = x_from + CHUNK_SIZE
@@ -183,10 +257,6 @@ func _on_load_map_chunk_event(event: LoadMapChunkEvent):
 	
 	# Generate the chunk
 	build(x_from, x_to, y_from, y_to)
-	
-	# Add debug visualization if enabled
-	if debug_visualization:
-		add_updated_area_debug(x_from, x_to, y_from, y_to)
 
 func build(x_from: int, x_to: int, y_from: int, y_to: int):
 	if Engine.is_editor_hint() or renderer == null:
