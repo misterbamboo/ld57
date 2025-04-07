@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://deom164vw26rg"]
+[gd_scene load_steps=28 format=3 uid="uid://deom164vw26rg"]
 
 [ext_resource type="Script" uid="uid://5w86ovkibplk" path="res://CameraManagement/submarinefollow.gd" id="1_0v7qb"]
 [ext_resource type="Script" uid="uid://sc7omqwitfjq" path="res://Map/map_generator.gd" id="1_3tbxw"]
@@ -6,7 +6,8 @@
 [ext_resource type="Script" uid="uid://ckfcpeoedif6p" path="res://GameAssets/gameassets.gd" id="2_bqqt8"]
 [ext_resource type="Script" uid="uid://nbkx4tclege3" path="res://GameState/game.gd" id="3_8qpgq"]
 [ext_resource type="Script" uid="uid://w6adipne8ret" path="res://Inventory/inventorymanager.gd" id="4_pv6b4"]
-[ext_resource type="Script" path="res://GameState/money.gd" id="5_cgwad"]
+[ext_resource type="Script" uid="uid://ck6i36gtinq6x" path="res://GameState/money.gd" id="5_cgwad"]
+[ext_resource type="Script" uid="uid://cuaa861w1ixl" path="res://Map/map_debug_visualizer.gd" id="7_0igvr"]
 [ext_resource type="Script" uid="uid://dra6w7ham0ueg" path="res://Map/tile_map_renderer.gd" id="7_a6adi"]
 [ext_resource type="TileSet" uid="uid://dftc1kq64liug" path="res://Map/map_tileset.tres" id="8_28psf"]
 [ext_resource type="Texture2D" uid="uid://ugunphi5287t" path="res://ShopManagement/shop.png" id="8_mi4js"]
@@ -20,7 +21,7 @@
 [ext_resource type="Script" uid="uid://bjn4f61m5b8mf" path="res://HUD/life_meter.gd" id="15_o3vwv"]
 [ext_resource type="TileSet" uid="uid://v4648xiquba3" path="res://Map/background_tileset.tres" id="16_0igvr"]
 [ext_resource type="Texture2D" uid="uid://dxidpi5tv6n68" path="res://HUD/torpedoes.png" id="20_6brkw"]
-[ext_resource type="Script" path="res://HUD/torpedo_meter.gd" id="20_cgwad"]
+[ext_resource type="Script" uid="uid://c8btblrw2mb1r" path="res://HUD/torpedo_meter.gd" id="20_cgwad"]
 [ext_resource type="PackedScene" uid="uid://dbc8axkfuweit" path="res://ShopManagement/shop_screen.tscn" id="20_va67g"]
 [ext_resource type="PackedScene" uid="uid://cba61ypjcbpab" path="res://Inventory/Components/InventoryUI/inventory_ui.tscn" id="21_t0yo1"]
 [ext_resource type="PackedScene" uid="uid://vgaxhupv34x7" path="res://SellManagement/SellScreen.tscn" id="22_t0yo1"]
@@ -65,10 +66,20 @@ script = ExtResource("4_pv6b4")
 
 [node name="Map" type="Node2D" parent="."]
 
+[node name="MapDebugVisualizer" type="Node2D" parent="Map"]
+script = ExtResource("7_0igvr")
+enabled = false
+flash_duration = 10.0
+explosion_color = null
+
 [node name="MapGenerator" type="Node2D" parent="Map"]
 script = ExtResource("1_3tbxw")
 width = 100
 cell_size = 32
+render_distance = 2
+max_cached_chunks = null
+debug_cached_chunk_color = null
+debug_new_chunk_color = null
 
 [node name="TileMapRenderer" type="Node2D" parent="Map/MapGenerator"]
 script = ExtResource("7_a6adi")
@@ -142,6 +153,9 @@ motion_scale = Vector2(0.7, 0.7)
 [node name="MapGenerator" type="Node2D" parent="ParallaxBackground/ParallaxLayer"]
 script = ExtResource("1_3tbxw")
 map_layer = 1
+max_cached_chunks = null
+debug_cached_chunk_color = null
+debug_new_chunk_color = null
 metadata/_custom_type_script = "uid://sc7omqwitfjq"
 
 [node name="TileMapRenderer" type="Node2D" parent="ParallaxBackground/ParallaxLayer/MapGenerator"]
