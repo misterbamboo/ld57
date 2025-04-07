@@ -1,0 +1,121 @@
+[gd_scene load_steps=9 format=3 uid="uid://vgaxhupv34x7"]
+
+[ext_resource type="Script" uid="uid://cfcgph8b4og2n" path="res://SellManagement/SellScreen.gd" id="1_h63aa"]
+[ext_resource type="Texture2D" uid="uid://dclgoyvr3jx7d" path="res://ShopManagement/Assets/exit_btn_16.png" id="2_lhfhl"]
+[ext_resource type="PackedScene" uid="uid://cjna2r174ws10" path="res://Inventory/Components/InventoryItemUI/inventory_item_ui.tscn" id="3_yeknb"]
+[ext_resource type="Texture2D" uid="uid://cigtkv4eg5v2n" path="res://Inventory/Assets/copper.png" id="4_kro7t"]
+[ext_resource type="Texture2D" uid="uid://cix0o2gj7fr6e" path="res://Inventory/Assets/diamond.png" id="5_8vfik"]
+[ext_resource type="Texture2D" uid="uid://bvrgi3g1pukeg" path="res://Inventory/Assets/gold.png" id="6_ke1ev"]
+[ext_resource type="Texture2D" uid="uid://hks6jp3xrtpt" path="res://Inventory/Assets/iron.png" id="7_k5v76"]
+[ext_resource type="Texture2D" uid="uid://b7jxm80pp1j6v" path="res://Inventory/Assets/platnum.png" id="8_yxvsr"]
+
+[node name="SellScreen" type="Control" node_paths=PackedStringArray("coperUI", "diamondUI", "goldUI", "ironUI", "platnumUI")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h63aa")
+coperUI = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/InventoryItemUI_Copper")
+diamondUI = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/InventoryItemUI_Diamond")
+goldUI = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/InventoryItemUI_Gold")
+ironUI = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/InventoryItemUI_Iron")
+platnumUI = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/InventoryItemUI_Platnum")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(600, 400)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="PlayerMoney" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Sell"
+
+[node name="ExitButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 10
+icon = ExtResource("2_lhfhl")
+icon_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainerLeft" type="MarginContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="InventoryItemUI_Copper" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_yeknb")]
+layout_mode = 2
+icon = ExtResource("4_kro7t")
+
+[node name="InventoryItemUI_Iron" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_yeknb")]
+layout_mode = 2
+icon = ExtResource("7_k5v76")
+
+[node name="InventoryItemUI_Gold" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_yeknb")]
+layout_mode = 2
+icon = ExtResource("6_ke1ev")
+
+[node name="InventoryItemUI_Diamond" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_yeknb")]
+layout_mode = 2
+icon = ExtResource("5_8vfik")
+
+[node name="InventoryItemUI_Platnum" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_yeknb")]
+layout_mode = 2
+icon = ExtResource("8_yxvsr")
+
+[node name="SellButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "SELL ALL"
+
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer2/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]

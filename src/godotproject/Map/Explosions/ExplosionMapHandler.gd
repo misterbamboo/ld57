@@ -1,6 +1,6 @@
 class_name ExplosionMapHandler extends Node
 
-signal on_explision(indexPos: Vector2i, radiusIdx: float)
+signal on_explosion(indexPos: Vector2i, radiusIdx: float)
 
 @export var pxToIndexRatio: float = 32
 
@@ -17,7 +17,7 @@ func addExplosionAt(pos: Vector2, radius: float) -> void:
 	var indexPos = Vector2i(xIdx, yIdx)
 	explosionData[indexPos] = radiusIdx
 	
-	emit_signal("on_explision", indexPos, radiusIdx)
+	emit_signal("on_explosion", indexPos, radiusIdx)
 	
 func hasExploded(checkPoint: Vector2i):
 	for indexPos in explosionData.keys():

@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://cba61ypjcbpab"]
+
+[ext_resource type="Script" uid="uid://dnpfru4jie2b4" path="res://Inventory/Components/InventoryUI/InventoryUI.gd" id="1_4nmjk"]
+[ext_resource type="PackedScene" uid="uid://cjna2r174ws10" path="res://Inventory/Components/InventoryItemUI/inventory_item_ui.tscn" id="1_se627"]
+[ext_resource type="Texture2D" uid="uid://cigtkv4eg5v2n" path="res://Inventory/Assets/copper.png" id="2_pphwo"]
+[ext_resource type="Texture2D" uid="uid://cix0o2gj7fr6e" path="res://Inventory/Assets/diamond.png" id="3_ju6sq"]
+[ext_resource type="Texture2D" uid="uid://bvrgi3g1pukeg" path="res://Inventory/Assets/gold.png" id="4_inc1q"]
+[ext_resource type="Texture2D" uid="uid://hks6jp3xrtpt" path="res://Inventory/Assets/iron.png" id="5_s728e"]
+[ext_resource type="Texture2D" uid="uid://b7jxm80pp1j6v" path="res://Inventory/Assets/platnum.png" id="6_vu0ua"]
+
+[node name="InventoryUI" type="Control" node_paths=PackedStringArray("coperUI", "diamondUI", "goldUI", "ironUI", "platnumUI")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4nmjk")
+coperUI = NodePath("HBoxContainer/MarginContainer/VBoxContainer/InventoryItemUI_Copper")
+diamondUI = NodePath("HBoxContainer/MarginContainer/VBoxContainer/InventoryItemUI_Diamond")
+goldUI = NodePath("HBoxContainer/MarginContainer/VBoxContainer/InventoryItemUI_Gold")
+ironUI = NodePath("HBoxContainer/MarginContainer/VBoxContainer/InventoryItemUI_Iron")
+platnumUI = NodePath("HBoxContainer/MarginContainer/VBoxContainer/InventoryItemUI_Platnum")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="InventoryItemUI_Copper" parent="HBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("1_se627")]
+layout_mode = 2
+icon = ExtResource("2_pphwo")
+
+[node name="InventoryItemUI_Iron" parent="HBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("1_se627")]
+layout_mode = 2
+icon = ExtResource("5_s728e")
+
+[node name="InventoryItemUI_Gold" parent="HBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("1_se627")]
+layout_mode = 2
+icon = ExtResource("4_inc1q")
+
+[node name="InventoryItemUI_Diamond" parent="HBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("1_se627")]
+layout_mode = 2
+icon = ExtResource("3_ju6sq")
+
+[node name="InventoryItemUI_Platnum" parent="HBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("1_se627")]
+layout_mode = 2
+icon = ExtResource("6_vu0ua")

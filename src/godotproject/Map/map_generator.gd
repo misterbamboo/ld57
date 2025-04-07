@@ -17,9 +17,10 @@ var tile_renderer: TileMapRenderer = null
 var polygon_renderer: PolygonRenderer = null
 
 func _ready():
+	randomize()
 	if Engine.is_editor_hint():
 		return
-	ExplosionMap.on_explision.connect(addExplosionAt)
+	ExplosionMap.on_explosion.connect(addExplosionAt)
 	EventBus.register(LoadMapPageEvent.event_name, _on_load_map_page_event)
 	# Initialize noise components
 	noise_generator = NoiseGenerator.new(5)
@@ -35,7 +36,7 @@ func _ready():
 
 func addExplosionAt(pos: Vector2, radius: float) -> void:
 	var from = pos.y - radius
-	var to = pos.y + radius
+	var to = pos.y + radius + 1
 	for renderer in renderers:
 		renderer.render_map(marching_squares, from, to, width)
 
@@ -66,11 +67,14 @@ func _find_renderer_nodes():
 
 func _setup_default_noise_params():
 	# First layer
-	noise_generator.set_noise_params(0, 1.00, 6.50, 21.0, 0.18, 7.40, 0.87, 0.58)
+	var seed_1 = randf() * 100000 # save seed to have same result later
+	noise_generator.set_noise_params(0, 1.00, 6.50, seed_1, 0.18, 7.40, 0.87, 0.58)
 	# Second layer
-	noise_generator.set_noise_params(1, 0.50, 37.5, 21.0, 0.11, 7.00, 0.65, 0.01)
+	var seed_2 = randf() * 100000 # save seed to have same result later
+	noise_generator.set_noise_params(1, 0.50, 37.5, seed_2, 0.11, 7.00, 0.65, 0.01)
 	# Third layer
-	noise_generator.set_noise_params(2, 1.00, 0.00, 0.00, 0.12, 0.00, 0.00, 0.00)
+	var seed_3 = randf() * 100000 # save seed to have same result later
+	noise_generator.set_noise_params(2, 1.00, 0.00, seed_3, 0.12, 0.00, 0.00, 0.00)
 	# Fourth and fifth layers (unused by default)
 	noise_generator.set_noise_params(3, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00)
 	noise_generator.set_noise_params(4, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00)

@@ -1,0 +1,159 @@
+[gd_scene load_steps=13 format=3 uid="uid://elgdo67b6sat"]
+
+[ext_resource type="Script" uid="uid://c4ak6gbtvvhkn" path="res://ShopManagement/shopscreen.gd" id="1_ws088"]
+[ext_resource type="Script" uid="uid://b2uchrnmg5evm" path="res://ShopManagement/ItemsDatabase/ShopItemDef.gd" id="2_kqsvq"]
+[ext_resource type="Resource" uid="uid://b8ldl35smk3lx" path="res://ShopManagement/ItemsDatabase/health_1.tres" id="3_1ijrk"]
+[ext_resource type="Resource" uid="uid://0ubrf3u1q5cp" path="res://ShopManagement/ItemsDatabase/hook_1.tres" id="4_0xtnb"]
+[ext_resource type="Resource" uid="uid://ddjoboxmpm5c" path="res://ShopManagement/ItemsDatabase/hull_1.tres" id="5_kepej"]
+[ext_resource type="Resource" uid="uid://b5epj64qgp0vw" path="res://ShopManagement/ItemsDatabase/life_1.tres" id="6_aibay"]
+[ext_resource type="Resource" uid="uid://ih62eyehvjgu" path="res://ShopManagement/ItemsDatabase/light_1.tres" id="7_kkaip"]
+[ext_resource type="Resource" uid="uid://bj5pq30aynjca" path="res://ShopManagement/ItemsDatabase/oxy_1.tres" id="8_8thqk"]
+[ext_resource type="Resource" uid="uid://dmwqivu5lrfxa" path="res://ShopManagement/ItemsDatabase/speed_1.tres" id="9_cfa4g"]
+[ext_resource type="PackedScene" uid="uid://b03t0rkjdexdx" path="res://ShopManagement/ShopItem/shop_item.tscn" id="10_gatel"]
+[ext_resource type="Texture2D" uid="uid://v5rlg4d1pvgg" path="res://ShopManagement/Assets/oxy_tank.png" id="11_qhxrt"]
+[ext_resource type="Texture2D" uid="uid://dclgoyvr3jx7d" path="res://ShopManagement/Assets/exit_btn_16.png" id="12_7gvug"]
+
+[node name="ShopScreen" type="Control" node_paths=PackedStringArray("moneyDisplayLabel", "buyButton", "titleLabel", "descriptionLabel", "priceLabel", "messageLabel", "shopItemsContainer")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ws088")
+shopDefinitions = Array[ExtResource("2_kqsvq")]([ExtResource("3_1ijrk"), ExtResource("4_0xtnb"), ExtResource("5_kepej"), ExtResource("6_aibay"), ExtResource("7_kkaip"), ExtResource("8_8thqk"), ExtResource("9_cfa4g")])
+moneyDisplayLabel = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer2/PlayerMoney")
+buyButton = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/BuyButton")
+titleLabel = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Title")
+descriptionLabel = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Description")
+priceLabel = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Price")
+messageLabel = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Message")
+shopItemsContainer = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerRight/MarginContainer/ScrollContainer/CenterContainer/ShopItems")
+shopItemComponent = ExtResource("10_gatel")
+temp_oxy_icon = ExtResource("11_qhxrt")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(600, 400)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="PlayerMoney" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Money: 100$"
+
+[node name="ExitButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 10
+icon = ExtResource("12_7gvug")
+icon_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainerLeft" type="MarginContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "TITLE"
+horizontal_alignment = 1
+
+[node name="Description" type="RichTextLabel" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 11
+text = "BLA Bla Bal This item do XYZ and i want to test more shits"
+justification_flags = 171
+
+[node name="Price" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "1000$"
+horizontal_alignment = 1
+
+[node name="Message" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.876621, 0.703579, 0, 1)
+theme_override_font_sizes/font_size = 11
+text = "message"
+horizontal_alignment = 1
+
+[node name="BuyButton" type="Button" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "BUY"
+
+[node name="MarginContainerRight" type="PanelContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerRight"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerRight/MarginContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerRight/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ShopItems" type="GridContainer" parent="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerRight/MarginContainer/ScrollContainer/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 2
+
+[connection signal="button_up" from="CenterContainer/PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer2/ExitButton" to="." method="_on_exit_button_up"]
+[connection signal="button_up" from="CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/BuyButton" to="." method="_on_buy_button_button_up"]

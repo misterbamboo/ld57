@@ -2,20 +2,34 @@ class_name InventoryManager extends Node #Area2D
 
 const SoundNames = preload("res://Audio/soundname.gd")
 
-var inventory: Array = []
+var copper_quantity: int = 5
+var iron_quantity: int = 4
+var gold_quantity: int = 3
+var diamond_quantity: int = 2
+var platinum_quantity: int = 1
 
-var gold_quantity: float = 0
-var platinum_quantity: float = 0
-var copper_quantity: float = 0
-var diamond_quantity: float = 0
-var iron_quantity: float = 0
+var copper_price: float = 5
+var iron_price: float = 15
+var gold_price: float = 60
+var diamond_price: float = 250
+var platinum_price: float = 1500
 
-var cash: float = 0
-var has_inventory: bool = false
+var inventoryTotalQuantity: int:
+	get:
+		return gold_quantity \
+			+ platinum_quantity \
+			+ copper_quantity \
+			+ diamond_quantity \
+			+ iron_quantity
+
+var has_inventory: bool:
+	get:
+		return inventoryTotalQuantity > 0
+		
 var can_sell: bool = false
 
 func _ready():
-	_reset_inventory()
+	pass
 
 func _on_inventory_body_entered(body: Node2D) -> void:
 	_check_ressource(body)
@@ -43,7 +57,6 @@ func _check_ressource(obj: Node) -> void:
 		"Iron":
 			iron_quantity += 1
 
-	inventory.append(obj)
 	AudioManager.instance.play_sound(SoundNames.SoundName.MATERIAL1)
 
 	# TODO: 
@@ -71,17 +84,19 @@ func _on_inventory_area_exited(area: Area2D):
 
 func _sell_inventory():
 	var value := 0.0
-	for res in inventory:
-		value += res.get_sell_price()
+	value += gold_quantity * gold_price
+	value += platinum_quantity * platinum_price
+	value += copper_quantity * copper_price
+	value += diamond_quantity * diamond_price
+	value += iron_quantity * iron_price
 		
 	MoneyBag.addMoney(value)
 	AudioManager.instance.play_sound(SoundNames.SoundName.SELL_RESSOURCES)
 	_reset_inventory()
 
 func _reset_inventory():
-	inventory.clear()
-	gold_quantity = 0
-	platinum_quantity = 0
 	copper_quantity = 0
 	diamond_quantity = 0
+	gold_quantity = 0
 	iron_quantity = 0
+	platinum_quantity = 0

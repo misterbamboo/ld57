@@ -31,7 +31,7 @@ func _ready() -> void:
 	#_add_item_to_shop("oxy3", "AwesOxy", temp_oxy_icon, "Awsome oxy can bring you to the MOON", 59999.99)
 
 func _reset_ui():
-	moneyDisplayLabel.text = ("%.2f" % MoneyBag.getTotal()) + " $"
+	moneyDisplayLabel.text = "Money: " + ("%.2f" % MoneyBag.getTotal()) + " $"
 	titleLabel.text = "Select an item"
 	descriptionLabel.text = ""
 	priceLabel.text = ""
