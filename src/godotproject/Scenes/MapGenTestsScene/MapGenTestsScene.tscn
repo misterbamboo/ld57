@@ -6,26 +6,26 @@
 [sub_resource type="Curve" id="Curve_c6p8m"]
 resource_name = "Copper"
 _limits = [0.0, 1.0, 0.0, 250.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(100.515, 1), 0.0276105, 0.0276105, 0, 0, Vector2(139.175, 0.516854), -0.0126427, -0.0126427, 0, 0, Vector2(172.68, 0.280899), -0.0087191, -0.0087191, 0, 0, Vector2(250, 0), 0.0, 0.0, 0, 0]
-point_count = 5
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(38.3065, 0.505618), 0.0, 0.0, 0, 0, Vector2(104.839, 0.775281), 0.0276105, 0.0276105, 0, 0, Vector2(171.371, 0.752809), -0.0126427, -0.0126427, 0, 0, Vector2(233.871, 0.707865), -0.0087191, -0.0087191, 0, 0, Vector2(250, 0), 0.0, 0.0, 0, 0]
+point_count = 6
 
 [sub_resource type="Curve" id="Curve_732gm"]
 resource_name = "IronCurve"
 _limits = [0.0, 1.0, 0.0, 100.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(11.4391, 0.461656), 0.0, 0.0, 0, 0, Vector2(19.1882, 0.272239), 0.0, 0.0, 0, 0, Vector2(33.9483, 0.71089), 0.0, 0.0, 0, 0, Vector2(58.3026, 0.481595), 0.0, 0.0, 0, 0, Vector2(77.1218, 0.950153), 0.0, 0.0, 0, 0, Vector2(100, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(11.4391, 0.461656), 0.0, 0.0, 0, 0, Vector2(19.1882, 0.272239), 0.0, 0.0, 0, 0, Vector2(37.9032, 0.674157), 0.0, 0.0, 0, 0, Vector2(59.6774, 0.516854), 0.0, 0.0, 0, 0, Vector2(77.1218, 0.950153), 0.0, 0.0, 0, 0, Vector2(100, 0), 0.0, 0.0, 0, 0]
 point_count = 7
 
 [sub_resource type="Curve" id="Curve_2vb6v"]
 resource_name = "GoldCurve"
 _limits = [0.0, 1.0, 0.0, 500.0]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(448.34, 0.252301), 0.0, 0.0, 0, 0, Vector2(500, 0), 0.0, 0.0, 0, 0]
-point_count = 3
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(213.71, 0.719101), 0.0, 0.0, 0, 0, Vector2(233.871, 0.348315), 0.0, 0.0, 0, 0, Vector2(448.34, 0.252301), 0.0, 0.0, 0, 0, Vector2(500, 0), 0.0, 0.0, 0, 0]
+point_count = 5
 
 [sub_resource type="Curve" id="Curve_4u2s6"]
 resource_name = "Basic"
 _limits = [0.0, 1.0, 0.0, 1000.0]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1000, 0), 0.0, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(266.129, 0.775281), -0.000676725, -0.000676725, 0, 0, Vector2(725.806, 0.910112), 0.0, 0.0, 0, 0, Vector2(1000, 0), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [node name="MapGenTestsScene" type="Control"]
 layout_mode = 3
