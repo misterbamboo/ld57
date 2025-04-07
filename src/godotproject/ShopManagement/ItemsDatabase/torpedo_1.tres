@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ShopItemDef" load_steps=3 format=3 uid="uid://chfiymsfmjbab"]
+
+[ext_resource type="Texture2D" uid="uid://chjhww5r0accj" path="res://ShopManagement/Assets/torpedo-upgrade.png" id="1_mjvuu"]
+[ext_resource type="Script" uid="uid://b2uchrnmg5evm" path="res://ShopManagement/ItemsDatabase/ShopItemDef.gd" id="2_vkevc"]
+
+[resource]
+script = ExtResource("2_vkevc")
+key = "torpedo_1"
+title = "Torpedo"
+description = "Buy a torpedo to remove pesky terrain"
+price = 75.0
+icon = ExtResource("1_mjvuu")
+upgradeType = 7
+upgradeValue = 1.0
+upgradeType2 = 8
+upgradeValue2 = 0.0
+metadata/_custom_type_script = "uid://b2uchrnmg5evm"

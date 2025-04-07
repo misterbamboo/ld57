@@ -110,5 +110,7 @@ func bought_upgrade(upgrade_type: UpgradeType, value: float):
 			submarine.increase_hull(value)
 		UpgradeType.LIFE_RECOVER:
 			Life.refill(value)
+		UpgradeType.TORPEDO_UPGRADE:
+			submarine.increase_torpedo_amount(int(value))
 	
 	#AudioManager.instance.play_sound(SoundNames.SoundName.UPGRADE1)

@@ -6,6 +6,8 @@ const SoundNames = preload("res://Audio/soundname.gd")
 
 static var instance: Submarine = null
 static var rb : RigidBody2D = null
+func use_torpedo():
+	torpedo_amount_upgrade -= 1
 
 func _ready():
 	instance = self
@@ -19,6 +21,12 @@ func get_sensitive_deepness() -> float:
 		return 0
 		
 	return clamp(rb.position.y / cell_size, 0, INF)
+
+func get_special_deepness(special_cell_size: int) -> int:
+	if(rb == null):
+		return 0
+		
+	return int(clamp(rb.position.y / special_cell_size, 0, INF))
 
 func _on_Submarine_body_entered(body: Node) -> void:
 	var collider := body.get_node_or_null("CollisionPolygon2D")
@@ -50,3 +58,7 @@ func increase_hook(amount: float):
 var hull_capacity_upgrade: float
 func increase_hull(amount: float):
 	hull_capacity_upgrade += amount
+
+var torpedo_amount_upgrade: int
+func increase_torpedo_amount(amount: int):
+	torpedo_amount_upgrade += amount
