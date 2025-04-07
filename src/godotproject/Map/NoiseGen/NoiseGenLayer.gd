@@ -46,8 +46,7 @@ func _save_to_disk():
 func toNoise() -> FastNoiseLite:
 	var noise := FastNoiseLite.new()
 	noise.noise_type = FastNoiseLite.TYPE_PERLIN
-	noise.seed = Seed # defined seed
-	noise.seed = int(randf() * 100000)
+	noise.seed = Seed
 	noise.frequency = Frequency
 	noise.fractal_octaves = FractalOctaves
 	noise.fractal_lacunarity = FractalLacunarity

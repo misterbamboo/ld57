@@ -2,7 +2,7 @@ class_name NoiseGenerator
 
 func _init(layer_count: int = 5):
 	NoiseGenService.loadAll()
-	pass
+	NoiseGenService.feedRandomSeeds()
 	
 func get_noise_value_at(x: float, y: float) -> float:
 	if ExplosionMap.hasExploded(Vector2i(x, y)):

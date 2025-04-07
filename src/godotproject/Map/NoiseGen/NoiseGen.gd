@@ -45,7 +45,13 @@ func loadAll():
 	loadLayers()
 	loadCurves()
 	refreshAllNoises()
-
+	
+func feedRandomSeeds():
+	randomize()
+	refreshAllNoises()
+	for noise in _noises:
+		noise.seed = int(randf() * 100000)
+	
 func loadLayers():
 	var path := "res://Map/NoiseGen/Layers/"
 	var dir := DirAccess.open(path)

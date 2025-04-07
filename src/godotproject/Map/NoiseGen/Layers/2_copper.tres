@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_qgil2")
 Name = "2_copper"
-LayerColor = Color(0.847309, 0.331006, 0, 1)
+LayerColor = Color(0.8, 0.3, 0, 1)
 Seed = 4.0
 Frequency = 0.813
 FractalOctaves = 7.0
