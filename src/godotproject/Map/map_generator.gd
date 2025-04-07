@@ -1,9 +1,6 @@
 @tool
 class_name MapGenerator extends Node2D
 
-# Import for explosion events
-const ExplosionEvent = preload("res://GameEvents/explosion_event.gd")
-
 # Signals for debug visualization
 signal chunk_loaded(chunk_x, chunk_y, bounds_rect, from_cache)
 signal explosion_occurred(center_position, radius, bounds_rect)
@@ -340,22 +337,3 @@ func _on_load_map_chunk_event(event: LoadMapChunkEvent):
 	
 	# Determine which chunks to load and which to unload
 	update_active_chunks(chunks_to_load)
-
-func _on_explosion_received(indexPos: Vector2i, radiusIdx: int):
-	# Convert back to world position and radius
-	var worldPos = Vector2(indexPos) * ExplosionMap.pxToIndexRatio
-	var worldRadius = radiusIdx * ExplosionMap.pxToIndexRatio
-	print("Explosion received at index %s (world pos: %s) with radius %.2f" % [indexPos, worldPos, worldRadius])
-	
-	# Process the explosion directly
-	addExplosionAt(worldPos, worldRadius)
-	
-	# Create bounds rect for the event
-	var bounds_rect = Rect2(
-		worldPos - Vector2(worldRadius, worldRadius),
-		Vector2(worldRadius * 2, worldRadius * 2)
-	)
-	
-	# Raise an explosion event for other systems to respond to
-	var explosion_event = ExplosionEvent.new(worldPos, worldRadius, bounds_rect)
-	EventBus.raise(explosion_event)

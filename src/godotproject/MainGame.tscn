@@ -71,6 +71,7 @@ script = ExtResource("4_pv6b4")
 
 [node name="MapDebugVisualizer" type="Node2D" parent="Map"]
 script = ExtResource("7_0igvr")
+enabled = false
 flash_duration = 10.0
 
 [node name="MapGenerator" type="Node2D" parent="Map"]

@@ -79,6 +79,8 @@ func loadLayers():
 		_noiseGenLayers = []
 		var layerI := 0
 		while file_name != "":
+			if file_name.ends_with(".remap"):
+				file_name = file_name.trim_suffix(".remap")
 			if not dir.current_is_dir() and file_name.ends_with(".tres"):
 				var full_path = path + file_name
 				var layer = load(full_path)
@@ -112,6 +114,8 @@ func loadCurves():
 		_curves = []
 		var curveI := 0
 		while file_name != "":
+			if file_name.ends_with(".remap"):
+				file_name = file_name.trim_suffix(".remap")
 			if not dir.current_is_dir() and file_name.ends_with(".tres"):
 				var full_path = path + file_name
 				var curve = load(full_path)
@@ -124,6 +128,7 @@ func loadCurves():
 func refreshAllNoises():
 	_noises.clear()
 	for noiseGenLayer in _noiseGenLayers:
+		print("NoiseGenLayer: " + noiseGenLayer.Name + " " + noiseGenLayer.CurveName)
 		_noises.append(noiseGenLayer.toNoise())
 
 func get_noise_terrain_value(x: float, y: float) -> float:
