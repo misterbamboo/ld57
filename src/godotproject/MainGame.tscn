@@ -40,6 +40,7 @@ gradient = SubResource("Gradient_led80")
 script = ExtResource("1_0v7qb")
 target = NodePath("../../Submarine")
 cell_size = 32
+max_distance_multiplier = 10.0
 
 [node name="Audio" type="Node" parent="."]
 
