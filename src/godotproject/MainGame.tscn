@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://deom164vw26rg"]
+[gd_scene load_steps=28 format=3 uid="uid://deom164vw26rg"]
 
 [ext_resource type="Script" uid="uid://5w86ovkibplk" path="res://CameraManagement/submarinefollow.gd" id="1_0v7qb"]
 [ext_resource type="Script" uid="uid://sc7omqwitfjq" path="res://Map/map_generator.gd" id="1_3tbxw"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://dbc8axkfuweit" path="res://ShopManagement/shop_screen.tscn" id="20_va67g"]
 [ext_resource type="PackedScene" uid="uid://cba61ypjcbpab" path="res://Inventory/Components/InventoryUI/inventory_ui.tscn" id="21_t0yo1"]
 [ext_resource type="PackedScene" uid="uid://vgaxhupv34x7" path="res://SellManagement/SellScreen.tscn" id="22_t0yo1"]
+[ext_resource type="PackedScene" uid="uid://dair474s5j1va" path="res://Ores/ore.tscn" id="25_0igvr"]
 
 [sub_resource type="Gradient" id="Gradient_led80"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
@@ -235,3 +236,51 @@ text = "0"
 [node name="ShopScreen" parent="CanvasLayer" instance=ExtResource("20_va67g")]
 
 [node name="SellScreen" parent="CanvasLayer" instance=ExtResource("22_t0yo1")]
+
+[node name="Ore" parent="." instance=ExtResource("25_0igvr")]
+position = Vector2(-55, 233)
+color = Color(0.6, 0.7, 0.8, 1)
+
+[node name="Ore2" parent="." instance=ExtResource("25_0igvr")]
+position = Vector2(-189, 257)
+color = Color(0.6, 0.7, 0.8, 1)
+
+[node name="Ore3" parent="." instance=ExtResource("25_0igvr")]
+position = Vector2(-224, 186)
+color = Color(0.6, 0.7, 0.8, 1)
+
+[node name="Ore4" parent="." instance=ExtResource("25_0igvr")]
+position = Vector2(-291, 262)
+color = Color(0.6, 0.7, 0.8, 1)
+
+[node name="Ore5" parent="." instance=ExtResource("25_0igvr")]
+position = Vector2(-223, 338)
+color = Color(0.6, 0.7, 0.8, 1)
+
+[node name="Ore6" parent="." instance=ExtResource("25_0igvr")]
+position = Vector2(-112, 338)
+color = Color(0.6, 0.7, 0.8, 1)
+
+[node name="Ore7" parent="." instance=ExtResource("25_0igvr")]
+position = Vector2(-147, 403)
+color = Color(0.6, 0.7, 0.8, 1)
+
+[node name="Ore8" parent="." instance=ExtResource("25_0igvr")]
+position = Vector2(-313, 380)
+color = Color(0.6, 0.7, 0.8, 1)
+
+[node name="Ore9" parent="." instance=ExtResource("25_0igvr")]
+position = Vector2(-314, 316)
+color = Color(0.6, 0.7, 0.8, 1)
+
+[node name="Ore10" parent="." instance=ExtResource("25_0igvr")]
+position = Vector2(-178, 329)
+color = Color(0.6, 0.7, 0.8, 1)
+
+[node name="Ore11" parent="." instance=ExtResource("25_0igvr")]
+position = Vector2(-131, 223)
+color = Color(0.6, 0.7, 0.8, 1)
+
+[node name="Ore12" parent="." instance=ExtResource("25_0igvr")]
+position = Vector2(-131, 223)
+color = Color(0.6, 0.7, 0.8, 1)

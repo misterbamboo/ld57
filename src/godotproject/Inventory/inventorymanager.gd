@@ -2,11 +2,11 @@ class_name InventoryManager extends Node #Area2D
 
 const SoundNames = preload("res://Audio/soundname.gd")
 
-var copper_quantity: int = 5
-var iron_quantity: int = 4
-var gold_quantity: int = 3
-var diamond_quantity: int = 2
-var platinum_quantity: int = 1
+var copper_quantity: int = 0
+var iron_quantity: int = 0
+var gold_quantity: int = 0
+var diamond_quantity: int = 0
+var platinum_quantity: int = 0
 
 var copper_price: float = 5
 var iron_price: float = 15
@@ -31,43 +31,20 @@ var can_sell: bool = false
 func _ready():
 	pass
 
-func _on_inventory_body_entered(body: Node2D) -> void:
-	_check_ressource(body)
-
-func _on_inventory_area_entered(area: Area2D) -> void:
-	_check_ressource(area)
-
-func _check_ressource(obj: Node) -> void:
-	if not obj.has_method("get_name") or not obj.has_method("get_sell_price"):
-		return
-	
-	var ressource_name = obj.get_name()
-
-	has_inventory = true
-
-	match ressource_name:
-		"Gold":
+func addOre(ore: Ore) -> void:
+	match ore.getOreName():
+		"gold":
 			gold_quantity += 1
-		"Platinum":
+		"platinum":
 			platinum_quantity += 1
-		"Copper":
+		"copper":
 			copper_quantity += 1
-		"Diamond":
+		"diamond":
 			diamond_quantity += 1
-		"Iron":
+		"iron":
 			iron_quantity += 1
-
+			
 	AudioManager.instance.play_sound(SoundNames.SoundName.MATERIAL1)
-
-	# TODO: 
-	# commenting this line out because resources are not implemented yet
-	# and also map generator has changed and it not used globaly like that anymore
-	# but this is where we should call to remove the resource that was gathered so
-	# i'm leaving the line here for now
-	#MapGenerator.instance.remove_ressource(obj)
-
-	obj.visible = false
-	obj.set_physics_process(false)
 
 func _process(_delta):
 	if can_sell and has_inventory and Input.is_action_pressed("sell_inventory"):

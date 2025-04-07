@@ -26,7 +26,7 @@ func travel():
 	traveling = true
 	freeze = false
 	$CollisionPolygon2D.disabled = false
-	accel_t = 0.5
+	accel_t = 0
 	
 func _process(delta: float) -> void:
 	if launched and !traveling:

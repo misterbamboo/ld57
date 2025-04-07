@@ -1,0 +1,28 @@
+[gd_scene load_steps=8 format=3 uid="uid://dair474s5j1va"]
+
+[ext_resource type="Script" uid="uid://b2hmeis77krj0" path="res://Ores/Ore.gd" id="1_ohkv5"]
+[ext_resource type="Texture2D" uid="uid://n5u6b8vqld8e" path="res://Ores/Assets/copper.png" id="1_q3tiy"]
+[ext_resource type="Texture2D" uid="uid://c1bsu1ctcjmo0" path="res://Ores/Assets/iron.png" id="3_n00it"]
+[ext_resource type="Texture2D" uid="uid://dwhsa6co3kr53" path="res://Ores/Assets/gold.png" id="4_jvloh"]
+[ext_resource type="Texture2D" uid="uid://eavrpad7eof6" path="res://Ores/Assets/diamond.png" id="5_jr0mb"]
+[ext_resource type="Texture2D" uid="uid://btmw31ms7hps3" path="res://Ores/Assets/platnum.png" id="6_vowc0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n00it"]
+radius = 13.0
+
+[node name="Ore" type="Node2D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_ohkv5")
+copperTex = ExtResource("1_q3tiy")
+ironTex = ExtResource("3_n00it")
+goldTex = ExtResource("4_jvloh")
+diamondTex = ExtResource("5_jr0mb")
+platinumTex = ExtResource("6_vowc0")
+sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_q3tiy")
+
+[node name="OreArea" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="OreArea"]
+shape = SubResource("CircleShape2D_n00it")
