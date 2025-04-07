@@ -16,6 +16,9 @@ var grappling_distance = Vector2.ZERO
 func _ready():
 	reset_grappling_requirement()
 
+func get_hook_distance() -> float:
+	return shoot_max_distance + Submarine.instance.hook_capacity_upgrade
+
 func _process(delta):
 	handle_grapple()
 
@@ -95,7 +98,7 @@ func set_grappling_requirement():
 	
 	# Godot raycasting
 	var space_state = get_world_2d().direct_space_state
-	var query = PhysicsRayQueryParameters2D.create(global_position, global_position + direction_vector * shoot_max_distance)
+	var query = PhysicsRayQueryParameters2D.create(global_position, global_position + direction_vector * get_hook_distance())
 	query.collision_mask = 0b00000000_00000000_00000000_00000100 # Layer 4 (Resource layer)
 	
 	var result = space_state.intersect_ray(query)
@@ -104,7 +107,7 @@ func set_grappling_requirement():
 		object_to_pull = result.collider
 		grapple_point = result.position
 	else:
-		var new_pos = global_position + (direction_vector * shoot_max_distance)
+		var new_pos = global_position + (direction_vector * get_hook_distance())
 		grapple_point = new_pos
 	
 	grappling_distance = global_position - grapple_point
