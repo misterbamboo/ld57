@@ -2,6 +2,7 @@ class_name Torpedo extends RigidBody2D
 
 @export var explosionTarget: Node2D
 @export var explosion: PackedScene
+@onready var bubbles_particles: CPUParticles2D = $Node2D/Bubbles
 
 var launched: bool = false
 var traveling: bool = false
@@ -26,6 +27,7 @@ func travel():
 	traveling = true
 	freeze = false
 	$CollisionPolygon2D.disabled = false
+	$Node2D/BubbleTimer.start()
 	accel_t = 0
 	
 func _process(delta: float) -> void:
@@ -35,7 +37,10 @@ func _process(delta: float) -> void:
 		move(delta)
 	else:
 		pass
-		
+
+func on_bubble_timer_timeout():
+	bubbles_particles.emitting = true
+
 func waitForTravel():
 	if _anim.current_animation != "":
 		var animT = _anim.current_animation_position / _anim.current_animation_length
