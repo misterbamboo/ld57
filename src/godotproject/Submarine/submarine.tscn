@@ -8,8 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://u7kuhkihbywg" path="res://Submarine/Assets/bubble.png" id="5_wqbfo"]
 [ext_resource type="PackedScene" uid="uid://c64yoqhyqqmb8" path="res://Torpedo/Torpedo.tscn" id="6_7kknb"]
 [ext_resource type="Script" uid="uid://tvvueq5o645q" path="res://Submarine/grapple.gd" id="7_wjrfn"]
-[ext_resource type="Script" uid="uid://7jv4o2westfr" path="res://Submarine/grappling_rope.gd" id="8_rysji"]
-[ext_resource type="Script" uid="uid://yj50l3aymutp" path="res://Submarine/hook.gd" id="9_qemq7"]
+[ext_resource type="Script" path="res://Submarine/grappling_rope.gd" id="8_rysji"]
+[ext_resource type="Script" path="res://Submarine/hook.gd" id="9_qemq7"]
 [ext_resource type="Texture2D" uid="uid://cb8d0tystg08m" path="res://Submarine/hook.png" id="10_qemq7"]
 [ext_resource type="Texture2D" uid="uid://dwj62dekjfubk" path="res://Submarine/Assets/sub_propeller_spritesheet.png" id="11_1gdix"]
 

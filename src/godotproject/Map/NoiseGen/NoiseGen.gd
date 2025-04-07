@@ -87,6 +87,19 @@ func refreshAllNoises():
 	for noiseGenLayer in _noiseGenLayers:
 		_noises.append(noiseGenLayer.toNoise())
 
+func get_noise_terrain_value(x: float, y: float) -> float:
+	var noise := _noises[0] ## first layer is always terrain
+	var value = noise.get_noise_2d(x, y)
+	value = (value + 1.0) / 2.0 # between -1 and 1 (clamp it in 0-1 range)
+	var layer := _noiseGenLayers[0]
+	var curve := _get_curve_from_layer_index(0)
+	var curveVal = curve.sample(y)
+	value = curveVal * value
+	value = clamp(value, 0.0, 1.0)
+	if layer.BreakPointActive:
+		value = 0 if value < layer.BreakPoint else 1
+	return value
+
 func get_noise_color(x: float, y: float) -> Color:
 	var best_color: Color = Color(0, 0, 0)
 	var color_in_first_layer: bool = false
