@@ -58,7 +58,7 @@ func invalidate_chunk(chunk_x: int, chunk_y: int) -> void:
 
 # Invalidate all chunks in a radius around a specified world position (for explosions)
 func invalidate_chunks_in_radius(world_x: float, world_y: float, 
-							     radius: float, chunk_size: int, cell_size: int) -> Array:
+								 radius: float, chunk_size: int, cell_size: int) -> Array:
 	# Calculate affected chunks
 	var min_chunk_x = floor((world_x - radius) / (chunk_size * cell_size))
 	var max_chunk_x = ceil((world_x + radius) / (chunk_size * cell_size))
