@@ -2,6 +2,14 @@ extends Node
 class_name NoiseGen
 # SEE: Global NoiseGenService
 
+const CopperKey := "copper"
+const IronKey := "iron"
+const GoldKey := "gold"
+const DiamondKey := "diamond"
+const PlatinumKey := "platinum"
+
+var loaded: bool
+
 #########
 # Layers
 #########
@@ -16,6 +24,12 @@ func get_layer_with_name(name: String) -> NoiseGenLayer:
 		if layer.Name == name:
 			return layer
 	return null
+var _layerNameColors := {}
+func getCopperColor() -> Color: return _layerNameColors[CopperKey]
+func getIronColor() -> Color: return _layerNameColors[IronKey]
+func getGoldColor() -> Color: return _layerNameColors[GoldKey]
+func getDiamondColor() -> Color: return _layerNameColors[DiamondKey]
+func getPlatinumColor() -> Color: return _layerNameColors[PlatinumKey]
 	
 #########
 # Curves
@@ -45,6 +59,7 @@ func loadAll():
 	loadLayers()
 	loadCurves()
 	refreshAllNoises()
+	loaded = true
 	
 func feedRandomSeeds():
 	randomize()
@@ -67,9 +82,22 @@ func loadLayers():
 				if layer is NoiseGenLayer:
 					_layerNames[layerI] = layer.Name
 					_noiseGenLayers.append(layer)
+					_keepColorCache(layer.Name, layer.LayerColor)
 					layerI += 1
 			file_name = dir.get_next()
-			
+
+func _keepColorCache(layerName: String, layerColor: Color):
+	if layerName.contains(CopperKey):
+		_layerNameColors[CopperKey] = layerColor
+	if layerName.contains(IronKey):
+		_layerNameColors[IronKey] = layerColor
+	if layerName.contains(GoldKey):
+		_layerNameColors[GoldKey] = layerColor
+	if layerName.contains(DiamondKey):
+		_layerNameColors[DiamondKey] = layerColor
+	if layerName.contains(PlatinumKey):
+		_layerNameColors[PlatinumKey] = layerColor
+	
 func loadCurves():
 	var path := "res://Map/NoiseGen/Curves/"
 	var dir := DirAccess.open(path)

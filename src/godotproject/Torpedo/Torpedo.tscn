@@ -54,7 +54,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="Torpedo" type="RigidBody2D" node_paths=PackedStringArray("explosionTarget")]
 collision_layer = 4
-gravity_scale = 0.0
+gravity_scale = 10.0
 script = ExtResource("1_u6tmg")
 explosionTarget = NodePath("ExplosionPos")
 explosion = ExtResource("2_aah1a")

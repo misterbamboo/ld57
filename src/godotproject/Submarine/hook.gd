@@ -1,5 +1,7 @@
 class_name Hook extends Node2D
 
+signal onOreAttached(ore: Ore)
+
 @onready var sprite: Sprite2D = $Sprite2D  # Reference to the Sprite2D node
 
 var target_pos = Vector3.ZERO
@@ -24,3 +26,17 @@ func update_rotation():
 	if (abs(dir.x) > 0.1 or abs(dir.y) > 0.1):
 		var angle = atan2(dir.y, dir.x)
 		rotation = angle  # Godot uses radians directly for rotation
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	if !is_active():
+		return
+	if area.name == "OreArea":
+		if area.get_parent() is Ore:
+			var ore := area.get_parent() as Ore
+			call_deferred("_attach_ore", ore)
+			
+func _attach_ore(ore: Ore):
+	if ore.get_parent() != self:	
+		ore.reparent(self)
+		ore.position = Vector2.ZERO
+		emit_signal("onOreAttached", ore)

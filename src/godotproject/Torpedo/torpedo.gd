@@ -28,7 +28,7 @@ func travel():
 	freeze = false
 	$CollisionPolygon2D.disabled = false
 	bubbles_particles.emitting = true
-	accel_t = 0.5
+	accel_t = 0
 	
 func _process(delta: float) -> void:
 	if launched and !traveling:

@@ -13,8 +13,11 @@ var object_to_pull = null
 var grapple_point = Vector2.ZERO
 var grappling_distance = Vector2.ZERO
 
+var _attachedOres: Array[Ore] = []
+
 func _ready():
 	reset_grappling_requirement()
+	hook.onOreAttached.connect(func(o: Ore): _attachedOres.append(o))
 
 func get_hook_distance() -> float:
 	return shoot_max_distance + Submarine.instance.hook_capacity_upgrade
@@ -36,6 +39,7 @@ func handle_grapple():
 		move_toward_submarine()
 		
 		if have_reach_submarine():
+			getOreToInventory()
 			reset_grappling_requirement()
 	
 	move_hook_tip_of_rope()
@@ -87,7 +91,7 @@ func have_reach_submarine():
 	var hook_pos = hook.global_position
 	var distance_remaining = global_position.distance_to(hook_pos)
 	
-	return distance_remaining < 0.5 or (object_to_pull != null and object_to_pull.is_consume())
+	return distance_remaining < 15 or (object_to_pull != null and object_to_pull.is_consume())
 
 func set_grappling_requirement():
 	var click_pos = get_viewport().get_camera_2d().get_global_mouse_position()
@@ -112,3 +116,10 @@ func set_grappling_requirement():
 	
 	grappling_distance = global_position - grapple_point
 	grappling_rope.enable()
+
+func getOreToInventory():
+	while _attachedOres.size() > 0:
+		var ore = _attachedOres[0]
+		_attachedOres.remove_at(0)
+		Inventory.addOre(ore)
+		ore.queue_free()
