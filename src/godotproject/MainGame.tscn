@@ -68,18 +68,13 @@ script = ExtResource("4_pv6b4")
 
 [node name="MapDebugVisualizer" type="Node2D" parent="Map"]
 script = ExtResource("7_0igvr")
-enabled = false
 flash_duration = 10.0
-explosion_color = null
 
 [node name="MapGenerator" type="Node2D" parent="Map"]
 script = ExtResource("1_3tbxw")
 width = 100
 cell_size = 32
 render_distance = 2
-max_cached_chunks = null
-debug_cached_chunk_color = null
-debug_new_chunk_color = null
 
 [node name="TileMapRenderer" type="Node2D" parent="Map/MapGenerator"]
 script = ExtResource("7_a6adi")
@@ -153,9 +148,6 @@ motion_scale = Vector2(0.7, 0.7)
 [node name="MapGenerator" type="Node2D" parent="ParallaxBackground/ParallaxLayer"]
 script = ExtResource("1_3tbxw")
 map_layer = 1
-max_cached_chunks = null
-debug_cached_chunk_color = null
-debug_new_chunk_color = null
 metadata/_custom_type_script = "uid://sc7omqwitfjq"
 
 [node name="TileMapRenderer" type="Node2D" parent="ParallaxBackground/ParallaxLayer/MapGenerator"]

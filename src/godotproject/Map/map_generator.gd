@@ -58,9 +58,15 @@ func connect_signals():
 	# Connect to event bus for chunk loading events
 	EventBus.register(LoadMapChunkEvent.event_name, self._on_load_map_chunk_event)
 	
-	# Restore explosion connection if it was previously used
-	if ExplosionMap.has_method("on_explosion"):
-		ExplosionMap.on_explosion.connect(addExplosionAt)
+	ExplosionMap.on_explosion.connect(_on_explosion_event)
+
+# Handler for explosion events - converts from index coordinates to world coordinates
+func _on_explosion_event(indexPos: Vector2i, radiusIdx: float):
+	# Convert back to world position and radius
+	var worldPos = Vector2(indexPos) * ExplosionMap.pxToIndexRatio
+	var worldRadius = radiusIdx * ExplosionMap.pxToIndexRatio
+	print("Explosion received at index %s (world pos: %s) with radius %.2f" % [indexPos, worldPos, worldRadius])
+	addExplosionAt(worldPos, worldRadius)
 
 func build_initial_map():
 	# Only build initial map if not in editor
@@ -79,16 +85,19 @@ func addExplosionAt(pos: Vector2, radius: float) -> void:
 	
 	# Get affected chunks from the explosion
 	var affected_chunks = get_chunks_in_radius(pos, radius)
+	print("Explosion affecting %d chunks" % affected_chunks.size())
 	
 	# Invalidate all chunks in the explosion radius
 	for chunk_pos in affected_chunks:
 		# Invalidate the chunk in the cache
 		chunk_cache.invalidate_chunk(chunk_pos.x, chunk_pos.y)
+		print("  - Invalidated chunk at %s" % chunk_pos)
 		
 		# Check if we need to reload this chunk (if it's in the active chunks)
 		var chunk_key = "%d,%d" % [chunk_pos.x, chunk_pos.y]
 		if active_chunks.has(chunk_key):
 			# Reload the chunk since it's active and needs updating
+			print("    - Reloading active chunk")
 			load_chunk(chunk_pos.x, chunk_pos.y)
 	
 	# Calculate visualization data for the explosion - always emit the signal
@@ -244,6 +253,9 @@ func load_chunk(chunk_x: int, chunk_y: int):
 func generate_chunk_data(x_from: int, x_to: int, y_from: int, y_to: int):
 	if Engine.is_editor_hint() or renderer == null:
 		return null
+	
+	# Add debug to check if we're regenerating after explosions
+	print("Generating chunk data from %d,%d to %d,%d" % [x_from, y_from, x_to, y_to])
 		
 	# Create chunk data (this could be tile indices, or whatever data your renderer needs)
 	var chunk_data = []
