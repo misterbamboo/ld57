@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://elgdo67b6sat"]
+[gd_scene load_steps=14 format=3 uid="uid://dbc8axkfuweit"]
 
 [ext_resource type="Script" uid="uid://c4ak6gbtvvhkn" path="res://ShopManagement/shopscreen.gd" id="1_ws088"]
 [ext_resource type="Script" uid="uid://b2uchrnmg5evm" path="res://ShopManagement/ItemsDatabase/ShopItemDef.gd" id="2_kqsvq"]
@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://bj5pq30aynjca" path="res://ShopManagement/ItemsDatabase/oxy_1.tres" id="8_8thqk"]
 [ext_resource type="Resource" uid="uid://dmwqivu5lrfxa" path="res://ShopManagement/ItemsDatabase/speed_1.tres" id="9_cfa4g"]
 [ext_resource type="PackedScene" uid="uid://b03t0rkjdexdx" path="res://ShopManagement/ShopItem/shop_item.tscn" id="10_gatel"]
+[ext_resource type="Resource" uid="uid://chfiymsfmjbab" path="res://ShopManagement/ItemsDatabase/torpedo_1.tres" id="10_kqsvq"]
 [ext_resource type="Texture2D" uid="uid://v5rlg4d1pvgg" path="res://ShopManagement/Assets/oxy_tank.png" id="11_qhxrt"]
 [ext_resource type="Texture2D" uid="uid://dclgoyvr3jx7d" path="res://ShopManagement/Assets/exit_btn_16.png" id="12_7gvug"]
 
@@ -21,7 +22,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ws088")
-shopDefinitions = Array[ExtResource("2_kqsvq")]([ExtResource("3_1ijrk"), ExtResource("4_0xtnb"), ExtResource("5_kepej"), ExtResource("6_aibay"), ExtResource("7_kkaip"), ExtResource("8_8thqk"), ExtResource("9_cfa4g")])
+shopDefinitions = Array[ExtResource("2_kqsvq")]([ExtResource("3_1ijrk"), ExtResource("4_0xtnb"), ExtResource("5_kepej"), ExtResource("6_aibay"), ExtResource("7_kkaip"), ExtResource("8_8thqk"), ExtResource("9_cfa4g"), ExtResource("10_kqsvq")])
 moneyDisplayLabel = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer2/PlayerMoney")
 buyButton = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/BuyButton")
 titleLabel = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Title")

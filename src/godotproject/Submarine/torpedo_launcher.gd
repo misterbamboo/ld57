@@ -9,6 +9,8 @@ func _process(delta: float) -> void:
 		spawnTorpedo()
 
 func spawnTorpedo():
+	
+
 	if torpedoTemplace != null:
 			currentTorpedo = torpedoTemplace.instantiate() as Torpedo
 			add_child(currentTorpedo)
@@ -26,6 +28,10 @@ func _input(event: InputEvent) -> void:
 
 	# launch torpedo on left click
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
+		if Submarine.instance.torpedo_amount_upgrade <= 0:
+			return
+		
 		currentTorpedo.reparent(get_tree().root)
 		currentTorpedo.launch()
 		currentTorpedo = null
+		Submarine.instance.use_torpedo()
