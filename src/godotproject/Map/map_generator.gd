@@ -283,12 +283,33 @@ func build(x_from: int, x_to: int, y_from: int, y_to: int):
 
 func get_chunks_in_radius(pos: Vector2, radius: float) -> Array:
 	var chunks = []
-	var chunk_pos = get_chunk_coordinates_at_world_position(pos)
+	var center_chunk_pos = get_chunk_coordinates_at_world_position(pos)
 	var chunk_radius = ceil(radius / (cell_size * CHUNK_SIZE))
 	
-	for y in range(chunk_pos.y - chunk_radius, chunk_pos.y + chunk_radius + 1):
-		for x in range(chunk_pos.x - chunk_radius, chunk_pos.x + chunk_radius + 1):
-			chunks.append(Vector2i(x, y))
+	# For debugging
+	print("Explosion at world pos %s with radius %.1f" % [pos, radius])
+	print("Center chunk: %s, chunk search radius: %d" % [center_chunk_pos, chunk_radius])
+	
+	# Calculate bounds for checking chunks
+	for y in range(center_chunk_pos.y - chunk_radius, center_chunk_pos.y + chunk_radius + 1):
+		for x in range(center_chunk_pos.x - chunk_radius, center_chunk_pos.x + chunk_radius + 1):
+			# Check if this chunk actually intersects with the explosion radius
+			var chunk_world_pos = Vector2(
+				x * CHUNK_SIZE * cell_size + float(CHUNK_SIZE * cell_size) / 2.0, 
+				y * CHUNK_SIZE * cell_size + float(CHUNK_SIZE * cell_size) / 2.0
+			)
+			var distance_to_center = pos.distance_to(chunk_world_pos)
+			
+			# Add chunk if the center is within radius + half the chunk diagonal
+			var chunk_half_diagonal = sqrt(2.0) * float(CHUNK_SIZE * cell_size) / 2.0
+			
+			# For debugging distances
+			if x == center_chunk_pos.x and y == center_chunk_pos.y:
+				print("Center chunk distance: %.1f, diagonal: %.1f" % [distance_to_center, chunk_half_diagonal])
+				
+			if distance_to_center <= (radius + chunk_half_diagonal):
+				chunks.append(Vector2i(x, y))
+				print("  - Including chunk %s (distance: %.1f)" % [Vector2i(x, y), distance_to_center])
 	
 	return chunks
 
