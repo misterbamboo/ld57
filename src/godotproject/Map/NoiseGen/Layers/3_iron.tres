@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_4ia2q")
 Name = "3_iron"
-LayerColor = Color(0.632527, 0.72003, 0.806057, 1)
+LayerColor = Color(0.6, 0.7, 0.8, 1)
 Seed = 1.0
 Frequency = 0.165
 FractalOctaves = 2.0

@@ -1,11 +1,11 @@
-[gd_resource type="Resource" script_class="NoiseGenLayer" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="NoiseGenLayer" load_steps=2 format=3 uid="uid://bscuxrirg0iar"]
 
-[ext_resource type="Script" path="res://Map/NoiseGen/NoiseGenLayer.gd" id="1_4ia2q"]
+[ext_resource type="Script" uid="uid://daw03tl25x7lq" path="res://Map/NoiseGen/NoiseGenLayer.gd" id="1_4ia2q"]
 
 [resource]
 script = ExtResource("1_4ia2q")
 Name = "6_platinum"
-LayerColor = Color(0.613757, 0.105743, 0.820313, 1)
+LayerColor = Color(0.6, 0.1, 0.8, 1)
 Seed = 1.0
 Frequency = 6.02
 FractalOctaves = 2.0
