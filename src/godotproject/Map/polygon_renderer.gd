@@ -68,3 +68,38 @@ func render_map(square_generator: MarchingSquaresGenerator, x_from: int, x_to: i
 func hide_all():
     for poly in polygon_pool:
         poly.visible = false
+
+# Implementation of applying cached chunk data
+func apply_cached_chunk(chunk_data, x_from: int, y_from: int):
+    if Engine.is_editor_hint() or chunk_data == null:
+        return
+        
+    # Reset the polygon index and clear existing polygons
+    polygon_index = 0
+    for poly in polygon_pool:
+        poly.visible = false
+    
+    # Apply the cached tile data
+    for y_offset in range(chunk_data.size()):
+        var y = y_from + y_offset
+        var row = chunk_data[y_offset]
+        
+        for x_offset in range(row.size()):
+            var x = x_from + x_offset
+            var square_type = row[x_offset]
+            
+            if square_type == 0:
+                continue
+                
+            # Get or create a polygon for this cell
+            var polygon = _get_next_polygon()
+            polygon.visible = true
+            
+            # Calculate polygon vertices based on cell position
+            var vertices = PackedVector2Array()
+            vertices.append(Vector2(x * cell_size, y * cell_size))
+            vertices.append(Vector2((x + 1) * cell_size, y * cell_size))
+            vertices.append(Vector2((x + 1) * cell_size, (y + 1) * cell_size))
+            vertices.append(Vector2(x * cell_size, (y + 1) * cell_size))
+            
+            polygon.polygon = vertices

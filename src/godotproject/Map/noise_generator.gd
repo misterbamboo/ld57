@@ -1,13 +1,16 @@
 class_name NoiseGenerator
 
+var generator: NoiseGen
+
 func _init(layer_count: int = 5):
-	NoiseGenService.loadAll()
-	NoiseGenService.feedRandomSeeds()
+	generator = NoiseGen.new()
+	generator.loadAll()
+	generator.feedRandomSeeds()
 	
 func get_noise_value_at(x: float, y: float) -> float:
 	if ExplosionMap.hasExploded(Vector2i(x, y)):
 		return 0
 
-	var value := NoiseGenService.get_noise_terrain_value(x, y)
+	var value := generator.get_noise_terrain_value(x, y)
 	return value
 	
