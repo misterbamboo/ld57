@@ -1,6 +1,6 @@
-[gd_resource type="Resource" script_class="NoiseGenLayer" load_steps=2 format=3 uid="uid://dxtrdrs33j5ul"]
+[gd_resource type="Resource" script_class="NoiseGenLayer" load_steps=2 format=3]
 
-[ext_resource type="Script" uid="uid://daw03tl25x7lq" path="res://Map/NoiseGen/NoiseGenLayer.gd" id="1_qgil2"]
+[ext_resource type="Script" path="res://Map/NoiseGen/NoiseGenLayer.gd" id="1_qgil2"]
 
 [resource]
 script = ExtResource("1_qgil2")

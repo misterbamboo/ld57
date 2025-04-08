@@ -131,9 +131,14 @@ func set_grappling_requirement():
 func getOreToInventory():
 	var size = _attachedOres.size()
 	for i in size:
-		var ore = _attachedOres.pop_back()
-		Inventory.addOre(ore)
-		ore.release()
+		if _attachedOres.size() > 0:  # Double-check size before popping
+			var ore = _attachedOres.pop_back()
+			if ore != null:  # Make sure the ore exists
+				Inventory.addOre(ore)
+				ore.release()
+	
+	# Ensure the array is empty after processing
+	_attachedOres.clear()
 
 func check_auto_reel():
 	if _attachedOres.size() >= Submarine.instance.hook_capacity_upgrade and hook.is_active() and not is_pulling:

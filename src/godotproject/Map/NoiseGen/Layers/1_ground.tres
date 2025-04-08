@@ -1,16 +1,16 @@
-[gd_resource type="Resource" script_class="NoiseGenLayer" load_steps=2 format=3 uid="uid://bpbmgfpkef8xq"]
+[gd_resource type="Resource" script_class="NoiseGenLayer" load_steps=2 format=3]
 
-[ext_resource type="Script" uid="uid://daw03tl25x7lq" path="res://Map/NoiseGen/NoiseGenLayer.gd" id="1_8jyil"]
+[ext_resource type="Script" path="res://Map/NoiseGen/NoiseGenLayer.gd" id="1_8jyil"]
 
 [resource]
 script = ExtResource("1_8jyil")
 Name = "1_ground"
 LayerColor = Color(0.7, 0.6, 0.5, 1)
 Seed = 4.0
-Frequency = 0.059
-FractalOctaves = 2.0
-FractalLacunarity = 2.22
-FractalGain = 0.13
+Frequency = 0.052
+FractalOctaves = 1.0
+FractalLacunarity = 2.0
+FractalGain = 1.0
 CurveName = "1_ground_curve"
 BreakPointActive = true
-BreakPoint = 0.36
+BreakPoint = 0.31

@@ -5,14 +5,14 @@ const SoundNames = preload("res://Audio/soundname.gd")
 var copper_quantity: int = 0
 var iron_quantity: int = 0
 var gold_quantity: int = 0
-var diamond_quantity: int = 0
 var platinum_quantity: int = 0
+var diamond_quantity: int = 0
 
 var copper_price: float = 5
 var iron_price: float = 15
 var gold_price: float = 60
-var diamond_price: float = 250
-var platinum_price: float = 1500
+var platinum_price: float = 250
+var diamond_price: float = 1000
 
 var inventoryTotalQuantity: int:
 	get:
