@@ -31,7 +31,7 @@ var can_sell: bool = false
 func _ready():
 	pass
 
-func addOre(ore: Ore) -> void:
+func addOre(ore: PoolableOre) -> void:
 	match ore.getOreName():
 		"gold":
 			gold_quantity += 1

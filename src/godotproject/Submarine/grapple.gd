@@ -13,11 +13,11 @@ var object_to_pull = null
 var grapple_point = Vector2.ZERO
 var grappling_distance = Vector2.ZERO
 
-var _attachedOres: Array[Ore] = []
+var _attachedOres: Array[PoolableOre] = []
 
 func _ready():
 	reset_grappling_requirement()
-	hook.onOreAttached.connect(func(o: Ore): _attachedOres.append(o))
+	hook.onOreAttached.connect(func(o: PoolableOre): _attachedOres.append(o))
 
 func get_hook_distance() -> float:
 	return shoot_max_distance + Submarine.instance.hook_capacity_upgrade
@@ -122,4 +122,4 @@ func getOreToInventory():
 		var ore = _attachedOres[0]
 		_attachedOres.remove_at(0)
 		Inventory.addOre(ore)
-		ore.queue_free()
+		ore.release()

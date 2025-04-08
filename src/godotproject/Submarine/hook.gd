@@ -31,11 +31,11 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	if !is_active():
 		return
 	if area.name == "OreArea":
-		if area.get_parent() is Ore:
-			var ore := area.get_parent() as Ore
+		if area.get_parent() is PoolableOre:
+			var ore := area.get_parent() as PoolableOre
 			call_deferred("_attach_ore", ore)
 			
-func _attach_ore(ore: Ore):
+func _attach_ore(ore: PoolableOre):
 	if ore.get_parent() != self:	
 		ore.reparent(self)
 		ore.position = Vector2.ZERO

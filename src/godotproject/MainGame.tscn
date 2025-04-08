@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://deom164vw26rg"]
+[gd_scene load_steps=31 format=3 uid="uid://deom164vw26rg"]
 
 [ext_resource type="Script" uid="uid://5w86ovkibplk" path="res://CameraManagement/submarinefollow.gd" id="1_0v7qb"]
 [ext_resource type="Script" uid="uid://sc7omqwitfjq" path="res://Map/map_generator.gd" id="1_3tbxw"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://da26qelyupo77" path="res://Submarine/submarine.tscn" id="12_05o7g"]
 [ext_resource type="Script" uid="uid://dkkyfc01q7jit" path="res://Water/water.gd" id="12_qtrx8"]
 [ext_resource type="Script" uid="uid://b6g4cy2wogxrw" path="res://HUD/oxygen_meter.gd" id="13_led80"]
+[ext_resource type="Script" uid="uid://d2tapptlsurtg" path="res://Utils/NodePooler.gd" id="13_m6fch"]
 [ext_resource type="Texture2D" uid="uid://c6wguud8duno8" path="res://HUD/sub_hud.png" id="14_401ut"]
 [ext_resource type="Texture2D" uid="uid://bgwg0v4a85xpl" path="res://HUD/bubble.png" id="14_mi4js"]
 [ext_resource type="Script" uid="uid://bjn4f61m5b8mf" path="res://HUD/life_meter.gd" id="15_o3vwv"]
@@ -71,7 +72,6 @@ script = ExtResource("4_pv6b4")
 
 [node name="MapDebugVisualizer" type="Node2D" parent="Map"]
 script = ExtResource("7_0igvr")
-enabled = false
 flash_duration = 10.0
 
 [node name="MapGenerator" type="Node2D" parent="Map"]
@@ -91,6 +91,12 @@ tile_set = ExtResource("8_28psf")
 [node name="OreGenerator" type="Node2D" parent="Map"]
 script = ExtResource("7_f21le")
 oreScene = ExtResource("25_0igvr")
+
+[node name="NodePooler" type="Node" parent="Map/OreGenerator"]
+script = ExtResource("13_m6fch")
+scene = ExtResource("25_0igvr")
+preload_amount = 500
+metadata/_custom_type_script = "uid://d2tapptlsurtg"
 
 [node name="ShopManagement" type="Node2D" parent="."]
 
@@ -252,48 +258,36 @@ text = "0"
 
 [node name="Ore" parent="." instance=ExtResource("25_0igvr")]
 position = Vector2(-55, 233)
-color = Color(0.6, 0.7, 0.8, 1)
 
 [node name="Ore2" parent="." instance=ExtResource("25_0igvr")]
 position = Vector2(-189, 257)
-color = Color(0.6, 0.7, 0.8, 1)
 
 [node name="Ore3" parent="." instance=ExtResource("25_0igvr")]
 position = Vector2(-224, 186)
-color = Color(0.6, 0.7, 0.8, 1)
 
 [node name="Ore4" parent="." instance=ExtResource("25_0igvr")]
 position = Vector2(-291, 262)
-color = Color(0.6, 0.7, 0.8, 1)
 
 [node name="Ore5" parent="." instance=ExtResource("25_0igvr")]
 position = Vector2(-223, 338)
-color = Color(0.6, 0.7, 0.8, 1)
 
 [node name="Ore6" parent="." instance=ExtResource("25_0igvr")]
 position = Vector2(-112, 338)
-color = Color(0.6, 0.7, 0.8, 1)
 
 [node name="Ore7" parent="." instance=ExtResource("25_0igvr")]
 position = Vector2(-147, 403)
-color = Color(0.6, 0.7, 0.8, 1)
 
 [node name="Ore8" parent="." instance=ExtResource("25_0igvr")]
 position = Vector2(-313, 380)
-color = Color(0.6, 0.7, 0.8, 1)
 
 [node name="Ore9" parent="." instance=ExtResource("25_0igvr")]
 position = Vector2(-314, 316)
-color = Color(0.6, 0.7, 0.8, 1)
 
 [node name="Ore10" parent="." instance=ExtResource("25_0igvr")]
 position = Vector2(-178, 329)
-color = Color(0.6, 0.7, 0.8, 1)
 
 [node name="Ore11" parent="." instance=ExtResource("25_0igvr")]
 position = Vector2(-131, 223)
-color = Color(0.6, 0.7, 0.8, 1)
 
 [node name="Ore12" parent="." instance=ExtResource("25_0igvr")]
 position = Vector2(-131, 223)
-color = Color(0.6, 0.7, 0.8, 1)

@@ -9,12 +9,12 @@ var oreData := {}
 func _ready() -> void:
 	pass
 
-func moveOreAt(pos: Vector2) -> void:
+func collectOreAt(pos: Vector2) -> void:
 	var xIdx = pos.x / pxToIndexRatio
 	var yIdx = pos.y / pxToIndexRatio
 	
 	var indexPos = Vector2i(xIdx, yIdx)
 	oreData[indexPos] = true
 	
-func hasMoved(checkPoint: Vector2i):
+func hasBeenCollected(checkPoint: Vector2i):
 	return oreData.has(checkPoint)
