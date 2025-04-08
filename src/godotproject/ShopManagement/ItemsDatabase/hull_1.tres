@@ -6,11 +6,13 @@
 [resource]
 script = ExtResource("2_px0gj")
 key = "hull_1"
+requirement_key = ""
 title = "Hull lvl 1"
 description = "Make your submarine more resistant to impacts."
+repeatable = false
 price = 100.0
 icon = ExtResource("1_lrvs4")
-upgradeType = 5
+upgradeType = 6
 upgradeValue = 50.0
 upgradeType2 = 6
 upgradeValue2 = 50.0

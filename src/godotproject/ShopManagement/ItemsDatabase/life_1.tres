@@ -6,11 +6,13 @@
 [resource]
 script = ExtResource("2_wjdpc")
 key = "life_1"
+requirement_key = ""
 title = "Life lvl 1"
 description = "Fix issues on you sub before it sinks."
+repeatable = true
 price = 50.0
 icon = ExtResource("1_0mhh8")
-upgradeType = 6
+upgradeType = 7
 upgradeValue = 50.0
 upgradeType2 = 7
 upgradeValue2 = 0.0

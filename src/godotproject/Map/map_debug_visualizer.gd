@@ -10,6 +10,11 @@ class_name MapDebugVisualizer extends Node2D
 @export var chunk_seam_color: Color = Color(1.0, 0.0, 0.0, 0.7)  # Red for level
 @export var background_seam_color: Color = Color(0.0, 0.0, 1.0, 0.7)  # Blue for background
 
+# Feature toggles
+@export_group("Visualization Toggles")
+@export var show_chunk_borders: bool = true  # Toggle chunk borders and labels
+@export var show_chunk_updates: bool = true  # Toggle chunk update flashing
+
 # References 
 var cell_size: int = 50
 var chunk_size: int = 16
@@ -48,6 +53,10 @@ func _ready():
 				map_generator = sibling
 				cell_size = map_generator.cell_size
 				chunk_size = map_generator.CHUNK_SIZE
+
+				for child in sibling.get_children():
+					if child is TileMapRenderer:
+						tile_renderer = child
 				
 				# Connect to map generator signals
 				map_generator.chunk_loaded.connect(_on_chunk_loaded)
@@ -57,21 +66,46 @@ func _ready():
 		if not map_generator:
 			push_warning("MapDebugVisualizer couldn't find a MapGenerator sibling!")
 
-# Signal handlers
+func _process(delta):
+	if enabled:
+		# Always try to draw chunk borders if enabled, even without updates
+		if show_chunk_borders:
+			queue_redraw()
+			
+		# Process updated areas if there are any and updates are enabled
+		if show_chunk_updates and not updated_areas.is_empty():
+			process_updated_areas(delta)
+
 func _on_chunk_loaded(_chunk_x, _chunk_y, bounds_rect, from_cache):
+	# Always track chunk loading for borders, even if updates are disabled
 	if not enabled:
 		return
 		
-	# Create updated area visualization
-	var x_from = bounds_rect.position.x
-	var y_from = bounds_rect.position.y
-	var x_to = x_from + bounds_rect.size.x
-	var y_to = y_from + bounds_rect.size.y
-	
-	add_updated_area(x_from, x_to, y_from, y_to, from_cache)
+	# Track loaded chunks for the borders
+	if show_chunk_borders:
+		# We still need to queue a redraw to update the borders
+		queue_redraw()
+		
+	# Only create update area visualization if updates are enabled
+	if show_chunk_updates:
+		# Create updated area visualization
+		var x_from = bounds_rect.position.x
+		var y_from = bounds_rect.position.y
+		var x_to = x_from + bounds_rect.size.x
+		var y_to = y_from + bounds_rect.size.y
+		
+		add_updated_area(x_from, x_to, y_from, y_to, from_cache)
 
 func _on_explosion_occurred(_center_position, _radius, bounds_rect):
 	if not enabled:
+		return
+	
+	# Always redraw borders if they're enabled
+	if show_chunk_borders:
+		queue_redraw()
+		
+	# Only create explosion visualization if updates are enabled
+	if not show_chunk_updates:
 		return
 		
 	# Visualize explosion area
@@ -83,10 +117,6 @@ func _on_explosion_occurred(_center_position, _radius, bounds_rect):
 	# Use a special color for explosions
 	var area = add_updated_area(x_from, x_to, y_from, y_to, false)
 	area.color = explosion_color  # Red tint for explosions
-
-func _process(delta):
-	if enabled and not updated_areas.is_empty():
-		process_updated_areas(delta)
 
 func process_updated_areas(delta):
 	var areas_to_remove = []
@@ -115,8 +145,11 @@ func _draw():
 		return
 		
 	# Draw debug visualizations if enabled
-	draw_chunk_boundaries()
-	draw_updated_areas()
+	if show_chunk_borders:
+		draw_chunk_boundaries()
+	
+	if show_chunk_updates:
+		draw_updated_areas()
 
 func draw_chunk_boundaries():
 	# Calculate view bounds based on viewport
@@ -166,36 +199,31 @@ func add_updated_area(area_x_from: int, area_x_to: int, area_y_from: int, area_y
 	queue_redraw()
 	return area
 
-func _draw_chunk_seams(top_left: Vector2, bottom_right: Vector2, rows_in_chunk: float, cols_in_chunk: float, cell_size_px: float, color: Color):
-	var chunk_height = rows_in_chunk * cell_size_px
-	var chunk_width = cols_in_chunk * cell_size_px
+func _draw_chunk_seams(top_left: Vector2, bottom_right: Vector2, chunk_width: int, chunk_height: int, cell_size_px: int, color: Color):
+	# Calculate min/max chunk coordinates that are visible in the viewport
+	var min_chunk_x = floor(top_left.x / (chunk_width * cell_size_px))
+	var max_chunk_x = ceil(bottom_right.x / (chunk_width * cell_size_px))
+	var min_chunk_y = floor(top_left.y / (chunk_height * cell_size_px))
+	var max_chunk_y = ceil(bottom_right.y / (chunk_height * cell_size_px))
 	
-	# Calculate visible chunk range
-	var top_left_chunk = get_chunk_coordinates_at_world_position(top_left)
-	var bottom_right_chunk = get_chunk_coordinates_at_world_position(bottom_right)
-	
-	# Expand range to ensure all visible chunks are shown
-	var min_chunk_x = int(top_left_chunk.x) - 1
-	var max_chunk_x = int(bottom_right_chunk.x) + 1
-	var min_chunk_y = int(top_left_chunk.y) - 1
-	var max_chunk_y = int(bottom_right_chunk.y) + 1
-	
-	# Draw horizontal grid lines
-	for chunk_y in range(min_chunk_y, max_chunk_y + 1):
-		var y_world = chunk_y * chunk_height
+	# Draw vertical chunk seams
+	for chunk_x in range(min_chunk_x, max_chunk_x + 1):
+		var x = chunk_x * chunk_width * cell_size_px
 		draw_line(
-			Vector2(min_chunk_x * chunk_width - 1000, y_world), 
-			Vector2(max_chunk_x * chunk_width + 1000, y_world),
-			color, 2.0
+			Vector2(x, min_chunk_y * chunk_height * cell_size_px),
+			Vector2(x, max_chunk_y * chunk_height * cell_size_px),
+			color,
+			1.0
 		)
 	
-	# Draw vertical grid lines
-	for chunk_x in range(min_chunk_x, max_chunk_x + 1):
-		var x_world = chunk_x * chunk_width
+	# Draw horizontal chunk seams
+	for chunk_y in range(min_chunk_y, max_chunk_y + 1):
+		var y = chunk_y * chunk_height * cell_size_px
 		draw_line(
-			Vector2(x_world, min_chunk_y * chunk_height - 1000),
-			Vector2(x_world, max_chunk_y * chunk_height + 1000),
-			color, 2.0
+			Vector2(min_chunk_x * chunk_width * cell_size_px, y),
+			Vector2(max_chunk_x * chunk_width * cell_size_px, y),
+			color,
+			1.0
 		)
 	
 	# Draw chunk coordinate labels
@@ -204,22 +232,13 @@ func _draw_chunk_seams(top_left: Vector2, bottom_right: Vector2, rows_in_chunk: 
 func draw_chunk_labels(min_x: int, max_x: int, min_y: int, max_y: int, chunk_width: float, chunk_height: float):
 	for chunk_y in range(min_y, max_y + 1):
 		for chunk_x in range(min_x, max_x + 1):
-			var x_world = chunk_x * chunk_width
-			var y_world = chunk_y * chunk_height
-			var label_position = Vector2(x_world + 5, y_world + 20)
-			
-			# Draw text background for better visibility
-			var text = "Chunk: %d,%d" % [chunk_x, chunk_y]
-			var font = ThemeDB.fallback_font
-			var text_size = font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, 16)
-			
-			draw_rect(
-				Rect2(label_position.x - 2, label_position.y - 14, text_size.x + 4, text_size.y + 4), 
-				Color(0, 0, 0, 0.5)
+			var pos = Vector2(
+				chunk_x * chunk_width * cell_size + 5, 
+				chunk_y * chunk_height * cell_size + 15
 			)
 			
-			# Draw the coordinate text
-			draw_string(font, label_position, text, HORIZONTAL_ALIGNMENT_LEFT, -1, 16, Color(1, 1, 1, 0.9))
+			var label_text = "(%d, %d)" % [chunk_x, chunk_y]
+			draw_string(ThemeDB.fallback_font, pos, label_text, HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color(1,1,1,0.7))
 
 func get_chunk_coordinates_at_world_position(world_pos: Vector2) -> Vector2:
 	var tile_x = int(world_pos.x / cell_size)

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ShopItemDef" load_steps=3 format=3 uid="uid://dn4gypjawgl1i"]
+
+[ext_resource type="Texture2D" uid="uid://bv3on26qdhh58" path="res://ShopManagement/Assets/air-upgrade.png" id="1_kq6l0"]
+[ext_resource type="Script" uid="uid://b2uchrnmg5evm" path="res://ShopManagement/ItemsDatabase/ShopItemDef.gd" id="2_5c6lk"]
+
+[resource]
+script = ExtResource("2_5c6lk")
+key = "oxy_2"
+requirement_key = "oxy_1"
+title = "Oxygen Tank 2"
+description = "Deccently increases oxygen capacity"
+price = 500.0
+icon = ExtResource("1_kq6l0")
+upgradeType = 1
+upgradeValue = 100.0
+upgradeType2 = 9
+upgradeValue2 = 0.0
+metadata/_custom_type_script = "uid://b2uchrnmg5evm"

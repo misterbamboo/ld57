@@ -72,8 +72,8 @@ script = ExtResource("4_pv6b4")
 
 [node name="MapDebugVisualizer" type="Node2D" parent="Map"]
 script = ExtResource("7_0igvr")
-enabled = false
 flash_duration = 10.0
+show_chunk_updates = false
 
 [node name="MapGenerator" type="Node2D" parent="Map"]
 script = ExtResource("1_3tbxw")
@@ -92,11 +92,10 @@ tile_set = ExtResource("8_28psf")
 [node name="OreMapRenderer" type="Node2D" parent="Map/MapGenerator"]
 script = ExtResource("11_m6fch")
 
-[node name="NodePooler" type="Node" parent="Map/MapGenerator/OreMapRenderer"]
+[node name="NodePooler" type="Node2D" parent="Map/MapGenerator/OreMapRenderer"]
 script = ExtResource("13_m6fch")
 scene = ExtResource("25_0igvr")
-preload_amount = 500
-metadata/_custom_type_script = "uid://d2tapptlsurtg"
+preload_amount = 100
 
 [node name="ShopManagement" type="Node2D" parent="."]
 
@@ -151,6 +150,7 @@ texture = SubResource("GradientTexture2D_mi4js")
 polygon = PackedVector2Array(0, 0, 50, 0, 50, 50, 0, 50)
 script = ExtResource("12_qtrx8")
 followCam = NodePath("../CameraManagement/Camera2D")
+water_surface_color = Color(0.145098, 0.376471, 1, 0.513726)
 water_depth_color = Color(0.001, 0, 0.423, 0.806)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]

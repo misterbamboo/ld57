@@ -14,6 +14,8 @@ const UpgradeType = preload("res://Upgrades/upgrade_type.gd").UpgradeType
 
 @export var shopItemsContainer: GridContainer
 @export var shopItemComponent: PackedScene
+
+var bought_upgrade_keys: Array[String] = []
 var shopItems : Array[ShopItem] = []
 
 var selectedItem: ShopItemDef = null
@@ -24,11 +26,6 @@ var displayMessage: String = ""
 func _ready() -> void:
 	visible = false
 	_reset_ui()
-	
-	for shopDef in shopDefinitions:
-		_add_item_to_shop(shopDef)
-	#_add_item_to_shop("oxy2", "Super Oxy", temp_oxy_icon, "Give you a LOT of oxygen for deap dives", 499.99)
-	#_add_item_to_shop("oxy3", "AwesOxy", temp_oxy_icon, "Awsome oxy can bring you to the MOON", 59999.99)
 
 func _reset_ui():
 	moneyDisplayLabel.text = "Money: " + ("%.2f" % MoneyBag.getTotal()) + " $"
@@ -38,6 +35,23 @@ func _reset_ui():
 	messageLabel.text = ""
 	displayMessage = ""
 	_updateItemState(false)
+	_redraw_items()
+
+func _redraw_items():
+	for item in shopItems:
+		item.queue_free()
+	shopItems.clear()
+	
+	for shopDef in shopDefinitions:
+		if shopDef.requirement_key != "" and shopDef.requirement_key not in bought_upgrade_keys: 
+			print("Skipping item: " + shopDef.key + " (requirement not met)")
+			continue
+		
+		if shopDef.key in bought_upgrade_keys:
+			print("Skipping item: " + shopDef.key + " (already bought)")
+			continue
+		
+		_add_item_to_shop(shopDef)
 	
 func _add_item_to_shop(itemDef: ShopItemDef):
 	var item = shopItemComponent.instantiate() as ShopItem
@@ -90,7 +104,12 @@ func _on_buy_button_button_up() -> void:
 		
 	if(selectedItem.upgradeType2 != UpgradeType.NONE):
 		bought_upgrade(selectedItem.upgradeType2, selectedItem.upgradeValue2)
-		
+	
+	# repeatable items don't get stored this way they still show up
+	# when the shop is reloaded
+	if (!selectedItem.repeatable):
+		bought_upgrade_keys.append(selectedItem.key)
+
 	_reset_ui()
 
 func bought_upgrade(upgrade_type: UpgradeType, value: float):

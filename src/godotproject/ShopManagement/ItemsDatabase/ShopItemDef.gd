@@ -3,8 +3,10 @@ class_name ShopItemDef extends Resource
 const UpgradeType = preload("res://Upgrades/upgrade_type.gd").UpgradeType
 
 @export var key: String
+@export var requirement_key: String
 @export var title: String
 @export var description: String
+@export var repeatable: bool = false
 @export var price: float
 @export var icon: Texture2D
 

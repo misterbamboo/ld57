@@ -6,11 +6,13 @@
 [resource]
 script = ExtResource("2_vkevc")
 key = "torpedo_1"
+requirement_key = ""
 title = "Torpedo"
 description = "Buy a torpedo to remove pesky terrain"
+repeatable = true
 price = 75.0
 icon = ExtResource("1_mjvuu")
-upgradeType = 7
+upgradeType = 8
 upgradeValue = 1.0
 upgradeType2 = 8
 upgradeValue2 = 0.0

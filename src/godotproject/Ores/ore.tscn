@@ -22,6 +22,7 @@ platinumTex = ExtResource("6_vowc0")
 texture = ExtResource("1_q3tiy")
 
 [node name="OreArea" type="Area2D" parent="."]
+monitoring = false
 
 [node name="Collision" type="CollisionShape2D" parent="OreArea"]
 shape = SubResource("CircleShape2D_n00it")

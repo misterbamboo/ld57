@@ -1,6 +1,6 @@
 class_name Money extends Node
 
-var money: float = 0
+var money: float = 1000
 
 func getTotal() -> float:
 	return money
