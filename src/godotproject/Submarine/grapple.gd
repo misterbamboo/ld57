@@ -17,7 +17,16 @@ var _attachedOres: Array[PoolableOre] = []
 
 func _ready():
 	reset_grappling_requirement()
-	hook.onOreAttached.connect(func(o: PoolableOre): _attachedOres.append(o))
+	hook.onOreAttached.connect(_on_ore_attached)
+
+func _on_ore_attached(ore: PoolableOre):
+	_attachedOres.append(ore)
+	
+	# Check if we've reached capacity and set the flag
+	if _attachedOres.size() >= Submarine.instance.hook_capacity_upgrade:
+		hook.set_capacity_reached(true)
+	
+	check_auto_reel()
 
 func get_hook_distance() -> float:
 	return shoot_max_distance + Submarine.instance.hook_capacity_upgrade
@@ -30,19 +39,20 @@ func handle_grapple():
 		set_grappling_requirement()
 		start_hooking()
 	elif release_click():
-		is_pulling = true
-		await get_tree().create_timer(1.0).timeout
-		if is_pulling:
-			reset_grappling_requirement()
+		start_pulling()
 	
 	if is_pulling:
 		move_toward_submarine()
 		
 		if have_reach_submarine():
+			# Only collect ores here, and then reset
 			getOreToInventory()
 			reset_grappling_requirement()
 	
 	move_hook_tip_of_rope()
+
+func start_pulling():
+	is_pulling = true
 
 func is_clicking():
 	return Input.is_action_just_pressed("fire_hook") and Game.instance.state == Game.instance.GameState.IN_ACTION
@@ -86,12 +96,13 @@ func reset_grappling_requirement():
 	object_to_pull = null
 	grapple_point = Vector2.ZERO
 	grappling_distance = Vector2.ZERO
+	_attachedOres.clear()
 
 func have_reach_submarine():
 	var hook_pos = hook.global_position
 	var distance_remaining = global_position.distance_to(hook_pos)
 	
-	return distance_remaining < 15 or (object_to_pull != null and object_to_pull.is_consume())
+	return distance_remaining < 15
 
 func set_grappling_requirement():
 	var click_pos = get_viewport().get_camera_2d().get_global_mouse_position()
@@ -107,7 +118,7 @@ func set_grappling_requirement():
 	
 	var result = space_state.intersect_ray(query)
 	
-	if result and result.collider.has_method("is_consume") and not result.collider.is_consume():
+	if result and result.collider is PoolableOre:
 		object_to_pull = result.collider
 		grapple_point = result.position
 	else:
@@ -118,8 +129,12 @@ func set_grappling_requirement():
 	grappling_rope.enable()
 
 func getOreToInventory():
-	while _attachedOres.size() > 0:
-		var ore = _attachedOres[0]
-		_attachedOres.remove_at(0)
+	var size = _attachedOres.size()
+	for i in size:
+		var ore = _attachedOres.pop_back()
 		Inventory.addOre(ore)
 		ore.release()
+
+func check_auto_reel():
+	if _attachedOres.size() >= Submarine.instance.hook_capacity_upgrade and hook.is_active() and not is_pulling:
+		start_pulling()

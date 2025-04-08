@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ShopItemDef" load_steps=3 format=3 uid="uid://0ubrf3u1q5cp"]
+
+[ext_resource type="Texture2D" uid="uid://bqybbsd3th8fl" path="res://ShopManagement/Assets/hook-upgrade.png" id="1_qsrt3"]
+[ext_resource type="Script" uid="uid://b2uchrnmg5evm" path="res://ShopManagement/ItemsDatabase/ShopItemDef.gd" id="2_w5lux"]
+
+[resource]
+script = ExtResource("2_w5lux")
+key = "hook_length_1"
+title = "Extendo-flex 1"
+description = "Slightly extend the reach of your hook"
+price = 75.0
+icon = ExtResource("1_qsrt3")
+upgradeType = 4
+upgradeValue = 25.0
+upgradeType2 = 9
+upgradeValue2 = 0.0
+metadata/_custom_type_script = "uid://b2uchrnmg5evm"

@@ -5,6 +5,7 @@ signal onOreAttached(ore: Ore)
 @onready var sprite: Sprite2D = $Sprite2D  # Reference to the Sprite2D node
 
 var target_pos = Vector3.ZERO
+var capacity_reached = false
 
 func _physics_process(delta):
 	update_rotation()
@@ -14,9 +15,14 @@ func set_target(target: Vector2):
 
 func active(value: bool):
 	sprite.visible = value
+	if value == false:
+		capacity_reached = false
 
 func is_active() -> bool:
 	return sprite.visible
+
+func set_capacity_reached(value: bool):
+	capacity_reached = value
 
 func update_rotation():
 	if not is_active():
@@ -28,7 +34,7 @@ func update_rotation():
 		rotation = angle  # Godot uses radians directly for rotation
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
-	if !is_active():
+	if !is_active() or capacity_reached:
 		return
 	if area.name == "OreArea":
 		if area.get_parent() is PoolableOre:

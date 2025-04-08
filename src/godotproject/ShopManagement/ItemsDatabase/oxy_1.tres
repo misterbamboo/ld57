@@ -1,17 +1,17 @@
 [gd_resource type="Resource" script_class="ShopItemDef" load_steps=3 format=3 uid="uid://bj5pq30aynjca"]
 
-[ext_resource type="Texture2D" uid="uid://v5rlg4d1pvgg" path="res://ShopManagement/Assets/oxy_tank.png" id="1_56syx"]
+[ext_resource type="Texture2D" uid="uid://bv3on26qdhh58" path="res://ShopManagement/Assets/air-upgrade.png" id="1_56syx"]
 [ext_resource type="Script" uid="uid://b2uchrnmg5evm" path="res://ShopManagement/ItemsDatabase/ShopItemDef.gd" id="1_ejvtk"]
 
 [resource]
 script = ExtResource("1_ejvtk")
 key = "oxy_1"
-title = "Oxygen lvl 1"
-description = "Usefull to go a little deeper in the sea."
+title = "Oxygen Tank 1"
+description = "Slightly increases oxygen capacity"
 price = 100.0
 icon = ExtResource("1_56syx")
 upgradeType = 1
 upgradeValue = 50.0
-upgradeType2 = 7
+upgradeType2 = 9
 upgradeValue2 = 0.0
 metadata/_custom_type_script = "uid://b2uchrnmg5evm"

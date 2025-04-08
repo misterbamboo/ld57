@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ShopItemDef" load_steps=3 format=3 uid="uid://bj4fabil8cs1e"]
+
+[ext_resource type="Texture2D" uid="uid://fftbs7cycl3s" path="res://ShopManagement/Assets/hook-size-upgrade.png" id="1_aqixj"]
+[ext_resource type="Script" uid="uid://b2uchrnmg5evm" path="res://ShopManagement/ItemsDatabase/ShopItemDef.gd" id="2_e7des"]
+
+[resource]
+script = ExtResource("2_e7des")
+key = "hook_capacity_1"
+title = "Big Hands"
+description = "Allows you to hook two minerals in a single shot."
+price = 75.0
+icon = ExtResource("1_aqixj")
+upgradeType = 5
+upgradeValue = 1.0
+upgradeType2 = 7
+upgradeValue2 = 0.0
+metadata/_custom_type_script = "uid://b2uchrnmg5evm"

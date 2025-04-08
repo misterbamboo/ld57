@@ -104,8 +104,10 @@ func bought_upgrade(upgrade_type: UpgradeType, value: float):
 			submarine.increase_light(value)
 		UpgradeType.SPEED_UPGRADE:
 			submarine.increase_speed(value)
-		UpgradeType.HOOK_UPGRADE:
-			submarine.increase_hook(value)
+		UpgradeType.HOOK_LENGTH_UPGRADE:
+			submarine.increase_hook_length(value)
+		UpgradeType.HOOK_CAPACITY_UPGRADE:
+			submarine.increase_hook_capacity(value)
 		UpgradeType.HULL_UPGRADE:
 			submarine.increase_hull(value)
 		UpgradeType.LIFE_RECOVER:

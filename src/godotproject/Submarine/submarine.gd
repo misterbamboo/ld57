@@ -51,8 +51,12 @@ var speed_capacity_upgrade: float
 func increase_speed(amount: float):
 	speed_capacity_upgrade += amount
 
-var hook_capacity_upgrade: float
-func increase_hook(amount: float):
+var hook_length_upgrade: float = 200
+func increase_hook_length(amount: float):
+	hook_length_upgrade += amount
+
+var hook_capacity_upgrade: float = 1
+func increase_hook_capacity(amount: float):
 	hook_capacity_upgrade += amount
 	
 var hull_capacity_upgrade: float
