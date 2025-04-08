@@ -15,7 +15,7 @@ func get_noise_value_at(x: float, y: float) -> float:
 	return value
 
 func get_noise_color_at(x: float, y: float) -> Color:
-	if OreMap.hasMoved(Vector2i(x, y)):
+	if OreMap.hasBeenCollected(Vector2i(x, y)):
 		return Color.BLACK
 	var color := generator.get_noise_color(x, y)
 	return color

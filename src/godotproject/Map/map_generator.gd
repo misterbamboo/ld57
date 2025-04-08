@@ -3,6 +3,7 @@ class_name MapGenerator extends Node2D
 
 # Signals for debug visualization
 signal chunk_loaded(chunk_x, chunk_y, bounds_rect, from_cache)
+signal chunk_unloaded(chunk_x, chunk_y, bounds_rect)
 signal explosion_occurred(center_position, radius, bounds_rect)
 
 # Configuration
@@ -50,8 +51,9 @@ func initialize_components():
 	# Initialize chunk cache with max size from export variable
 	chunk_cache = ChunkCache.new(max_cached_chunks)
 	
-	# Find the renderer and setup noise parameters
+	# Find the renderer and initialize ore renderer
 	_find_renderer_node()
+	_initialize_ore_renderers()
 	_setup_default_noise_params()
 
 func connect_signals():
@@ -144,6 +146,12 @@ func _find_renderer_node():
 	if renderer_count > 1:
 		push_warning("MapGenerator found multiple renderer nodes. Only the first one will be used.")
 
+func _initialize_ore_renderers():
+	for child in get_children():
+		if child is OreMapRenderer:
+			child.map_generator = self
+			child.initialize()
+
 func _setup_default_noise_params():
 	pass
 
@@ -215,6 +223,17 @@ func update_active_chunks(new_chunks: Dictionary):
 			chunks_to_remove.append(key)
 	
 	for key in chunks_to_remove:
+		var chunk_pos = active_chunks[key]
+		
+		# Convert chunk coordinates to tile coordinates for bounds rect
+		var x_from = chunk_pos.x * CHUNK_SIZE
+		var y_from = chunk_pos.y * CHUNK_SIZE
+		
+		# Emit signal for chunk unloading with bounds rect
+		var bounds_rect = Rect2(x_from, y_from, CHUNK_SIZE, CHUNK_SIZE)
+		chunk_unloaded.emit(chunk_pos.x, chunk_pos.y, bounds_rect)
+		
+		# Remove from active chunks
 		active_chunks.erase(key)
 
 func load_chunk(chunk_x: int, chunk_y: int):

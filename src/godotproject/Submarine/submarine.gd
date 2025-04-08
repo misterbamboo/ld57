@@ -59,6 +59,6 @@ var hull_capacity_upgrade: float
 func increase_hull(amount: float):
 	hull_capacity_upgrade += amount
 
-var torpedo_amount_upgrade: int = 100
+var torpedo_amount_upgrade: int
 func increase_torpedo_amount(amount: int):
 	torpedo_amount_upgrade += amount

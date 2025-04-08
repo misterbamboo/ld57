@@ -36,7 +36,8 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 			call_deferred("_attach_ore", ore)
 			
 func _attach_ore(ore: PoolableOre):
-	if ore.get_parent() != self:	
+	if ore.get_parent() != self:
+		OreMap.collectOreAt(ore.global_position)
 		ore.reparent(self)
 		ore.position = Vector2.ZERO
 		emit_signal("onOreAttached", ore)

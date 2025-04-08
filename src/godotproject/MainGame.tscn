@@ -9,11 +9,11 @@
 [ext_resource type="Script" uid="uid://ck6i36gtinq6x" path="res://GameState/money.gd" id="5_cgwad"]
 [ext_resource type="Script" uid="uid://cuaa861w1ixl" path="res://Map/map_debug_visualizer.gd" id="7_0igvr"]
 [ext_resource type="Script" uid="uid://dra6w7ham0ueg" path="res://Map/tile_map_renderer.gd" id="7_a6adi"]
-[ext_resource type="Script" uid="uid://c0o6qplts8m2p" path="res://Map/Ores/OreGenerator.gd" id="7_f21le"]
 [ext_resource type="TileSet" uid="uid://dftc1kq64liug" path="res://Map/map_tileset.tres" id="8_28psf"]
 [ext_resource type="Texture2D" uid="uid://ugunphi5287t" path="res://ShopManagement/shop.png" id="8_mi4js"]
 [ext_resource type="Script" uid="uid://bgmjqnecg48wu" path="res://ShopManagement/shopboatmovement.gd" id="9_o3vwv"]
 [ext_resource type="Script" uid="uid://3sx05gvh1j1l" path="res://ShopManagement/OpenShop/openshop.gd" id="9_va67g"]
+[ext_resource type="Script" uid="uid://dcjiat5rx310v" path="res://Map/Ores/OreMapRenderer.gd" id="11_m6fch"]
 [ext_resource type="PackedScene" uid="uid://da26qelyupo77" path="res://Submarine/submarine.tscn" id="12_05o7g"]
 [ext_resource type="Script" uid="uid://dkkyfc01q7jit" path="res://Water/water.gd" id="12_qtrx8"]
 [ext_resource type="Script" uid="uid://b6g4cy2wogxrw" path="res://HUD/oxygen_meter.gd" id="13_led80"]
@@ -72,6 +72,7 @@ script = ExtResource("4_pv6b4")
 
 [node name="MapDebugVisualizer" type="Node2D" parent="Map"]
 script = ExtResource("7_0igvr")
+enabled = false
 flash_duration = 10.0
 
 [node name="MapGenerator" type="Node2D" parent="Map"]
@@ -88,11 +89,10 @@ metadata/_custom_type_script = "uid://dra6w7ham0ueg"
 [node name="TileMapLayer" type="TileMapLayer" parent="Map/MapGenerator/TileMapRenderer"]
 tile_set = ExtResource("8_28psf")
 
-[node name="OreGenerator" type="Node2D" parent="Map"]
-script = ExtResource("7_f21le")
-oreScene = ExtResource("25_0igvr")
+[node name="OreMapRenderer" type="Node2D" parent="Map/MapGenerator"]
+script = ExtResource("11_m6fch")
 
-[node name="NodePooler" type="Node" parent="Map/OreGenerator"]
+[node name="NodePooler" type="Node" parent="Map/MapGenerator/OreMapRenderer"]
 script = ExtResource("13_m6fch")
 scene = ExtResource("25_0igvr")
 preload_amount = 500
@@ -255,39 +255,3 @@ text = "0"
 [node name="ShopScreen" parent="CanvasLayer" instance=ExtResource("20_va67g")]
 
 [node name="SellScreen" parent="CanvasLayer" instance=ExtResource("22_t0yo1")]
-
-[node name="Ore" parent="." instance=ExtResource("25_0igvr")]
-position = Vector2(-55, 233)
-
-[node name="Ore2" parent="." instance=ExtResource("25_0igvr")]
-position = Vector2(-189, 257)
-
-[node name="Ore3" parent="." instance=ExtResource("25_0igvr")]
-position = Vector2(-224, 186)
-
-[node name="Ore4" parent="." instance=ExtResource("25_0igvr")]
-position = Vector2(-291, 262)
-
-[node name="Ore5" parent="." instance=ExtResource("25_0igvr")]
-position = Vector2(-223, 338)
-
-[node name="Ore6" parent="." instance=ExtResource("25_0igvr")]
-position = Vector2(-112, 338)
-
-[node name="Ore7" parent="." instance=ExtResource("25_0igvr")]
-position = Vector2(-147, 403)
-
-[node name="Ore8" parent="." instance=ExtResource("25_0igvr")]
-position = Vector2(-313, 380)
-
-[node name="Ore9" parent="." instance=ExtResource("25_0igvr")]
-position = Vector2(-314, 316)
-
-[node name="Ore10" parent="." instance=ExtResource("25_0igvr")]
-position = Vector2(-178, 329)
-
-[node name="Ore11" parent="." instance=ExtResource("25_0igvr")]
-position = Vector2(-131, 223)
-
-[node name="Ore12" parent="." instance=ExtResource("25_0igvr")]
-position = Vector2(-131, 223)
