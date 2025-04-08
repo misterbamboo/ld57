@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://deom164vw26rg"]
+[gd_scene load_steps=34 format=3 uid="uid://deom164vw26rg"]
 
 [ext_resource type="Script" uid="uid://5w86ovkibplk" path="res://CameraManagement/submarinefollow.gd" id="1_0v7qb"]
 [ext_resource type="Script" uid="uid://sc7omqwitfjq" path="res://Map/map_generator.gd" id="1_3tbxw"]
@@ -22,9 +22,11 @@
 [ext_resource type="Texture2D" uid="uid://bgwg0v4a85xpl" path="res://HUD/bubble.png" id="14_mi4js"]
 [ext_resource type="Script" uid="uid://bjn4f61m5b8mf" path="res://HUD/life_meter.gd" id="15_o3vwv"]
 [ext_resource type="TileSet" uid="uid://v4648xiquba3" path="res://Map/background_tileset.tres" id="16_0igvr"]
+[ext_resource type="Shader" uid="uid://b3akuubg0j07j" path="res://Map/god_rays.gdshader" id="20_05o7g"]
 [ext_resource type="Texture2D" uid="uid://dxidpi5tv6n68" path="res://HUD/torpedoes.png" id="20_6brkw"]
 [ext_resource type="Script" uid="uid://c8btblrw2mb1r" path="res://HUD/torpedo_meter.gd" id="20_cgwad"]
 [ext_resource type="PackedScene" uid="uid://dbc8axkfuweit" path="res://ShopManagement/shop_screen.tscn" id="20_va67g"]
+[ext_resource type="Texture2D" uid="uid://ba35ewlhym17x" path="res://Map/white_square.png" id="21_2uvv1"]
 [ext_resource type="PackedScene" uid="uid://cba61ypjcbpab" path="res://Inventory/Components/InventoryUI/inventory_ui.tscn" id="21_t0yo1"]
 [ext_resource type="PackedScene" uid="uid://vgaxhupv34x7" path="res://SellManagement/SellScreen.tscn" id="22_t0yo1"]
 [ext_resource type="PackedScene" uid="uid://dair474s5j1va" path="res://Ores/ore.tscn" id="25_0igvr"]
@@ -34,6 +36,23 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_mi4js"]
 gradient = SubResource("Gradient_led80")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2uvv1"]
+shader = ExtResource("20_05o7g")
+shader_parameter/blend_mode = 1
+shader_parameter/angle = 167.368
+shader_parameter/position = 1.0
+shader_parameter/spread = 0.43
+shader_parameter/cutoff = -0.146
+shader_parameter/falloff = 0.559
+shader_parameter/edge_fade = 0.535
+shader_parameter/speed = 1.0
+shader_parameter/ray1_density = 20.0
+shader_parameter/ray2_density = 50.0
+shader_parameter/ray2_intensity = 0.256
+shader_parameter/color = Color(0.815474, 0.935025, 0.946516, 1)
+shader_parameter/hdr = false
+shader_parameter/seed = 5.0
 
 [node name="MainGame" type="Node2D"]
 
@@ -172,6 +191,27 @@ metadata/_custom_type_script = "uid://dra6w7ham0ueg"
 
 [node name="TileMapLayer" type="TileMapLayer" parent="ParallaxBackground/ParallaxLayer/MapGenerator/TileMapRenderer"]
 tile_set = ExtResource("16_0igvr")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.9, 0.9)
+
+[node name="Godray1" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+material = SubResource("ShaderMaterial_2uvv1")
+position = Vector2(210, 687)
+scale = Vector2(2, 2)
+texture = ExtResource("21_2uvv1")
+
+[node name="Godray2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+material = SubResource("ShaderMaterial_2uvv1")
+position = Vector2(-1719, 732)
+scale = Vector2(2, 2)
+texture = ExtResource("21_2uvv1")
+
+[node name="Godray3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+material = SubResource("ShaderMaterial_2uvv1")
+position = Vector2(2040, 705)
+scale = Vector2(2, 2)
+texture = ExtResource("21_2uvv1")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

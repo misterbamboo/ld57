@@ -53,10 +53,6 @@ func _ready():
 				map_generator = sibling
 				cell_size = map_generator.cell_size
 				chunk_size = map_generator.CHUNK_SIZE
-
-				for child in sibling.get_children():
-					if child is TileMapRenderer:
-						tile_renderer = child
 				
 				# Connect to map generator signals
 				map_generator.chunk_loaded.connect(_on_chunk_loaded)
