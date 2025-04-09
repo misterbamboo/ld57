@@ -29,8 +29,15 @@ func hit(damage: float) -> void:
 	var armor = Submarine.instance.hull_capacity_upgrade
 	var damageAfterResistance = damage / (1 + armor / 100.0)
 	print("BANG! Taking %s damage reduced to %s after armor upgrades!" % [damage, damageAfterResistance])
-
-	life_quantity = clamp(life_quantity - damageAfterResistance, 0, _get_life_capacity())
+	
+	# just a little trick where taking damage reduces you to 1 hp instead of killing instantly
+	# if you had more than 10 health left and the damage isn't too high
+	var life_after_damage = life_quantity - damageAfterResistance
+	if life_after_damage < 0 and life_quantity > 10 and life_after_damage > -40:
+		life_quantity = 1
+		print("instadeath protection activated!")
+	else:
+		life_quantity = clamp(life_after_damage, 0, _get_life_capacity())
 
 func is_dead() -> bool:
 	return life_quantity <= 0

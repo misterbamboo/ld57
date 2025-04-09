@@ -6,8 +6,8 @@ func _get_oxy_capacity() -> float:
 	var upg_capacity = 0 if Submarine.instance == null else Submarine.instance.oxygen_capacity_upgrade
 	return oxy_capacity + upg_capacity
 
-@export var starting_quantity: float = 120.0
-@export var starting_capacity: float = 120.0
+@export var starting_quantity: float = 150.0
+@export var starting_capacity: float = 150.0
 @export var reduction_per_sec: float = 3.333 # 3 + 1/3
 @export var recuperation_per_sec: float = 20.0
 
