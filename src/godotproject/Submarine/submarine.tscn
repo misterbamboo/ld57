@@ -186,7 +186,6 @@ torpedoTemplace = ExtResource("6_7kknb")
 [node name="Grapple" type="Node2D" parent="."]
 position = Vector2(0, 10)
 script = ExtResource("7_wjrfn")
-shoot_max_distance = 100.0
 
 [node name="GrappleRope" type="Node2D" parent="Grapple"]
 script = ExtResource("8_rysji")

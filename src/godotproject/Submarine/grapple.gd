@@ -1,8 +1,6 @@
 class_name Grapple extends Node2D
 
 #@export var grapple_sound: Node # Assuming you have a GrappleSound node in Godot
-@export var shoot_max_distance = 10.0
-
 @onready var hook: Hook = $GrappleHook
 @onready var grappling_rope: GrapplingRope = $GrappleRope
 
@@ -29,7 +27,7 @@ func _on_ore_attached(ore: PoolableOre):
 	check_auto_reel()
 
 func get_hook_distance() -> float:
-	return shoot_max_distance + Submarine.instance.hook_capacity_upgrade
+	return Submarine.instance.hook_length_upgrade
 
 func _process(delta):
 	handle_grapple()
