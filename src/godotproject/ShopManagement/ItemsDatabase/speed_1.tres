@@ -6,9 +6,11 @@
 [resource]
 script = ExtResource("2_o8u2a")
 key = "speed_1"
-title = "Propeller lvl 1"
-description = "Give your sub a little torque!"
-price = 1000.0
+requirement_key = ""
+title = "Propeller Calibration"
+description = "Calibrate the pitch of your propeller's fins to give better thrust."
+repeatable = false
+price = 200.0
 icon = ExtResource("1_qh4ut")
 upgradeType = 0
 upgradeValue = 100.0

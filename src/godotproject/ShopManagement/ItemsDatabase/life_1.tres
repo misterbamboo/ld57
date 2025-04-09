@@ -7,7 +7,7 @@
 script = ExtResource("2_wjdpc")
 key = "life_1"
 requirement_key = ""
-title = "Life lvl 1"
+title = "Repairs"
 description = "Fix issues on you sub before it sinks."
 repeatable = true
 price = 50.0

@@ -1,9 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://dbc8axkfuweit"]
+[gd_scene load_steps=17 format=3 uid="uid://dbc8axkfuweit"]
 
 [ext_resource type="Script" uid="uid://c4ak6gbtvvhkn" path="res://ShopManagement/shopscreen.gd" id="1_ws088"]
 [ext_resource type="Script" uid="uid://b2uchrnmg5evm" path="res://ShopManagement/ItemsDatabase/ShopItemDef.gd" id="2_kqsvq"]
-[ext_resource type="Resource" uid="uid://b8ldl35smk3lx" path="res://ShopManagement/ItemsDatabase/health_1.tres" id="3_1ijrk"]
 [ext_resource type="Resource" uid="uid://0ubrf3u1q5cp" path="res://ShopManagement/ItemsDatabase/hook_length_1.tres" id="4_0xtnb"]
+[ext_resource type="Resource" uid="uid://bysf1qqsbu355" path="res://ShopManagement/ItemsDatabase/hook_length_2.tres" id="5_0xtnb"]
 [ext_resource type="Resource" uid="uid://ddjoboxmpm5c" path="res://ShopManagement/ItemsDatabase/hull_1.tres" id="5_kepej"]
 [ext_resource type="Resource" uid="uid://b5epj64qgp0vw" path="res://ShopManagement/ItemsDatabase/life_1.tres" id="6_aibay"]
 [ext_resource type="Resource" uid="uid://ih62eyehvjgu" path="res://ShopManagement/ItemsDatabase/light_1.tres" id="7_kkaip"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://b03t0rkjdexdx" path="res://ShopManagement/ShopItem/shop_item.tscn" id="10_gatel"]
 [ext_resource type="Resource" uid="uid://chfiymsfmjbab" path="res://ShopManagement/ItemsDatabase/torpedo_1.tres" id="10_kqsvq"]
 [ext_resource type="Resource" uid="uid://bj4fabil8cs1e" path="res://ShopManagement/ItemsDatabase/hook_capacity_1.tres" id="11_1ijrk"]
+[ext_resource type="Resource" uid="uid://b2kia8ysbdpfb" path="res://ShopManagement/ItemsDatabase/speed_2.tres" id="11_kepej"]
 [ext_resource type="Texture2D" uid="uid://v5rlg4d1pvgg" path="res://ShopManagement/Assets/oxy_tank.png" id="11_qhxrt"]
 [ext_resource type="Resource" uid="uid://dn4gypjawgl1i" path="res://ShopManagement/ItemsDatabase/oxy_2.tres" id="12_0xtnb"]
 [ext_resource type="Texture2D" uid="uid://dclgoyvr3jx7d" path="res://ShopManagement/Assets/exit_btn_16.png" id="12_7gvug"]
@@ -24,7 +25,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ws088")
-shopDefinitions = Array[ExtResource("2_kqsvq")]([ExtResource("8_8thqk"), ExtResource("3_1ijrk"), ExtResource("4_0xtnb"), ExtResource("5_kepej"), ExtResource("6_aibay"), ExtResource("7_kkaip"), ExtResource("9_cfa4g"), ExtResource("10_kqsvq"), ExtResource("11_1ijrk"), ExtResource("12_0xtnb")])
+shopDefinitions = Array[ExtResource("2_kqsvq")]([ExtResource("6_aibay"), ExtResource("10_kqsvq"), ExtResource("8_8thqk"), ExtResource("12_0xtnb"), ExtResource("5_0xtnb"), ExtResource("4_0xtnb"), ExtResource("5_kepej"), ExtResource("7_kkaip"), ExtResource("9_cfa4g"), ExtResource("11_kepej"), ExtResource("11_1ijrk")])
 moneyDisplayLabel = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer2/HBoxContainer2/PlayerMoney")
 buyButton = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/BuyButton")
 titleLabel = NodePath("CenterContainer/PanelContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainerLeft/PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/Title")

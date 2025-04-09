@@ -8,6 +8,8 @@ func _get_move_speed() -> float:
 
 @export var out_of_water_buffer_zone := 20.0
 
+var linear_velocity_last := Vector2.ZERO
+
 func _physics_process(_delta):
 	var surface = 0 if Water.instance == null else Water.instance.surface_variation(global_position.x)
 	_outside_water_force(surface)
@@ -44,6 +46,8 @@ func _move(surface: float):
 		force.x -= _get_move_speed()
 
 	apply_central_force(force)
+	# save last velocity for collision detection
+	linear_velocity_last = linear_velocity
 
 func _outside_water_force(surface: float):
 	if global_position.y < surface - out_of_water_buffer_zone:
@@ -60,3 +64,9 @@ func _keep_on_surface_when_near(surface: float):
 	if global_position.y > surface - out_of_water_buffer_zone and global_position.y < surface + out_of_water_buffer_zone:
 		var variation = surface - global_position.y
 		apply_central_force(Vector2(0, variation * 2))
+
+# use velocity from last frame because the signal gets called 
+# after the collision set our current velocity to zero
+func _on_body_entered(_body: Node) -> void:
+	if linear_velocity_last.length() >= 1:
+		Life.hit(linear_velocity_last.length()/2)

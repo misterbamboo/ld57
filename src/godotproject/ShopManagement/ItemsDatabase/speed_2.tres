@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ShopItemDef" load_steps=3 format=3 uid="uid://b2kia8ysbdpfb"]
+
+[ext_resource type="Texture2D" uid="uid://duk8nsyyalxap" path="res://ShopManagement/Assets/propeller-upgrade.png" id="1_4vquo"]
+[ext_resource type="Script" uid="uid://b2uchrnmg5evm" path="res://ShopManagement/ItemsDatabase/ShopItemDef.gd" id="2_7qg2o"]
+
+[resource]
+script = ExtResource("2_7qg2o")
+key = "speed_2"
+requirement_key = "speed_1"
+title = "Propeller Tuning"
+description = "Tune the pitch of your propeller's fins to resonate with the ocean's natural frequency giving you more thrust."
+repeatable = false
+price = 500.0
+icon = ExtResource("1_4vquo")
+upgradeType = 0
+upgradeValue = 100.0
+upgradeType2 = 7
+upgradeValue2 = 0.0
+metadata/_custom_type_script = "uid://b2uchrnmg5evm"

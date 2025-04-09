@@ -6,12 +6,14 @@
 [resource]
 script = ExtResource("2_w5lux")
 key = "hook_length_1"
-title = "Extendo-flex 1"
+requirement_key = ""
+title = "Extendo-flex"
 description = "Slightly extend the reach of your hook"
-price = 50.0
+repeatable = false
+price = 75.0
 icon = ExtResource("1_qsrt3")
 upgradeType = 4
-upgradeValue = 50.0
+upgradeValue = 100.0
 upgradeType2 = 9
 upgradeValue2 = 0.0
 metadata/_custom_type_script = "uid://b2uchrnmg5evm"

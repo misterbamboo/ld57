@@ -7,7 +7,7 @@
 script = ExtResource("2_px0gj")
 key = "hull_1"
 requirement_key = ""
-title = "Hull lvl 1"
+title = "Hull Reinforcement"
 description = "Make your submarine more resistant to impacts."
 repeatable = false
 price = 100.0

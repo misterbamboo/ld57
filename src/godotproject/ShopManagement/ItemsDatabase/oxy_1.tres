@@ -6,8 +6,10 @@
 [resource]
 script = ExtResource("1_ejvtk")
 key = "oxy_1"
-title = "Oxygen Tank 1"
+requirement_key = ""
+title = "Small o2 tank"
 description = "Slightly increases oxygen capacity"
+repeatable = false
 price = 100.0
 icon = ExtResource("1_56syx")
 upgradeType = 1

@@ -28,12 +28,6 @@ func get_special_deepness(special_cell_size: int) -> int:
 		
 	return int(clamp(rb.position.y / special_cell_size, 0, INF))
 
-func _on_Submarine_body_entered(body: Node) -> void:
-	var collider := body.get_node_or_null("CollisionPolygon2D")
-	
-	if collider and rb.linear_velocity.length() >= 1:
-		var damage = (rb.linear_velocity.length() - 1) * 2
-		Life.hit(damage)
 
 var oxygen_capacity_upgrade: float
 func increase_oxygen(amount: float):
@@ -58,8 +52,8 @@ func increase_hook_length(amount: float):
 var hook_capacity_upgrade: float = 1
 func increase_hook_capacity(amount: float):
 	hook_capacity_upgrade += amount
-	
-var hull_capacity_upgrade: float
+
+var hull_capacity_upgrade: float = 50
 func increase_hull(amount: float):
 	hull_capacity_upgrade += amount
 
